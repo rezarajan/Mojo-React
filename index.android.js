@@ -9,26 +9,20 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
+import Login from './src/components/Login/Login';
+import { SignedOut } from "./router";
 
 export default class Mojo extends Component {
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      //<Login />
+      <SignedOut />
     );
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -49,5 +43,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
 
 AppRegistry.registerComponent('Mojo', () => Mojo);

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { 
     Alert, 
-    AppRegistry, 
-    Button, 
+    AppRegistry,  
     StyleSheet, 
     View, 
+    Button,
     Image,
     Text,
     TouchableOpacity,
     TextInput,
 } from 'react-native';
+import RoundedButton from '../RoundedButton';
 
 export default class Name extends Component {
 
@@ -19,6 +20,26 @@ export default class Name extends Component {
             //TODO: replace the TouchableOpacity close for the back button
             //provided by the StackNavigator
         <View style={styles.container} >
+            {/* The headers */}
+            <View style={styles.logoContainer}>
+                <Text style={styles.title}>Let's Get Started!</Text>
+                <Text style={styles.text}>What is your full name?</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+                {/* Text Input and Next */}
+                <TextInput
+                placeholder="Name"
+                placeholderTextColor='rgba(155,155,155,1)'
+                style={styles.textInput}
+                />
+                <RoundedButton
+                text="Next"
+                color='#FFFFFF'
+                backgroundColor='rgba(24,172,222,1)'
+                onPress={() => navigate('Email')}
+                />
+            </View>
+            {/* The close button */}
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
             onPress={() => navigate('Login')} >
@@ -27,17 +48,6 @@ export default class Name extends Component {
                 style={[styles.closebuttonWrapper, {top:0, left:0}]}    
                 source={require('../../images/signup/close_accent.png')}/>
             </TouchableOpacity>
-            <View style={styles.logoContainer}>
-                <Text style={styles.title}>Let's Get Started!</Text>
-                <Text style={styles.text}>What is your full name?</Text>
-            </View>
-            <View style={styles.buttonContainer}>
-                <TextInput
-                placeholder="Name"
-                placeholderTextColor='rgba(155,155,155,1)'
-                style={styles.textInput}
-                />
-            </View>
         </View>
         );
     }

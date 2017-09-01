@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     TextInput,
 } from 'react-native';
+import RoundedButton from '../RoundedButton';
 
 export default class Email extends Component {
 
@@ -32,12 +33,29 @@ export default class Email extends Component {
                 <Text style={styles.text}>What would you like your password to be?</Text>
             </View>
             <View style={styles.buttonContainer}>
-                <TextInput
-                placeholder="Password"
-                placeholderTextColor='rgba(155,155,155,1)'
-                style={styles.textInput}
-                />
-            </View>
+            {/* Text Input and Next */}
+            <TextInput
+            placeholder="Password"
+            secureTextEntry={true}
+            placeholderTextColor='rgba(155,155,155,1)'
+            style={styles.textInput}
+            />
+            <RoundedButton
+            text="Next"
+            color='#FFFFFF'
+            backgroundColor='rgba(24,172,222,1)'
+            onPress={() => navigate('Email')}
+            />
+        </View>
+        {/* The close button */}
+        <TouchableOpacity 
+        style={styles.closebuttonWrapper}
+        onPress={() => navigate('Login')} >
+            <Image 
+            //inherits the origin from the parent style
+            style={[styles.closebuttonWrapper, {top:0, left:0}]}    
+            source={require('../../images/signup/close_accent.png')}/>
+        </TouchableOpacity>
         </View>
         );
     }
