@@ -9,7 +9,7 @@ import {
     Text,
 } from 'react-native';
 
-import Swiper from '../Swiper/Swiper'
+import Swiper from '../Swiper/Swiper';
 
 export default class Login extends Component {
     _onPressButton() {

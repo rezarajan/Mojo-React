@@ -8,49 +8,34 @@ import {
     Image,
     Text,
     TouchableOpacity,
+    TextInput,
 } from 'react-native';
 
-import ImageButton from '../ImageButton';
-
-export default class SignUp extends Component {
-    _onPressButton() {
-         Alert.alert('You tapped the button!')
-       }
+export default class Email extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
         return (
+            //TODO: replace the TouchableOpacity close for the back button
+            //provided by the StackNavigator
         <View style={styles.container} >
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
             onPress={() => navigate('Login')} >
                 <Image 
-                style={[styles.closebuttonWrapper, {top:0, left:0}]}    //inherits the origin from the parent style
+                //inherits the origin from the parent style
+                style={[styles.closebuttonWrapper, {top:0, left:0}]}    
                 source={require('../../images/signup/close_accent.png')}/>
             </TouchableOpacity>
             <View style={styles.logoContainer}>
                 <Text style={styles.title}>Let's Get Started!</Text>
-                <Text style={styles.text}>How would you like to sign up?</Text>
+                <Text style={styles.text}>What is your email address?</Text>
             </View>
             <View style={styles.buttonContainer}>
-                <ImageButton 
-                source={require('../../images/signup/facebook.png')}
-                text="Sign up with Facebook"
-                color='#FFFFFF'
-                backgroundColor='rgba(59,88,157,1)'
-                />
-                <ImageButton 
-                source={require('../../images/signup/google.png')}
-                text="Sign up with Google"
-                color='#FFFFFF'
-                backgroundColor='rgba(239,83,0,1)'
-                />
-                <ImageButton 
-                source={require('../../images/signup/email.png')}
-                text="Sign up with Email"
-                color='#FFFFFF'
-                backgroundColor='rgba(24,172,222,1)'
-                onPress={() => navigate('Name')}
+                <TextInput
+                placeholder="Email Address"
+                placeholderTextColor='rgba(155,155,155,1)'
+                style={styles.textInput}
                 />
             </View>
         </View>
@@ -59,22 +44,8 @@ export default class SignUp extends Component {
 }
 
 
-
 const styles = StyleSheet.create({
-  //Slide styles
-  slide: {
-    flex: 1,                    // Take up all screen
-    justifyContent: 'center',   // Center vertically
-    alignItems: 'center',       // Center horizontally
-  },
-  // Header styles
-  header: {
-    color: '#FFFFFF',
-    fontFamily: 'Avenir',
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginVertical: 15,
-  },
+
     container: {
      flex: 1,
      justifyContent: 'center',
@@ -82,29 +53,31 @@ const styles = StyleSheet.create({
      backgroundColor: 'white',
     },
     buttonContainer: {
-      marginBottom: 314,
+        marginBottom: 436,
     },
-    alternativeLayoutButtonContainer: {
-      margin: 20,
+    // TextInput container
+    textInput: {
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      borderRadius: 45,         // Rounded border
+      borderWidth: 2,           // 2 point border widht
+      //borderColor: 'rgba(24,172,223,1)',   // White colored border
+      paddingHorizontal: 45,    // Horizontal padding
+      paddingVertical: 8,      // Vertical padding
+      alignItems: 'center',
+      backgroundColor: 'rgba(242,242,242,1)',
+      borderColor: 'rgba(242,242,242,1)',
+      fontFamily: 'Avenir',
+      fontSize: 16,
+      justifyContent: 'center',
+      textAlign: 'left',
+      width: 286,
+      
     },
     logoContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 48,
         marginTop: 60,
-    },
-    logo: {
-        width: 173,
-        height: 164,
-
-    },
-    logotext: {
-        width: 114,
-        height: 32,
-        margin:30,
-
     },
     title: {
         color: 'rgba(24,172,223,1)',
@@ -135,4 +108,4 @@ const styles = StyleSheet.create({
       },
   })
 
-  AppRegistry.registerComponent('Mojo', () => SignUp);
+  AppRegistry.registerComponent('Mojo', () => Email);
