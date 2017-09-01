@@ -11,6 +11,7 @@ import {
     TextInput,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
+import * as firebase from 'firebase'
 
 export default class Email extends Component {
 
@@ -21,6 +22,22 @@ export default class Email extends Component {
           password: "",
         }
     }
+
+    async signup(email, pass) {
+        
+            try {
+                await firebase.auth()
+                    .createUserWithEmailAndPassword(email, pass);
+        
+                console.log("Account created");
+        
+                // Navigate to the Home page, the user is auto logged in
+        
+            } catch (error) {
+                console.log(error.toString())
+            }
+        
+        }
 
     render() {
         const { navigate } = this.props.navigation;
@@ -52,10 +69,15 @@ export default class Email extends Component {
             onChangeText={(text) => this.setState({password: text})}
             />
             <RoundedButton
-            text="Next"
+            text="Sign Up"
             color='#FFFFFF'
             backgroundColor='rgba(24,172,222,1)'
-            onPress={() => {navigate('Email'); console.log(this.state.password); console.log(params.email); console.log(params.name)}}
+            onPress={() => {
+                //navigate('Email');
+                console.log(this.state.password);
+                console.log(params.email);
+                console.log(params.name);
+                this.signup(params.email, this.state.password);}}
             />
         </View>
         {/* The close button */}
