@@ -292,7 +292,7 @@ export default class OnboardingScreens extends Component {
             // Navigate to the Home page
     
         } catch (error) {
-            console.log(error.toString())
+            console.log(error.toString());
         }
     
     }

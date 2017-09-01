@@ -14,6 +14,14 @@ import RoundedButton from '../RoundedButton';
 
 export default class Name extends Component {
 
+    constructor(props){
+        super(props)
+    
+        this.state = {
+          name: "",
+        }
+    }
+
     render() {
         const { navigate } = this.props.navigation;
         return (
@@ -31,12 +39,13 @@ export default class Name extends Component {
                 placeholder="Name"
                 placeholderTextColor='rgba(155,155,155,1)'
                 style={styles.textInput}
+                onChangeText={(text) => this.setState({name: text})}
                 />
                 <RoundedButton
                 text="Next"
                 color='#FFFFFF'
                 backgroundColor='rgba(24,172,222,1)'
-                onPress={() => navigate('Email')}
+                onPress={() => {navigate('Email', {name: this.state.name}); console.log(this.state.name);}}
                 />
             </View>
             {/* The close button */}

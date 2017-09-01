@@ -14,8 +14,18 @@ import RoundedButton from '../RoundedButton';
 
 export default class Email extends Component {
 
+    constructor(props){
+        super(props)
+    
+        this.state = {
+          password: "",
+        }
+    }
+
     render() {
         const { navigate } = this.props.navigation;
+        //TODO: Use these params to determine if the user has come from login or signup
+        const { params } = this.props.navigation.state;
         return (
             //TODO: replace the TouchableOpacity close for the back button
             //provided by the StackNavigator
@@ -39,12 +49,13 @@ export default class Email extends Component {
             secureTextEntry={true}
             placeholderTextColor='rgba(155,155,155,1)'
             style={styles.textInput}
+            onChangeText={(text) => this.setState({password: text})}
             />
             <RoundedButton
             text="Next"
             color='#FFFFFF'
             backgroundColor='rgba(24,172,222,1)'
-            onPress={() => navigate('Email')}
+            onPress={() => {navigate('Email'); console.log(this.state.password); console.log(params.email); console.log(params.name)}}
             />
         </View>
         {/* The close button */}
