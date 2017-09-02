@@ -10,11 +10,12 @@ import {
     TouchableOpacity,
     TextInput,
 } from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';
+//import TabNavigator from 'react-native-tab-navigator';
+import TabNavigator from '../custom-react-components/react-native-tab-navigator/TabNavigator';
+import ActionButton from '../custom-react-components/react-native-circular-action-menu/ActionButton';
 import SignUp from '../SignUp/SignUp';
 import Name from '../SignUp/Name';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import ActionButton from 'react-native-circular-action-menu';
+//import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
 
 const deviceW = Dimensions.get('window').width;
