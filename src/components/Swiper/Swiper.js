@@ -268,7 +268,7 @@ export default class OnboardingScreens extends Component {
       <View pointerEvents="box-none" style={[styles.loginbuttonWrapper, styles.fullScreen]}>
         {
           //<Button text="Login" onPress={() => this.swipe()} />
-            <TouchableOpacity onPress={() => this.login()} >
+            <TouchableOpacity onPress={() => Actions.loginemail()} >
                 <Text style={styles.titleText}> Login </Text>
             </TouchableOpacity>
         }

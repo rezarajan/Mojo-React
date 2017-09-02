@@ -14,7 +14,7 @@ import RoundedButton from '../RoundedButton';
 import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
-export default class Email extends Component {
+export default class passwordre extends Component {
 
     constructor(props){
         super(props)
@@ -169,4 +169,4 @@ const styles = StyleSheet.create({
       },
   })
 
-  AppRegistry.registerComponent('Mojo', () => Email);
+  AppRegistry.registerComponent('Mojo', () => PasswordRe);

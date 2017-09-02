@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 
 import Login from "./src/components/Login/Login";
+import LoginEmail from "./src/components/Login/Email";
+import LoginPassword from "./src/components/Login/Password";
 import SignUp from "./src/components/SignUp/SignUp";
 import Name from "./src/components/SignUp/Name";
 import Email from "./src/components/SignUp/Email";
@@ -45,6 +47,16 @@ const App = () => {
           key="passwordre"
           component={PasswordRe}
           title="passwordre"
+        />
+        <Scene
+          key="loginemail"
+          component={LoginEmail}
+          title="loginemail"
+        />
+        <Scene
+          key="loginpassword"
+          component={LoginPassword}
+          title="loginpassword"
         />
         <Scene
           key="home"

@@ -11,36 +11,17 @@ import {
     TextInput,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
-import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
-export default class Password extends Component {
+export default class LoginEmail extends Component {
 
     constructor(props){
         super(props)
     
         this.state = {
-          password: "",
+          email: "",
         }
     }
-
-    async signup(email, pass) {
-        
-            try {
-                await firebase.auth()
-                    .createUserWithEmailAndPassword(email, pass);
-        
-                console.log("Account created");
-                //navigate('Home');
-                Actions.home();
-        
-                // Navigate to the Home page, the user is auto logged in
-        
-            } catch (error) {
-                console.log(error.toString())
-            }
-        
-        }
 
     render() {
         //TODO: Use these params to determine if the user has come from login or signup
@@ -50,48 +31,45 @@ export default class Password extends Component {
         <View style={styles.container} >
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
-            onPress={() => Actions.login()} >
+            onPress={() => navigate('Login')} >
                 <Image 
                 //inherits the origin from the parent style
                 style={[styles.closebuttonWrapper, {top:0, left:0}]}    
                 source={require('../../images/signup/close_accent.png')}/>
             </TouchableOpacity>
             <View style={styles.logoContainer}>
-                <Text style={styles.title}>Let's Get Started!</Text>
-                <Text style={styles.text}>What would you like your password to be?</Text>
+                <Text style={styles.title}>Welcome Back!</Text>
+                <Text style={styles.text}>What is your email address?</Text>
             </View>
             <View style={styles.buttonContainer}>
-            {/* Text Input and Next */}
-            <TextInput
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor='rgba(155,155,155,1)'
-            style={styles.textInput}
-            onChangeText={(text) => this.setState({password: text})}
-            />
-            <RoundedButton
-            text="Next"
-            color='#FFFFFF'
-            backgroundColor='rgba(24,172,222,1)'
-            onPress={() => {
-                //navigate('Email');
-                console.log(this.props.username);
-                console.log(this.props.useremail);
-                console.log(this.state.password);
-                //this.signup(this.props.useremail, this.state.password);
-                Actions.passwordre({username: this.props.username, useremail: this.props.useremail, passwordinit: this.state.password});
-                }}
-            />
-        </View>
-        {/* The close button */}
-        <TouchableOpacity 
-        style={styles.closebuttonWrapper}
-        onPress={() => Actions.login()} >
-            <Image 
-            //inherits the origin from the parent style
-            style={[styles.closebuttonWrapper, {top:0, left:0}]}    
-            source={require('../../images/signup/close_accent.png')}/>
-        </TouchableOpacity>
+                {/* Text Input and Next */}
+                <TextInput
+                placeholder="Email"
+                placeholderTextColor='rgba(155,155,155,1)'
+                style={styles.textInput}
+                onChangeText={(text) => this.setState({email:text})}
+                />
+                <RoundedButton
+                text="Next"
+                color='#FFFFFF'
+                backgroundColor='rgba(24,172,222,1)'
+                onPress={() => {
+                    //navigate('Password', {name: params.name, email: this.state.email});  console.log(this.state.email);  console.log(params.name);
+                    console.log(this.state.email);
+                    Actions.loginpassword({useremail: this.state.email});
+                    }
+                    }
+                />
+            </View>
+            {/* The close button */}
+            <TouchableOpacity 
+            style={styles.closebuttonWrapper}
+            onPress={() => Actions.login()} >
+                <Image 
+                //inherits the origin from the parent style
+                style={[styles.closebuttonWrapper, {top:0, left:0}]}    
+                source={require('../../images/signup/close_accent.png')}/>
+            </TouchableOpacity>
         </View>
         );
     }
@@ -162,4 +140,4 @@ const styles = StyleSheet.create({
       },
   })
 
-  AppRegistry.registerComponent('Mojo', () => Password);
+  AppRegistry.registerComponent('Mojo', () => LoginEmail);

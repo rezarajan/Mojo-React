@@ -14,7 +14,7 @@ import RoundedButton from '../RoundedButton';
 import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
-export default class Password extends Component {
+export default class LoginPassword extends Component {
 
     constructor(props){
         super(props)
@@ -24,23 +24,24 @@ export default class Password extends Component {
         }
     }
 
-    async signup(email, pass) {
+
+    async login(email, pass) {
         
-            try {
-                await firebase.auth()
-                    .createUserWithEmailAndPassword(email, pass);
-        
-                console.log("Account created");
-                //navigate('Home');
-                Actions.home();
-        
-                // Navigate to the Home page, the user is auto logged in
-        
-            } catch (error) {
-                console.log(error.toString())
-            }
-        
+        try {
+            await firebase.auth()
+                .signInWithEmailAndPassword(email, pass);
+    
+            console.log("Logged In!");
+            //navigate('Home');
+            Actions.home();
+    
+            // Navigate to the Home page
+    
+        } catch (error) {
+            console.log(error.toString());
         }
+    
+    }    
 
     render() {
         //TODO: Use these params to determine if the user has come from login or signup
@@ -57,8 +58,8 @@ export default class Password extends Component {
                 source={require('../../images/signup/close_accent.png')}/>
             </TouchableOpacity>
             <View style={styles.logoContainer}>
-                <Text style={styles.title}>Let's Get Started!</Text>
-                <Text style={styles.text}>What would you like your password to be?</Text>
+                <Text style={styles.title}>Welcome Back!</Text>
+                <Text style={styles.text}>Please enter your password</Text>
             </View>
             <View style={styles.buttonContainer}>
             {/* Text Input and Next */}
@@ -75,11 +76,11 @@ export default class Password extends Component {
             backgroundColor='rgba(24,172,222,1)'
             onPress={() => {
                 //navigate('Email');
-                console.log(this.props.username);
                 console.log(this.props.useremail);
                 console.log(this.state.password);
                 //this.signup(this.props.useremail, this.state.password);
-                Actions.passwordre({username: this.props.username, useremail: this.props.useremail, passwordinit: this.state.password});
+                //Actions.passwordre({username: this.props.username, useremail: this.props.useremail, passwordinit: this.state.password});
+                this.login(this.props.useremail, this.state.password);
                 }}
             />
         </View>
@@ -162,4 +163,4 @@ const styles = StyleSheet.create({
       },
   })
 
-  AppRegistry.registerComponent('Mojo', () => Password);
+  AppRegistry.registerComponent('Mojo', () => LoginPassword);

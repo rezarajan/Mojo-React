@@ -25,7 +25,6 @@ export default class Email extends Component {
 
     render() {
         //TODO: Use these params to determine if the user has come from login or signup
-        const { params } = this.props.navigation.state;
         return (
             //TODO: replace the TouchableOpacity close for the back button
             //provided by the StackNavigator
@@ -56,9 +55,9 @@ export default class Email extends Component {
                 backgroundColor='rgba(24,172,222,1)'
                 onPress={() => {
                     //navigate('Password', {name: params.name, email: this.state.email});  console.log(this.state.email);  console.log(params.name);
-                    Actions.password({username: this.props.username, useremail: this.state.email});
                     console.log(this.props.username);
                     console.log(this.state.email);
+                    Actions.password({username: this.props.username, useremail: this.state.email});
                     }
                     }
                 />
