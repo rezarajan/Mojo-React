@@ -56,7 +56,7 @@ export default class Name extends Component {
             {/* The close button */}
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
-            onPress={() => navigate('Login')} >
+            onPress={() => Actions.login()} >
                 <Image 
                 //inherits the origin from the parent style
                 style={[styles.closebuttonWrapper, {top:0, left:0}]}    
