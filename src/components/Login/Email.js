@@ -77,67 +77,67 @@ export default class LoginEmail extends Component {
 
 
 const styles = StyleSheet.create({
-
-    container: {
-     flex: 1,
-     justifyContent: 'center',
-     alignItems: 'center',
-     backgroundColor: 'white',
-    },
-    buttonContainer: {
-        marginBottom: 436,
-    },
-    // TextInput container
-    textInput: {
-      flexDirection: 'row',
-      borderRadius: 45,         // Rounded border
-      borderWidth: 2,           // 2 point border widht
-      //borderColor: 'rgba(24,172,223,1)',   // White colored border
-      paddingHorizontal: 45,    // Horizontal padding
-      paddingVertical: 8,      // Vertical padding
-      alignItems: 'center',
-      backgroundColor: 'rgba(242,242,242,1)',
-      borderColor: 'rgba(242,242,242,1)',
-      fontFamily: 'Avenir',
-      fontSize: 16,
-      justifyContent: 'center',
-      textAlign: 'left',
-      width: 286,
-      
-    },
-    logoContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 48,
-        marginTop: 60,
-    },
-    title: {
-        color: 'rgba(24,172,223,1)',
-        textAlign: 'center',
-        marginTop: 14,
-        marginBottom: 10,
-        fontFamily: 'Avenir',
-        fontSize: 24,
-    },
-    text: {
-        width: 310,
-        color: 'rgba(24,172,223,1)',
-        fontFamily: 'Avenir',
-        fontSize: 16,
-        justifyContent: 'center',
-        textAlign: 'center'
-    },
-    closebuttonWrapper: {
-        backgroundColor: 'transparent',
-        flexDirection: 'column',
-        position: 'absolute',
-        top: 34,
-        left: 34,
-        flex: 1,
-        alignItems: 'flex-start',
-        width: 24,
-        height: 24,
-      },
-  })
+    
+        container: {
+         flex: 1,
+         justifyContent: 'center',
+         alignItems: 'center',
+         backgroundColor: 'white',
+        },
+        buttonContainer: {
+            marginBottom: 436,
+        },
+        // TextInput container
+        textInput: {
+          flexDirection: 'row',
+          borderRadius: 45,         // Rounded border
+          borderWidth: 2,           // 2 point border widht
+          //borderColor: 'rgba(24,172,223,1)',   // White colored border
+          paddingHorizontal: 45,    // Horizontal padding
+          paddingVertical: 8,      // Vertical padding
+          alignItems: 'center',
+          backgroundColor: 'rgba(242,242,242,1)',
+          borderColor: 'rgba(242,242,242,1)',
+          fontFamily: 'Avenir',
+          fontSize: 16,
+          justifyContent: 'center',
+          textAlign: 'left',
+          width: 286,
+          
+        },
+        logoContainer: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 48,
+            marginTop: 160,
+        },
+        title: {
+            color: 'rgba(24,172,223,1)',
+            textAlign: 'center',
+            marginTop: 14,
+            marginBottom: 10,
+            fontFamily: 'Avenir',
+            fontSize: 24,
+        },
+        text: {
+            width: 310,
+            color: 'rgba(24,172,223,1)',
+            fontFamily: 'Avenir',
+            fontSize: 16,
+            justifyContent: 'center',
+            textAlign: 'center'
+        },
+        closebuttonWrapper: {
+            backgroundColor: 'transparent',
+            flexDirection: 'column',
+            position: 'absolute',
+            top: 34,
+            left: 34,
+            flex: 1,
+            alignItems: 'flex-start',
+            width: 24,
+            height: 24,
+          },
+      })
 
   AppRegistry.registerComponent('Mojo', () => LoginEmail);

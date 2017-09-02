@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 48,
-        marginTop: 60,
+        marginTop: 160,
     },
     title: {
         color: 'rgba(24,172,223,1)',
