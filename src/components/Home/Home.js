@@ -37,7 +37,7 @@ export default class Home extends Component {
             <TabNavigator>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'globe'}
-                title="Globe"
+                //title="Globe"
                 renderIcon={() => <Image source={require('../../images/tabbar/globe_inactive.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/globe_active.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
                 //badgeText="1"     //this allows a badge popup with a number to indicate an notification
@@ -46,7 +46,7 @@ export default class Home extends Component {
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'pocket'}
-                title="Pocket"
+                //title="Pocket"
                 renderIcon={() => <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/pocket_active.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
                 onPress={() => this.setState({ selectedTab: 'pocket' })}>
@@ -54,7 +54,7 @@ export default class Home extends Component {
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
-                title="Mojo"
+                //title="Mojo"
                 //renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
                 //renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}>
@@ -62,7 +62,7 @@ export default class Home extends Component {
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'gifts'}
-                title="Gifts"
+                //title="Gifts"
                 renderIcon={() => <Image source={require('../../images/tabbar/gifts_inactive.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/gifts_active.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
                 onPress={() => this.setState({ selectedTab: 'gifts' })}>
@@ -70,7 +70,7 @@ export default class Home extends Component {
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
-                title="Profile"
+                //title="Profile"
                 renderIcon={() => <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
                 onPress={() => this.setState({ selectedTab: 'profile' })}>
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: deviceW,
+        backgroundColor: "#FFFFFF",
 
        },
          //Mojo button wrapper
