@@ -27,26 +27,50 @@ function px2dp(px) {
 export default class Home extends Component {
 
     state= {
-        selectedTab: 'home'
+        selectedTab: 'globe'
       };
 
     render() {
         return(
             <TabNavigator>
               <TabNavigator.Item
-                selected={this.state.selectedTab === 'home'}
-                title="Home"
-                renderIcon={() => <Icon name="home" size={px2dp(22)} color="#666"/>}
-                renderSelectedIcon={() => <Icon name="home" size={px2dp(22)} color="#3496f0"/>}
-                badgeText="1"
-                onPress={() => this.setState({ selectedTab: 'home' })}>
+                selected={this.state.selectedTab === 'globe'}
+                title="Globe"
+                renderIcon={() => <Image source={require('../../images/tabbar/globe_inactive.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/globe_active.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
+                //badgeText="1"     //this allows a badge popup with a number to indicate an notification
+                onPress={() => this.setState({ selectedTab: 'globe' })}>
                 <SignUp />
+              </TabNavigator.Item>
+              <TabNavigator.Item
+                selected={this.state.selectedTab === 'pocket'}
+                title="Pocket"
+                renderIcon={() => <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/pocket_active.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
+                onPress={() => this.setState({ selectedTab: 'pocket' })}>
+                <Name />
+              </TabNavigator.Item>
+              <TabNavigator.Item
+                selected={this.state.selectedTab === 'mojo'}
+                title="Mojo"
+                renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
+                onPress={() => this.setState({ selectedTab: 'mojo' })}>
+                <Name />
+              </TabNavigator.Item>
+              <TabNavigator.Item
+                selected={this.state.selectedTab === 'gifts'}
+                title="Gifts"
+                renderIcon={() => <Image source={require('../../images/tabbar/gifts_inactive.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/gifts_active.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
+                onPress={() => this.setState({ selectedTab: 'gifts' })}>
+                <Name />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
                 title="Profile"
-                renderIcon={() => <Icon name="user" size={px2dp(22)} color="#666"/>}
-                renderSelectedIcon={() => <Icon name="user" size={px2dp(22)} color="#3496f0"/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
                 onPress={() => this.setState({ selectedTab: 'profile' })}>
                 <Name />
               </TabNavigator.Item>
