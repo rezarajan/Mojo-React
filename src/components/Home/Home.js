@@ -103,7 +103,7 @@ export default class Home extends Component {
                         //changes the source for the big mojo button on press
                         this.state.mojo_active ? 
                         <Image source={require('../../images/tabbar/mojo_active.png')} style={[{marginBottom:14, width: px2dp(72), height: px2dp(72)}]}/> 
-                        :<Image source={require('../../images/tabbar/mojo_inactive.png')} style={[{marginBottom:14, width: px2dp(72), height: px2dp(72)}]}/>  
+                        :<Image source={require('../../images/tabbar/mojo_inactive.png')} style={[{marginBottom:14, width: px2dp(54), height: px2dp(54)}]}/>  
                     }
                     onPress={() => {
                     const mojo_active = this.state.mojo_active;
