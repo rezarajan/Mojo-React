@@ -25,7 +25,6 @@ export default class Email extends Component {
     }
 
     async signup(email, pass) {
-        const { navigate } = this.props.navigation;
         
             try {
                 await firebase.auth()
@@ -33,6 +32,7 @@ export default class Email extends Component {
         
                 console.log("Account created");
                 //navigate('Home');
+                Actions.home();
         
                 // Navigate to the Home page, the user is auto logged in
         
@@ -79,7 +79,7 @@ export default class Email extends Component {
                 console.log(this.props.useremail);
                 console.log(this.state.password);
                 this.signup(this.props.useremail, this.state.password);
-                Actions.home();}}
+                }}
             />
         </View>
         {/* The close button */}
