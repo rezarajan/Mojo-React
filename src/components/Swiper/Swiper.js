@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import Button from '../Button.js'
 import * as firebase from 'firebase'
-import { StackNavigator } from 'react-navigation';
+import { Actions } from 'react-native-router-flux';
 
 firebase.initializeApp({
   apiKey: "AIzaSyDm1S6fl9AeiaHOYvFidMbD8gjet1B9my0",
@@ -246,15 +246,14 @@ export default class OnboardingScreens extends Component {
    */
   renderButton = () => {
     const lastScreen = this.state.index === this.state.total - 1;
-    const { navigate } = this.props.navigation;
     return (
       <View pointerEvents="box-none" style={[styles.buttonWrapper, styles.fullScreen]}>
         {lastScreen
           // Show this button on the last screen
           // TODO: Add a handler that would send a user to your app after onboarding is complete
-          ? <Button text="Get Started" onPress={() => navigate('SignUp')} />
+          ? <Button text="Get Started" onPress={() => Actions.signup()} />
           // Or this one otherwise
-          : <Button text="Sign Up" onPress={() => navigate('SignUp')} />
+          : <Button text="Sign Up" onPress={() => Actions.signup()} />
         }
       </View>
     );
@@ -288,6 +287,8 @@ export default class OnboardingScreens extends Component {
                 .signInWithEmailAndPassword(email, pass);
     
             console.log("Logged In!");
+            //navigate('Home');
+            Actions.home();
     
             // Navigate to the Home page
     

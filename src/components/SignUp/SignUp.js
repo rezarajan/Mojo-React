@@ -9,21 +9,42 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native';
-
 import ImageButton from '../ImageButton';
+import * as firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 export default class SignUp extends Component {
     _onPressButton() {
          Alert.alert('You tapped the button!')
        }
 
+       signupGoogle(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+    }
+
     render() {
-        const { navigate } = this.props.navigation;
         return (
         <View style={styles.container} >
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
-            onPress={() => navigate('Login')} >
+            onPress={() => Actions.login()} >
                 <Image 
                 style={[styles.closebuttonWrapper, {top:0, left:0}]}    //inherits the origin from the parent style
                 source={require('../../images/signup/close_accent.png')}/>
@@ -44,13 +65,14 @@ export default class SignUp extends Component {
                 text="Sign up with Google"
                 color='#FFFFFF'
                 backgroundColor='rgba(239,83,0,1)'
+                onPress={() => this.signupGoogle()}
                 />
                 <ImageButton 
                 source={require('../../images/signup/email.png')}
                 text="Sign up with Email"
                 color='#FFFFFF'
                 backgroundColor='rgba(24,172,222,1)'
-                onPress={() => navigate('Name')}
+                onPress={() => Actions.name()}
                 />
             </View>
         </View>

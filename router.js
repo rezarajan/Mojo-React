@@ -9,6 +9,7 @@ import SignUp from "./src/components/SignUp/SignUp";
 import Name from "./src/components/SignUp/Name";
 import Email from "./src/components/SignUp/Email";
 import Password from "./src/components/SignUp/Password";
+import Home from "./src/components/Home/Home";
 //import SignIn from "./screens/SignIn";
 
 export const SignedOut = StackNavigator({
@@ -48,6 +49,12 @@ export const SignedOut = StackNavigator({
   },
   Password: {
     screen: Password,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Home: {
+    screen: Home,
     navigationOptions: {
       header: null
     }

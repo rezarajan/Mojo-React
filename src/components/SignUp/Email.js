@@ -11,6 +11,7 @@ import {
     TextInput,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
+import { Actions } from 'react-native-router-flux';
 
 export default class Email extends Component {
 
@@ -23,7 +24,6 @@ export default class Email extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         //TODO: Use these params to determine if the user has come from login or signup
         const { params } = this.props.navigation.state;
         return (
@@ -55,7 +55,10 @@ export default class Email extends Component {
                 color='#FFFFFF'
                 backgroundColor='rgba(24,172,222,1)'
                 onPress={() => {
-                    navigate('Password', {name: params.name, email: this.state.email});  console.log(this.state.email);  console.log(params.name);
+                    //navigate('Password', {name: params.name, email: this.state.email});  console.log(this.state.email);  console.log(params.name);
+                    Actions.password({username: this.props.username, useremail: this.state.email});
+                    console.log(this.props.username);
+                    console.log(this.state.email);
                     }
                     }
                 />
@@ -63,7 +66,7 @@ export default class Email extends Component {
             {/* The close button */}
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
-            onPress={() => navigate('Login')} >
+            onPress={() => Actions.login()} >
                 <Image 
                 //inherits the origin from the parent style
                 style={[styles.closebuttonWrapper, {top:0, left:0}]}    

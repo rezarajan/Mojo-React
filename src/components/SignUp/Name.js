@@ -11,6 +11,7 @@ import {
     TextInput,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
+import { Actions } from 'react-native-router-flux';
 
 export default class Name extends Component {
 
@@ -23,7 +24,6 @@ export default class Name extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         return (
             //TODO: replace the TouchableOpacity close for the back button
             //provided by the StackNavigator
@@ -45,7 +45,12 @@ export default class Name extends Component {
                 text="Next"
                 color='#FFFFFF'
                 backgroundColor='rgba(24,172,222,1)'
-                onPress={() => {navigate('Email', {name: this.state.name}); console.log(this.state.name);}}
+                onPress={() => {
+                    //navigate('Email', {name: this.state.name}); 
+                    Actions.email({username: this.state.name});
+                    console.log(this.state.name);
+                    
+                    }}
                 />
             </View>
             {/* The close button */}

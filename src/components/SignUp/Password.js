@@ -11,7 +11,8 @@ import {
     TextInput,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 export default class Email extends Component {
 
@@ -24,12 +25,14 @@ export default class Email extends Component {
     }
 
     async signup(email, pass) {
+        const { navigate } = this.props.navigation;
         
             try {
                 await firebase.auth()
                     .createUserWithEmailAndPassword(email, pass);
         
                 console.log("Account created");
+                //navigate('Home');
         
                 // Navigate to the Home page, the user is auto logged in
         
@@ -40,16 +43,14 @@ export default class Email extends Component {
         }
 
     render() {
-        const { navigate } = this.props.navigation;
         //TODO: Use these params to determine if the user has come from login or signup
-        const { params } = this.props.navigation.state;
         return (
             //TODO: replace the TouchableOpacity close for the back button
             //provided by the StackNavigator
         <View style={styles.container} >
             <TouchableOpacity 
             style={styles.closebuttonWrapper}
-            onPress={() => navigate('Login')} >
+            onPress={() => Actions.login()} >
                 <Image 
                 //inherits the origin from the parent style
                 style={[styles.closebuttonWrapper, {top:0, left:0}]}    
@@ -74,16 +75,17 @@ export default class Email extends Component {
             backgroundColor='rgba(24,172,222,1)'
             onPress={() => {
                 //navigate('Email');
+                console.log(this.props.username);
+                console.log(this.props.useremail);
                 console.log(this.state.password);
-                console.log(params.email);
-                console.log(params.name);
-                this.signup(params.email, this.state.password);}}
+                this.signup(this.props.useremail, this.state.password);
+                Actions.home();}}
             />
         </View>
         {/* The close button */}
         <TouchableOpacity 
         style={styles.closebuttonWrapper}
-        onPress={() => navigate('Login')} >
+        onPress={() => Actions.login()} >
             <Image 
             //inherits the origin from the parent style
             style={[styles.closebuttonWrapper, {top:0, left:0}]}    
