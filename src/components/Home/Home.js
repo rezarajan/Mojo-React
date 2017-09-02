@@ -55,8 +55,8 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
                 title="Mojo"
-                renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
+                //renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
+                //renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}>
                 <Name />
               </TabNavigator.Item>
