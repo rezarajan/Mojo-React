@@ -20,7 +20,7 @@ export default class Email extends Component {
         super(props)
     
         this.state = {
-          password: "",
+          passwordre: "",
         }
     }
 
@@ -58,28 +58,35 @@ export default class Email extends Component {
             </TouchableOpacity>
             <View style={styles.logoContainer}>
                 <Text style={styles.title}>Let's Get Started!</Text>
-                <Text style={styles.text}>What would you like your password to be?</Text>
+                <Text style={styles.text}>Please re-enter password</Text>
             </View>
             <View style={styles.buttonContainer}>
             {/* Text Input and Next */}
             <TextInput
-            placeholder="Password"
+            placeholder="Re-enter Password"
             secureTextEntry={true}
             placeholderTextColor='rgba(155,155,155,1)'
             style={styles.textInput}
-            onChangeText={(text) => this.setState({password: text})}
+            onChangeText={(text) => this.setState({passwordre: text})}
             />
             <RoundedButton
-            text="Next"
+            text="Sign Up"
             color='#FFFFFF'
             backgroundColor='rgba(24,172,222,1)'
             onPress={() => {
                 //navigate('Email');
                 console.log(this.props.username);
                 console.log(this.props.useremail);
-                console.log(this.state.password);
-                //this.signup(this.props.useremail, this.state.password);
-                Actions.passwordre({username: this.props.username, useremail: this.props.useremail, passwordinit: this.state.password});
+                console.log(this.props.passwordinit);
+                console.log(this.state.passwordre);
+
+                if(this.props.passwordinit === this.state.passwordre){
+                    this.signup(this.props.useremail, this.props.passwordinit);
+                }
+                else{
+                    console.log('Passwords are different');
+                }
+                
                 }}
             />
         </View>

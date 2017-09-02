@@ -8,6 +8,7 @@ import SignUp from "./src/components/SignUp/SignUp";
 import Name from "./src/components/SignUp/Name";
 import Email from "./src/components/SignUp/Email";
 import Password from "./src/components/SignUp/Password";
+import PasswordRe from "./src/components/SignUp/PasswordRe";
 import Home from "./src/components/Home/Home";
 
 const App = () => {
@@ -39,6 +40,11 @@ const App = () => {
           key="password"
           component={Password}
           title="password"
+        />
+        <Scene
+          key="passwordre"
+          component={PasswordRe}
+          title="passwordre"
         />
         <Scene
           key="home"
