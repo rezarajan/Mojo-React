@@ -8,6 +8,7 @@ import {
     Dimensions,
     ScrollView,
     TouchableOpacity,
+    AsyncStorage,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as firebase from 'firebase';
@@ -20,6 +21,8 @@ export default class ProfileInfo extends Component {
             try {
         
                 await firebase.auth().signOut();
+
+                AsyncStorage.removeItem('userData')
         
                 // Navigate to login view
                 Actions.login();

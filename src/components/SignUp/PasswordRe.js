@@ -24,6 +24,27 @@ export default class passwordre extends Component {
         }
     }
 
+    async login(email, pass) {
+        
+        try {
+            const userData = await firebase.auth()
+                .signInWithEmailAndPassword(email, pass);
+            
+            if(userData !== null){
+                AsyncStorage.setItem('userData', JSON.stringify(userData));
+                console.log("Logged In!");
+                //navigate('Home');
+                // Navigate to the Home page
+                Actions.home();
+            }
+    
+        } catch (error) {
+            console.log(error.toString());
+            Alert.alert('Login Failed. Please try again '+error);
+        }
+    
+    }  
+
     async signup(email, pass) {
         
             try {
@@ -31,6 +52,7 @@ export default class passwordre extends Component {
                     .createUserWithEmailAndPassword(email, pass);
         
                 console.log("Account created");
+                this.login(email, pass);
                 //navigate('Home');
                 Actions.home();
         

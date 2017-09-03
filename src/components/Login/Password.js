@@ -9,6 +9,7 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
+    AsyncStorage,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
 import * as firebase from 'firebase';
@@ -28,17 +29,20 @@ export default class LoginPassword extends Component {
     async login(email, pass) {
         
         try {
-            await firebase.auth()
+            const userData = await firebase.auth()
                 .signInWithEmailAndPassword(email, pass);
-    
-            console.log("Logged In!");
-            //navigate('Home');
-            Actions.home();
-    
-            // Navigate to the Home page
+            
+            if(userData !== null){
+                AsyncStorage.setItem('userData', JSON.stringify(userData));
+                console.log("Logged In!");
+                //navigate('Home');
+                // Navigate to the Home page
+                Actions.home();
+            }
     
         } catch (error) {
             console.log(error.toString());
+            Alert.alert('Login Failed. Please try again '+error);
         }
     
     }    
