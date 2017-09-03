@@ -26,18 +26,20 @@ export default class Bar extends Component {
 
 const styles = StyleSheet.create({
     bar: {
-        borderTopColor: 'white',
-        borderTopWidth: 4,
-        backgroundColor: 'rgba(250,250,250,1)',
+        borderTopColor: 'rgba(241,241,241,1)',
+        borderTopWidth: 1,
+        borderBottomColor: 'rgba(241,241,241,1)',
+        borderBottomWidth: 1,
+        backgroundColor: 'white',
         flexDirection: 'row',
     },
     barSeparator: {
         borderRightWidth: 1,
-        borderRightColor: 'rgba(74,74,74,0.4)',
+        borderRightColor: 'rgba(241,241,241,1)',
     },
     barItem: {
         flex: 1,
-        padding: 14,
+        padding: 8,
         alignItems: 'center',
     },
     barTop: {

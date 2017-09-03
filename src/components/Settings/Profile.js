@@ -7,6 +7,7 @@ import {
 
 import ProfileHeader from './ProfileHeader';
 import Bar from './Bar';
+import ProfileGrid from './ProfileGrid';
 
 export default class Profile extends Component {
     render() {
@@ -15,6 +16,7 @@ export default class Profile extends Component {
             <View style={styles.container} >
                 <ProfileHeader />
                 <Bar />
+                <ProfileGrid />
             </View>
         );
     }
@@ -23,6 +25,6 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(250,250,250,1)',
     },
 });
