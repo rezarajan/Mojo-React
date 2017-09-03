@@ -3,10 +3,12 @@ import {
     AppRegistry,
     StyleSheet,
     View,
+    ScrollView,
 } from 'react-native';
 
 import ProfileHeader from './ProfileHeader';
 import Bar from './Bar';
+import ProfileInfo from './ProfileInfo';
 import ProfileGrid from './ProfileGrid';
 
 export default class Profile extends Component {
@@ -15,8 +17,11 @@ export default class Profile extends Component {
             //cretaes a background for the profile pic
             <View style={styles.container} >
                 <ProfileHeader />
-                <Bar />
-                <ProfileGrid />
+                <ScrollView>
+                    <Bar />
+                    <ProfileInfo />
+                </ScrollView>
+                {/* <ProfileGrid /> */}
             </View>
         );
     }

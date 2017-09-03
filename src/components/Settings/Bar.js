@@ -10,7 +10,7 @@ import {
 export default class Bar extends Component {
     render() {
         return (
-            <View style={styles.bar} >
+            <View style={[styles.bar, {borderTopWidth: 0.5}]} >
                 <View style={[styles.barItem, styles.barSeparator]} >
                     <Text style={styles.barTop}>MOJO POINTS</Text>
                     <Text style={styles.barBottom}>2354</Text>
