@@ -9,6 +9,7 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
+    AsyncStorage,
 } from 'react-native';
 import RoundedButton from '../RoundedButton';
 import * as firebase from 'firebase';
