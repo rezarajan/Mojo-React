@@ -25,6 +25,7 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        flexDirection: 'column',
         backgroundColor: 'rgba(250,250,250,1)',
     },
 });

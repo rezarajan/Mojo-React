@@ -26,7 +26,7 @@ export default class Profileheader extends Component {
 
 const styles = StyleSheet.create({
     headerBackground: {
-        flex:1,
+        flex:0.6,
         width: null,
         alignSelf: 'stretch',
         backgroundColor: 'white',
@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20,
+        padding: 16,
         //backgroundColor: 'rgba(0,0,0,0.5)',
         backgroundColor: 'transparent',
     },
     profilepicWrap : {
-        width: 180,
-        height: 180,
+        width: 90,
+        height: 90,
         borderRadius: 100,
         borderColor: 'rgba(0,0,0,0.4)',
         //borderColor: 'transparent',
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         height: null,
         width: null,
         alignSelf: 'stretch',
-        borderRadius: 90,
+        borderRadius: 45,
         //borderColor: 'rgba(0,0,0,0.4)',
         borderColor: 'white',
         borderWidth: 0,
