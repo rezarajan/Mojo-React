@@ -62,7 +62,7 @@ export default class ProfileInfo extends Component {
                         </View>
                     </View>
                 </View>
-                {/* Blank Container (to allow scrolling past the Action Button*/}
+                {/* Blank Container (to allow scrolling past the Action Button) */}
                 <View>
                     <View style={[styles.bar, styles.barHeader]} >
                         <View style={[styles.barItem, {alignItems: 'center', paddingLeft: 0, paddingBottom: 80}]} >

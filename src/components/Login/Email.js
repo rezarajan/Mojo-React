@@ -47,6 +47,7 @@ export default class LoginEmail extends Component {
                 placeholder="Email"
                 placeholderTextColor='rgba(155,155,155,1)'
                 style={styles.textInput}
+                underlineColorAndroid='rgba(0,0,0,0)'
                 onChangeText={(text) => this.setState({email:text})}
                 />
                 <RoundedButton

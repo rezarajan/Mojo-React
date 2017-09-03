@@ -67,6 +67,7 @@ export default class passwordre extends Component {
             secureTextEntry={true}
             placeholderTextColor='rgba(155,155,155,1)'
             style={styles.textInput}
+            underlineColorAndroid='rgba(0,0,0,0)'
             onChangeText={(text) => this.setState({passwordre: text})}
             />
             <RoundedButton
