@@ -9,6 +9,7 @@ import {
     ScrollView,
     TouchableOpacity,
     AsyncStorage,
+    TextInput,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as firebase from 'firebase';
@@ -44,11 +45,25 @@ export default class ProfileInfo extends Component {
                         </View>
                     </View>
                     <View style={[styles.bar]} >
-                        <View style={[styles.barItem, styles.barSeparator]} >
-                            <Text style={styles.barBottom}>Email:</Text>
+                        <View style={[styles.barItem, styles.barSeparator, {flexDirection: 'row'}]} >
+                            <Text style={styles.barBottom}>Email: </Text>
+                            <TextInput
+                                placeholder="johndoe@email.com"
+                                placeholderTextColor='rgba(155,155,155,1)'
+                                style={styles.textInput}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                //onChangeText={(text) => this.setState({email:text})}
+                            />
                         </View>
-                        <View style={[styles.barItem]} >
+                        <View style={[styles.barItem, {flexDirection: 'row'}]} >
                             <Text style={styles.barBottom}>Phone:</Text>
+                            <TextInput
+                                placeholder="(333) 333-3333"
+                                placeholderTextColor='rgba(155,155,155,1)'
+                                style={styles.textInput}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                //onChangeText={(text) => this.setState({email:text})}
+                            />
                         </View>
                     </View>
                 </View>
@@ -153,4 +168,22 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: 'Avenir',
     },
+    textInput: {
+        //flexDirection: 'row',
+        //borderRadius: 45,         // Rounded border
+        //borderWidth: 2,           // 2 point border widht
+        //borderColor: 'rgba(24,172,223,1)',   // White colored border
+        //paddingHorizontal: 45,    // Horizontal padding
+        //paddingVertical: 8,      // Vertical padding
+        paddingLeft: 16,
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+        fontFamily: 'Avenir',
+        fontSize: 14,
+        justifyContent: 'center',
+        textAlign: 'left',
+        width: 286,
+        
+      },
 });
