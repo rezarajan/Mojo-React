@@ -82,7 +82,7 @@ export default class ActionButton extends Component {
 
     Animated.spring(this.state.anim, {
       toValue: 1,
-      duration: 250,
+      duration: 50,
     }).start();
 
     this.setState({ active: true });
@@ -91,12 +91,12 @@ export default class ActionButton extends Component {
   reset() {
     Animated.spring(this.state.anim, {
       toValue: 0,
-      duration: 250,
+      duration: 50,
     }).start();
 
     setTimeout(() => {
       this.setState({ active: false });
-    }, 250);
+    }, 50);
   }
 
   renderButton() {
@@ -201,7 +201,7 @@ export default class ActionButton extends Component {
                   if (this.props.autoInactive) {
                     this.timeout = setTimeout(() => {
                       this.reset();
-                    }, 200);
+                    }, 50);
                   }
                   button.props.onPress();
                 }}
@@ -219,7 +219,12 @@ export default class ActionButton extends Component {
       backdrop = (
         <TouchableWithoutFeedback
           style={styles.overlay}
-          onPress={() => this.reset()}
+          onPress={() => 
+          {
+            this.props.onPress(); //allows the user's onPress to take effect on the backdrop click as well
+            this.reset();
+          }
+          }
         >
           <Animated.View
             style={

@@ -18,6 +18,8 @@ import Name from '../SignUp/Name';
 //import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
 
+import ProfileHeader from "../Settings/ProfileHeader";
+
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
 
@@ -82,7 +84,7 @@ export default class Home extends Component {
                 //renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
                 //onPress={() => this.setState({ selectedTab: 'profile' })}
                 >
-                <SignUp />
+                <ProfileHeader />
               </TabNavigator.Item>
             </TabNavigator>
             {/* <TouchableOpacity onPress={() => {
@@ -110,19 +112,69 @@ export default class Home extends Component {
                     this.setState({mojo_active: !mojo_active });
                     }} 
                 >
-                <ActionButton.Item buttonColor='#3498db' title='globe' onPress={() => this.setState({ selectedTab: 'globe' })}>
+                <ActionButton.Item buttonColor='#3498db' title='globe' onPress={() => 
+                    {
+                        const mojo_active = this.state.mojo_active;
+                        this.setState({ 
+                            selectedTab: 'globe',  
+                        });
+                        setTimeout(() => {
+                              this.setState({ mojo_active: !mojo_active  });
+                        }, 50);
+                    }
+                    }>
                     <Image source={require('../../images/tabbar/globe_inactive.png')} style={{width: px2dp(20), height: px2dp(20)}}/>   
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#9b59b6' title='pocket' onPress={() => this.setState({ selectedTab: 'pocket' })}>
+                <ActionButton.Item buttonColor='#9b59b6' title='pocket' onPress={() => 
+                    {
+                        const mojo_active = this.state.mojo_active;
+                        this.setState({ 
+                            selectedTab: 'pocket', 
+                        });
+                        setTimeout(() => {
+                              this.setState({ mojo_active: !mojo_active  });
+                        }, 50);
+                    }
+                    }>
                     <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title='mojo' onPress={() => this.setState({ selectedTab: 'mojo' })}>
+                <ActionButton.Item buttonColor='#3498db' title='mojo' onPress={() => 
+                    {
+                        const mojo_active = this.state.mojo_active;
+                        this.setState({ 
+                            selectedTab: 'mojo', 
+                        });
+                        setTimeout(() => {
+                              this.setState({ mojo_active: !mojo_active  });
+                        }, 50);
+                    }
+                    }>
                     <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title='gifts' onPress={() => this.setState({ selectedTab: 'gifts' })}>
+                <ActionButton.Item buttonColor='#1abc9c' title='gifts' onPress={() => 
+                    {
+                        const mojo_active = this.state.mojo_active;
+                        this.setState({ 
+                            selectedTab: 'gifts', 
+                        });
+                        setTimeout(() => {
+                              this.setState({ mojo_active: !mojo_active  });
+                        }, 50);
+                    }
+                    }>
                     <Image source={require('../../images/tabbar/gifts_inactive.png')} style={{width: px2dp(26), height: px2dp(26)}}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title='profile' onPress={() => this.setState({ selectedTab: 'profile' })}>
+                <ActionButton.Item buttonColor='#1abc9c' title='profile' onPress={() => 
+                    {
+                        const mojo_active = this.state.mojo_active;
+                        this.setState({ 
+                            selectedTab: 'profile', 
+                        });
+                        setTimeout(() => {
+                              this.setState({ mojo_active: !mojo_active  });
+                        }, 50);
+                    }
+                    }>
                     <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>
                 </ActionButton.Item>
                 </ActionButton>
