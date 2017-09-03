@@ -18,7 +18,7 @@ import Name from '../SignUp/Name';
 //import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
 
-import ProfileHeader from "../Settings/ProfileHeader";
+import Profile from "../Settings/Profile";
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -84,7 +84,7 @@ export default class Home extends Component {
                 //renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
                 //onPress={() => this.setState({ selectedTab: 'profile' })}
                 >
-                <ProfileHeader />
+                <Profile />
               </TabNavigator.Item>
             </TabNavigator>
             {/* <TouchableOpacity onPress={() => {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: deviceW,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: 'white',
 
        },
          //Mojo button wrapper
