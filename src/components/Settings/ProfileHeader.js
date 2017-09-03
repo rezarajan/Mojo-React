@@ -11,7 +11,7 @@ export default class Profileheader extends Component {
     render() {
         return (
             //cretaes a background for the profile pic
-            <Image style={styles.headerBackground} source={require('../../images/mojocards.png')}>
+            <View style={styles.headerBackground}>
                 <View style={styles.header}>
                     <View style={styles.profilepicWrap}>
                         <Image style={styles.profilepic} source={require('../../images/dojocat.png')} />
@@ -19,7 +19,7 @@ export default class Profileheader extends Component {
                     <Text style={styles.name}>Username</Text>
                     <Text style={styles.moreinfo}>More info</Text>
                 </View>
-            </Image>
+            </View>
         );
     }
 }
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         flex:1,
         width: null,
         alignSelf: 'stretch',
+        backgroundColor: 'white',
     },
     header: {
         flex: 1,
@@ -43,22 +44,25 @@ const styles = StyleSheet.create({
         height: 180,
         borderRadius: 100,
         borderColor: 'rgba(0,0,0,0.4)',
-        borderWidth: 16,
+        //borderColor: 'transparent',
+        borderWidth: 4,
+        backgroundColor: 'white',
     },
     profilepic: {
         flex: 1,
         height: null,
         width: null,
         alignSelf: 'stretch',
-        borderRadius: 72,
-        borderColor: '#FFF',
-        borderWidth: 4,
+        borderRadius: 90,
+        //borderColor: 'rgba(0,0,0,0.4)',
+        borderColor: 'white',
+        borderWidth: 0,
     },
     name: {
         marginTop: 20,
         fontSize: 16,
-        color: '#FFF',
-        borderWidth: 4,
+        color: 'rgba(74,74,74,1)',
+        //borderWidth: 4,
     },
     moreinfo: {
         fontSize: 14,
