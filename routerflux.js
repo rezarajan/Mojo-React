@@ -21,6 +21,7 @@ const App = () => {
         <Scene key="login"
           component={Login}
           title="login"
+          type="reset"
           initial
         />
         <Scene
@@ -61,6 +62,7 @@ const App = () => {
         <Scene
           key="home"
           component={Home}
+          type="reset"
           title="home"
         />
       </Scene>

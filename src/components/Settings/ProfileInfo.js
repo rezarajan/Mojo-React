@@ -7,10 +7,29 @@ import {
     Text,
     Dimensions,
     ScrollView,
+    TouchableOpacity,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import * as firebase from 'firebase';
 
 
 export default class ProfileInfo extends Component {
+
+    async logout() {
+        
+            try {
+        
+                await firebase.auth().signOut();
+        
+                // Navigate to login view
+                Actions.login();
+        
+            } catch (error) {
+                console.log(error);
+            }
+        
+        }
+
     render() {
         return (
             <View >
@@ -58,7 +77,9 @@ export default class ProfileInfo extends Component {
                             <Text style={[styles.barBottom]}>Change Password</Text>
                         </View>
                         <View style={[styles.barItem]} >
-                            <Text style={[styles.barBottom, {color: 'red'}]}>Logout</Text>
+                            <TouchableOpacity onPress={()=> this.logout()} >
+                                <Text style={[styles.barBottom, {color: 'red'}]}>Logout</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
