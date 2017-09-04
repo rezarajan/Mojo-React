@@ -62,7 +62,7 @@ export default class ResturantCarousel extends Component {
     constructor (props) {
         super(props);
 
-        this.itemsRef = firebase.database().ref();
+        this.itemsRef = firebase.database().ref().child('listing/venue');
         this.state = {
             dataSource: null,
         };
@@ -78,8 +78,16 @@ export default class ResturantCarousel extends Component {
             items.push({
               //title: child.val().title,
               _key: child.key,
-              title: child.key,
+              restaurantName: child.val().restaurant,
             });
+            console.log(child.val().restaurant);
+
+            // itemsRef.child(child.key).on('value', (snap) => {
+
+            //     snap.forEach((child) => {
+            //         console.log('g: ' + child.val().g);
+            //     });
+            // });
           });
 
         //Stores the items array received in the dataSource for access later
@@ -100,7 +108,7 @@ export default class ResturantCarousel extends Component {
     _renderItem ({item, index}) {
         return (
             <View style={styles.logoWrapper}>
-                <Text style={styles.text}>{item.title}</Text>
+                <Text style={styles.text}>{item.restaurantName}</Text>
             </View>
         );
     }
