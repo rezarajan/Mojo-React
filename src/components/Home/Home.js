@@ -15,6 +15,7 @@ import TabNavigator from '../custom-react-components/react-native-tab-navigator/
 import ActionButton from '../custom-react-components/react-native-circular-action-menu/ActionButton';
 import SignUp from '../SignUp/SignUp';
 import Name from '../SignUp/Name';
+import RestaurantCards from '../Restaurants/RestaurantCards';
 //import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
 
@@ -48,7 +49,7 @@ export default class Home extends Component {
                 //badgeText="1"     //this allows a badge popup with a number to indicate an notification
                 //onPress={() => this.setState({ selectedTab: 'globe' })}
                 >
-                <SignUp />
+                <RestaurantCards />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'pocket'}
