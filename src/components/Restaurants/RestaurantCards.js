@@ -28,11 +28,6 @@ function px2dp(px) {
 
 export default class RestaurantCards extends Component {
 
-    state= {
-        selectedTab: 'globe',
-        mojo_active: true,
-      };
-
     render() {
         return(
             <View style={styles.container}>

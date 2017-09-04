@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
+import * as firebase from 'firebase';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -58,11 +59,42 @@ const ENTRIES1 = [
 export default class ResturantCarousel extends Component {
 
 
-      constructor (props) {
+    constructor (props) {
         super(props);
+
+        this.itemsRef = firebase.database().ref();
         this.state = {
-            entries: {ENTRIES1},
+            dataSource: null,
         };
+    }
+
+    // listens for firebase realtime updates
+    listenForItems(itemsRef) {
+        itemsRef.on('value', (snap) => {
+    
+          // get children as an array
+          var items = [];
+          snap.forEach((child) => {
+            items.push({
+              //title: child.val().title,
+              _key: child.key,
+              title: child.key,
+            });
+          });
+
+        //Stores the items array received in the dataSource for access later
+          this.setState({
+            dataSource: JSON.parse(JSON.stringify(items)),
+          });
+
+          console.log(this.state.dataSource);
+    
+        });
+      }
+
+    componentDidMount() {
+        //on launch this is store the key value pairs from firebase for populating the snap carousel
+        this.listenForItems(this.itemsRef);
     }
 
     _renderItem ({item, index}) {
@@ -74,17 +106,26 @@ export default class ResturantCarousel extends Component {
     }
 
     render() {
-        console.log(ENTRIES1);
+        //console.log(ENTRIES1);
+
+        //setting the layout as a placeholder until the data is acquired from Firebase
+        console.log(this.state.dataSource);
+        const content = this.state.dataSource ?
+        <Carousel
+        ref={(c) => { this._carousel = c; }}
+        data={this.state.dataSource}
+        renderItem={this._renderItem}
+        sliderWidth={deviceW}
+        sliderHeight={deviceH}
+        itemWidth={deviceW/2}
+        />
+        :
+        //change this to whatever loading layout as a placeholder
+        null;
+
         return(
             <View style={styles.container} > 
-                <Carousel
-                ref={(c) => { this._carousel = c; }}
-                data={ENTRIES1}
-                renderItem={this._renderItem}
-                sliderWidth={deviceW}
-                sliderHeight={deviceH}
-                itemWidth={deviceW/2}
-                />
+                {content}
             </View>
         );
     }

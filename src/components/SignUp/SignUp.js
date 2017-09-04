@@ -18,7 +18,7 @@ export default class SignUp extends Component {
          Alert.alert('You tapped the button!')
        }
 
-       signupGoogle(){
+    signupGoogle(){
         var provider = new firebase.auth.GoogleAuthProvider();
 
         firebase.auth().signInWithPopup(provider).then(function(result) {

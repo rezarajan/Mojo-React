@@ -19,7 +19,7 @@ export default class Login extends Component {
          Alert.alert('You tapped the button!')
        }
 
-       constructor(props){
+    constructor(props){
         super(props)
     
         this.state = {
