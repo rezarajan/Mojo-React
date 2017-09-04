@@ -13,6 +13,7 @@ import {
 import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
 import * as firebase from 'firebase';
+import CardView from './CardView';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -107,9 +108,10 @@ export default class ResturantCarousel extends Component {
 
     _renderItem ({item, index}) {
         return (
-            <View style={styles.logoWrapper}>
-                <Text style={styles.text}>{item.restaurantName}</Text>
-            </View>
+            // <View style={styles.logoWrapper}>
+            //     <Text style={styles.text}>{item.restaurantName}</Text>
+            // </View>
+            <CardView text={item.restaurantName}/>
         );
     }
 
@@ -119,17 +121,17 @@ export default class ResturantCarousel extends Component {
         //setting the layout as a placeholder until the data is acquired from Firebase
         console.log(this.state.dataSource);
         const content = this.state.dataSource ?
-        <Carousel
-        ref={(c) => { this._carousel = c; }}
-        data={this.state.dataSource}
-        renderItem={this._renderItem}
-        sliderWidth={deviceW}
-        sliderHeight={deviceH}
-        itemWidth={deviceW/2}
-        />
+            <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.dataSource}
+            renderItem={this._renderItem}
+            sliderWidth={deviceW}
+            sliderHeight={deviceH}
+            itemWidth={deviceW/2}
+            />
         :
-        //change this to whatever loading layout as a placeholder
-        null;
+            //change this to whatever loading layout as a placeholder
+            null;
 
         return(
             <View style={styles.container} > 

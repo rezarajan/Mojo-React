@@ -9,10 +9,10 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
+    Dimensions,
 } from 'react-native';
 //import TabNavigator from 'react-native-tab-navigator';
 //import ActionButton from 'react-native-circular-action-menu';
-import {Dimensions} from 'react-native'
 
 import Profile from "../Settings/Profile";
 
