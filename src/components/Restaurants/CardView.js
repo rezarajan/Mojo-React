@@ -39,8 +39,8 @@ export default class CardView extends Component {
             this.state.openIndicator='white'
         }
 
-        console.log(this.props.index);
-        console.log(this.props.tags);
+        //console.log(this.props.index);
+        //console.log(this.props.tags);
 
         var tagView = [];
 
@@ -51,7 +51,7 @@ export default class CardView extends Component {
             }
         }
 
-        console.log(tagView);
+        //console.log(tagView);
 
 
 
@@ -62,7 +62,7 @@ export default class CardView extends Component {
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth}]}>
                 <View style={styles.header}>
                     <View style={styles.profilepicWrap}>
-                        <Image style={styles.profilepic} source={require('../../images/dojocat.png')} />
+                        <Image style={styles.profilepic} source={{uri:this.props.icon}} />
                     </View>
 
                     <View style={[styles.infoHolder]}>
@@ -84,6 +84,7 @@ export default class CardView extends Component {
                                     //<View><Text>{key.tag}</Text></View>
                                     
                                     <RoundedText 
+                                    key={i}
                                     text={key.tag}
                                     color='#FFFFFF'
                                     backgroundColor='rgba(24,172,222,1)'

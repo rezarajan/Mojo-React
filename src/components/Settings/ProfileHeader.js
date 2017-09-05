@@ -16,7 +16,7 @@ export default class Profileheader extends Component {
                     <View style={styles.profilepicWrap}>
                         <Image style={styles.profilepic} source={require('../../images/dojocat.png')} />
                     </View>
-                    <Text style={styles.name}>Username</Text>
+                    <Text style={styles.name}>John Smith</Text>
                     <Text style={styles.moreinfo}>Change Profile Photo</Text>
                 </View>
             </View>

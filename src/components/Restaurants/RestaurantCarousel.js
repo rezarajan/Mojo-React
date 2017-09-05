@@ -57,6 +57,7 @@ export default class ResturantCarousel extends Component {
               backgroundColor: child.val().color ? child.val().color : 'aliceblue',
               genre: child.val().genre ? child.val().genre : 'Genre',
               open: child.val().open ? child.val().open : 'No Times',
+              icon: child.val().icon ? child.val().icon : '../../images/mojomonkey.png',
               tags: child.val().tags ? child.val().tags : {},
               waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
             });
@@ -72,7 +73,7 @@ export default class ResturantCarousel extends Component {
             //tagValue: JSON.parse(JSON.stringify(tagsArray)),
           });
 
-          console.log(this.state.tagValue);
+          //console.log(this.state.tagValue);
     
         });
       }
@@ -84,18 +85,20 @@ export default class ResturantCarousel extends Component {
 
     _renderItem ({item, index}) {
         //item comes from the data source provided in the render() function
-        console.log(item.restaurantName);
+        //console.log(item.restaurantName);
         
         return (
             <CardView 
             text={item.restaurantName} 
             backgroundColor={item.backgroundColor} 
             genre={item.genre}    
-            open={item.open}      
+            open={item.open} 
+            icon={item.icon}     
             index={index}
             tags={item.tags}
             waitTime={item.waitTime}
             itemWidth={itemWidth}
+            onPress={() => this.props.visibilityFunction() }
             />
         );
     }
@@ -112,7 +115,7 @@ export default class ResturantCarousel extends Component {
             sliderWidth={deviceW}
             sliderHeight={deviceH}
             itemWidth={itemWidth}
-            enableMomentum={true}
+            enableMomentum={false}
             //snapOnAndroid={false}
             />
         :

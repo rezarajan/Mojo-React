@@ -16,6 +16,7 @@ import RestaurantHeader from './RestaurantHeader';
 import RestaurantCarousel from './RestaurantCarousel';
 //import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
+import Modal from 'react-native-modal';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -28,11 +29,24 @@ function px2dp(px) {
 
 export default class RestaurantCards extends Component {
 
+    state = {
+        isModalVisible: false
+      }
+
+
+    _showModal = () => {
+        this.setState({ isModalVisible: true });
+        console.log('Card Clicked');
+    
+    }
+  
+    _hideModal = () => this.setState({ isModalVisible: false })
+
     render() {
         return(
             <View style={styles.container}>
                 <RestaurantHeader /> 
-                <RestaurantCarousel />
+                <RestaurantCarousel visibilityFunction={this._showModal.bind(this)}/>
             
             </View>
         );
