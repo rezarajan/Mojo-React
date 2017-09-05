@@ -53,11 +53,12 @@ export default class ResturantCarousel extends Component {
             items.push({
               //title: child.val().title,
               _key: child.key,
-              restaurantName: child.val().restaurant ? child.val().restaurant:'Restaurant Name',
-              backgroundColor: child.val().color ? child.val().color: 'aliceblue',
-              genre: child.val().genre ? child.val().genre:'Genre',
-              open: child.val().open ? child.val().open:'No Times',
-              tags: child.val().tags ? child.val().tags:{}
+              restaurantName: child.val().restaurant ? child.val().restaurant : 'Restaurant Name',
+              backgroundColor: child.val().color ? child.val().color : 'aliceblue',
+              genre: child.val().genre ? child.val().genre : 'Genre',
+              open: child.val().open ? child.val().open : 'No Times',
+              tags: child.val().tags ? child.val().tags : {},
+              waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
             });
             
             //tagsArray.push(child.child('tags').val());
@@ -93,6 +94,7 @@ export default class ResturantCarousel extends Component {
             open={item.open}      
             index={index}
             tags={item.tags}
+            waitTime={item.waitTime}
             itemWidth={itemWidth}
             />
         );

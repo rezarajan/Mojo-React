@@ -91,7 +91,7 @@ export default class CardView extends Component {
                                 );
                             })}
                         </View>
-                        <Text style={[styles.moreinfo, {marginTop: 16, marginBottom: 8, fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery</Text>
+                        <Text style={[styles.moreinfo, {marginTop: 16, marginBottom: 8, fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery: {this.props.waitTime}</Text>
                     </View>
 
                 </View>
