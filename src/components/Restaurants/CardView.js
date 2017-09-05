@@ -14,13 +14,17 @@ export default class CardView extends Component {
     render() {
         return (
             //cretaes a background for the profile pic
-            <View style={styles.headerBackground}>
+            <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth}]}>
                 <View style={styles.header}>
                     <View style={styles.profilepicWrap}>
                         <Image style={styles.profilepic} source={require('../../images/dojocat.png')} />
                     </View>
-                    <Text style={styles.name}>{this.props.text}</Text>
-                    <Text style={styles.moreinfo}>Change Profile Photo</Text>
+
+                    <View style={{marginTop: 20, alignItems: 'center', flexDirection: 'row'}}>
+                        <Text style={styles.name}>{this.props.text}</Text>
+                        <Text style={[styles.moreinfo, {flex: 0.4, marginLeft: 8}]}>Open</Text>
+                    </View>
+                    {/* <Text style={styles.moreinfo}>Change Profile Photo</Text> */}
                 </View>
             </View>
         );
@@ -29,15 +33,15 @@ export default class CardView extends Component {
 
 const styles = StyleSheet.create({
     headerBackground: {
-        backgroundColor: 'white',
         alignItems: 'center',
-        width: deviceW/2,
+        //width: 0.6*deviceW,
         marginTop:8,
+        borderRadius: 32,
     },
     header: {
         //flex: 1,
         alignItems: 'center',
-        //justifyContent: 'center',
+        justifyContent: 'center',
         padding: 16,
         //backgroundColor: 'rgba(0,0,0,0.5)',
         backgroundColor: 'transparent',
@@ -62,14 +66,14 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     },
     name: {
-        marginTop: 20,
+        //marginTop: 20,
         fontSize: 16,
-        color: 'rgba(74,74,74,1)',
+        color: 'white',
         //borderWidth: 4,
     },
     moreinfo: {
         fontSize: 14,
-        color: '#0394c0',
+        color: 'white',
         fontWeight: '300',
         fontFamily: 'Avenir',
     }

@@ -18,6 +18,10 @@ import CardView from './CardView';
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
 
+//Change this to whatver width the CardView is to be
+//and the chnages propogate to the render() and CardView layout
+const itemWidth = 0.6*deviceW;
+
 const basePx = 375
 
 function px2dp(px) {
@@ -80,6 +84,7 @@ export default class ResturantCarousel extends Component {
               //title: child.val().title,
               _key: child.key,
               restaurantName: child.val().restaurant,
+              backgroundColor: child.val().color,
             });
             console.log(child.val().restaurant);
 
@@ -111,7 +116,7 @@ export default class ResturantCarousel extends Component {
             // <View style={styles.logoWrapper}>
             //     <Text style={styles.text}>{item.restaurantName}</Text>
             // </View>
-            <CardView text={item.restaurantName}/>
+            <CardView text={item.restaurantName} backgroundColor={item.backgroundColor} itemWidth= {itemWidth}/>
         );
     }
 
@@ -127,7 +132,7 @@ export default class ResturantCarousel extends Component {
             renderItem={this._renderItem}
             sliderWidth={deviceW}
             sliderHeight={deviceH}
-            itemWidth={deviceW/2}
+            itemWidth={itemWidth}
             />
         :
             //change this to whatever loading layout as a placeholder
