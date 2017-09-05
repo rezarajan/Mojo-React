@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        marginTop: 54,
+        marginTop: 36,
 
        },
          //Mojo button wrapper

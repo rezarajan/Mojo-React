@@ -72,9 +72,9 @@ export default class CardView extends Component {
                         </View>
                         
                         <Text style={[styles.moreinfo]}>{this.props.genre}</Text>
-                        <Text style={[styles.moreinfo, {marginTop: 16, width: 162, fontSize: 12}]}>
+                        <Text style={[styles.moreinfo, {marginTop: 16, width: 186, fontSize: 12}]}>
 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. At certe gravius. Nam memini etiam quae nolo, oblivisci non possum quae volo
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. At certe gravius.
                         </Text>
 
                         <View style={styles.categoriesGrid}>
@@ -91,6 +91,7 @@ export default class CardView extends Component {
                                 );
                             })}
                         </View>
+                        <Text style={[styles.moreinfo, {marginTop: 16, marginBottom: 8, fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery</Text>
                     </View>
 
                 </View>
@@ -163,5 +164,6 @@ const styles = StyleSheet.create({
     categoriesGrid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        marginTop: 16,
     },
 });
