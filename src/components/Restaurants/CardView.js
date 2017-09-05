@@ -7,6 +7,7 @@ import {
     Image,
     Dimensions,
 } from 'react-native';
+import RoundedText from './RoundedText';
 
 const deviceW = Dimensions.get('window').width;
 
@@ -80,7 +81,13 @@ export default class CardView extends Component {
                             {/* rendering the tags */}
                             {tagView.map((key, i) => {
                                 return (
-                                    <View><Text>{key.tag}</Text></View>
+                                    //<View><Text>{key.tag}</Text></View>
+                                    
+                                    <RoundedText 
+                                    text={key.tag}
+                                    color='#FFFFFF'
+                                    backgroundColor='rgba(24,172,222,1)'
+                                    />
                                 );
                             })}
                         </View>
