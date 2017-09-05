@@ -59,18 +59,8 @@ export default class ResturantCarousel extends Component {
               open: child.val().open ? child.val().open:'No Times',
               tags: child.val().tags ? child.val().tags:{}
             });
-
-            // itemsRef.child(child.key).on('value', (snap) => {
-
-            //     snap.forEach((child) => {
-            //         console.log('g: ' + child.val().g);
-            //     });
-            // });
-
-            //console.log(child.child('tags').val());
             
-            tagsArray.push(child.child('tags').val());
-            //console.log(tagsArray);
+            //tagsArray.push(child.child('tags').val());
 
 
           });
@@ -78,7 +68,7 @@ export default class ResturantCarousel extends Component {
         //Stores the items array received in the dataSource for access later
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
-            tagValue: JSON.parse(JSON.stringify(tagsArray)),
+            //tagValue: JSON.parse(JSON.stringify(tagsArray)),
           });
 
           console.log(this.state.tagValue);
@@ -92,14 +82,9 @@ export default class ResturantCarousel extends Component {
     }
 
     _renderItem ({item, index}) {
-        //console.log(item.categories);
-        // var data = item.catgories.map(function(itemValue) {
-        //       console.log(itemValue.vegan);
-        //   });
         //item comes from the data source provided in the render() function
         console.log(item.restaurantName);
-        //console.log(this.state.tagValue);
-        //console.log(item.tags);
+        
         return (
             <CardView 
             text={item.restaurantName} 

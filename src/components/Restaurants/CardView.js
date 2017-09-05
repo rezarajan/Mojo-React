@@ -18,7 +18,7 @@ export default class CardView extends Component {
         this.state = {
             openIndicator: 'white',
         };
-    }
+    } 
 
 
     render() {
@@ -38,9 +38,23 @@ export default class CardView extends Component {
             this.state.openIndicator='white'
         }
 
-        //this.props.tagValue ? console.log(this.props.tagValue):console.log('No tags');
         console.log(this.props.index);
         console.log(this.props.tags);
+
+        var tagView = [];
+
+        //Loops through the tags JSON array and gets the key/value pair
+        for (var key in this.props.tags) {
+            if (this.props.tags.hasOwnProperty(key)) {
+                tagView.push({tag: key});
+            }
+        }
+
+        console.log(tagView);
+
+
+
+        
 
         return (
             //cretaes a background for the profile pic
@@ -63,7 +77,12 @@ export default class CardView extends Component {
                         </Text>
 
                         <View style={styles.categoriesGrid}>
-                                
+                            {/* rendering the tags */}
+                            {tagView.map((key, i) => {
+                                return (
+                                    <View><Text>{key.tag}</Text></View>
+                                );
+                            })}
                         </View>
                     </View>
 
