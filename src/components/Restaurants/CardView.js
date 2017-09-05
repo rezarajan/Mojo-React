@@ -32,11 +32,16 @@ export default class CardView extends Component {
             this.state.openIndicator='coral'
         }
         else if(this.props.open === "Closed"){
-            this.state.openIndicator='coral'
+            this.state.openIndicator='crimson'
         }
         else {
             this.state.openIndicator='white'
         }
+
+        //this.props.tagValue ? console.log(this.props.tagValue):console.log('No tags');
+        console.log(this.props.index);
+        console.log(this.props.tags);
+
         return (
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth}]}>
@@ -52,10 +57,14 @@ export default class CardView extends Component {
                         </View>
                         
                         <Text style={[styles.moreinfo]}>{this.props.genre}</Text>
-                        <Text style={[styles.moreinfo, {marginTop: 16, width: 162}]}>
+                        <Text style={[styles.moreinfo, {marginTop: 16, width: 162, fontSize: 12}]}>
 
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. At certe gravius. Nam memini etiam quae nolo, oblivisci non possum quae volo
                         </Text>
+
+                        <View style={styles.categoriesGrid}>
+                                
+                        </View>
                     </View>
 
                 </View>
@@ -124,5 +133,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '300',
         fontFamily: 'Avenir',
-    }
+    },
+    categoriesGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
 });

@@ -37,6 +37,7 @@ export default class ResturantCarousel extends Component {
         this.itemsRef = firebase.database().ref().child('listing/venue');
         this.state = {
             dataSource: null,
+            tagValue: [],
             open: 'white',
         };
     }
@@ -47,16 +48,17 @@ export default class ResturantCarousel extends Component {
     
           // get children as an array
           var items = [];
+          var tagsArray = [];
           snap.forEach((child) => {
             items.push({
               //title: child.val().title,
               _key: child.key,
-              restaurantName: child.val().restaurant,
-              backgroundColor: child.val().color,
-              genre: child.val().genre,
-              open: child.val().open,
+              restaurantName: child.val().restaurant ? child.val().restaurant:'Restaurant Name',
+              backgroundColor: child.val().color ? child.val().color: 'aliceblue',
+              genre: child.val().genre ? child.val().genre:'Genre',
+              open: child.val().open ? child.val().open:'No Times',
+              tags: child.val().tags ? child.val().tags:{}
             });
-            console.log(child.val().restaurant);
 
             // itemsRef.child(child.key).on('value', (snap) => {
 
@@ -64,14 +66,22 @@ export default class ResturantCarousel extends Component {
             //         console.log('g: ' + child.val().g);
             //     });
             // });
+
+            //console.log(child.child('tags').val());
+            
+            tagsArray.push(child.child('tags').val());
+            //console.log(tagsArray);
+
+
           });
 
         //Stores the items array received in the dataSource for access later
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
+            tagValue: JSON.parse(JSON.stringify(tagsArray)),
           });
 
-          console.log(this.state.dataSource);
+          console.log(this.state.tagValue);
     
         });
       }
@@ -82,12 +92,22 @@ export default class ResturantCarousel extends Component {
     }
 
     _renderItem ({item, index}) {
+        //console.log(item.categories);
+        // var data = item.catgories.map(function(itemValue) {
+        //       console.log(itemValue.vegan);
+        //   });
+        //item comes from the data source provided in the render() function
+        console.log(item.restaurantName);
+        //console.log(this.state.tagValue);
+        //console.log(item.tags);
         return (
             <CardView 
             text={item.restaurantName} 
             backgroundColor={item.backgroundColor} 
             genre={item.genre}    
-            open={item.open}        
+            open={item.open}      
+            index={index}
+            tags={item.tags}
             itemWidth={itemWidth}
             />
         );
@@ -96,7 +116,7 @@ export default class ResturantCarousel extends Component {
     render() {
 
         //setting the layout as a placeholder until the data is acquired from Firebase
-        console.log(this.state.dataSource);
+        //console.log(this.state.dataSource);
         const content = this.state.dataSource ?
             <Carousel
             ref={(c) => { this._carousel = c; }}
@@ -123,6 +143,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+        marginTop: 54,
 
        },
          //Mojo button wrapper
