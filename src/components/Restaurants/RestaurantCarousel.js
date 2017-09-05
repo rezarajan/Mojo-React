@@ -20,7 +20,7 @@ const deviceH = Dimensions.get('window').height;
 
 //Change this to whatver width the CardView is to be
 //and the chnages propogate to the render() and CardView layout
-const itemWidth = 0.6*deviceW;
+const itemWidth = 0.7*deviceW;
 
 const basePx = 375
 
@@ -37,6 +37,7 @@ export default class ResturantCarousel extends Component {
         this.itemsRef = firebase.database().ref().child('listing/venue');
         this.state = {
             dataSource: null,
+            open: 'white',
         };
     }
 
@@ -52,6 +53,8 @@ export default class ResturantCarousel extends Component {
               _key: child.key,
               restaurantName: child.val().restaurant,
               backgroundColor: child.val().color,
+              genre: child.val().genre,
+              open: child.val().open,
             });
             console.log(child.val().restaurant);
 
@@ -80,7 +83,13 @@ export default class ResturantCarousel extends Component {
 
     _renderItem ({item, index}) {
         return (
-            <CardView text={item.restaurantName} backgroundColor={item.backgroundColor} itemWidth= {itemWidth}/>
+            <CardView 
+            text={item.restaurantName} 
+            backgroundColor={item.backgroundColor} 
+            genre={item.genre}    
+            open={item.open}        
+            itemWidth={itemWidth}
+            />
         );
     }
 
