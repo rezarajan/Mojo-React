@@ -112,7 +112,8 @@ export default class ResturantCarousel extends Component {
             sliderWidth={deviceW}
             sliderHeight={deviceH}
             itemWidth={itemWidth}
-            snapOnAndroid={false}
+            enableMomentum={true}
+            //snapOnAndroid={false}
             />
         :
             //change this to whatever loading layout as a placeholder
