@@ -28,39 +28,6 @@ function px2dp(px) {
   return px *  deviceW / basePx
 }
 
-const ENTRIES1 = [
-    {
-        title: 'Beautiful and dramatic Antelope Canyon',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'http://i.imgur.com/UYiroysl.jpg'
-    },
-    {
-        title: 'Earlier this morning, NYC',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'http://i.imgur.com/UPrs1EWl.jpg'
-    },
-    {
-        title: 'White Pocket Sunset',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-        illustration: 'http://i.imgur.com/MABUbpDl.jpg'
-    },
-    {
-        title: 'Acrocorinth, Greece',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'http://i.imgur.com/KZsmUi2l.jpg'
-    },
-    {
-        title: 'The lone tree, majestic landscape of New Zealand',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'http://i.imgur.com/2nCt3Sbl.jpg'
-    },
-    {
-        title: 'Middle Earth, Germany',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'http://i.imgur.com/lceHsT6l.jpg'
-    }
-];
-
 export default class ResturantCarousel extends Component {
 
 
@@ -113,15 +80,11 @@ export default class ResturantCarousel extends Component {
 
     _renderItem ({item, index}) {
         return (
-            // <View style={styles.logoWrapper}>
-            //     <Text style={styles.text}>{item.restaurantName}</Text>
-            // </View>
             <CardView text={item.restaurantName} backgroundColor={item.backgroundColor} itemWidth= {itemWidth}/>
         );
     }
 
     render() {
-        //console.log(ENTRIES1);
 
         //setting the layout as a placeholder until the data is acquired from Firebase
         console.log(this.state.dataSource);
