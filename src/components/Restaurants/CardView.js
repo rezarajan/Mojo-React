@@ -56,7 +56,7 @@ export default class CardView extends Component {
         //console.log(tagView);
         return (
             //cretaes a background for the profile pic
-            <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth}]}>
+            <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
                 <View style={styles.header}>
                     <View style={styles.profilepicWrap}>
                         <Image style={styles.profilepic} source={{uri:this.props.icon}} />

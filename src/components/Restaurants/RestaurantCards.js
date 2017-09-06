@@ -17,6 +17,7 @@ import RestaurantCarousel from './RestaurantCarousel';
 //import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
 import Modal from 'react-native-modal';
+import CardView from './CardView';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -33,8 +34,10 @@ export default class RestaurantCards extends Component {
         super(props);
         this._showModal = this._showModal.bind(this);
         this._hideModal = this._hideModal.bind(this);
+        this._showExtrasModal = this._showExtrasModal.bind(this);
         this.state = {
-            isModalVisible: false
+            isModalVisible: false,
+            isExtrasModalVisible: false
           }
       }
 
@@ -45,7 +48,24 @@ export default class RestaurantCards extends Component {
         this.setState({ isModalVisible: true });
     }
   
-    _hideModal = () => this.setState({ isModalVisible: false })
+    _hideModal = () => {
+
+        //Sets the state of the second modal to false and lets it transition down
+        this.setState({ 
+        isModalExtrasVisible: false,
+        });
+
+        //sets a delay for setting the state of the first modal 
+        //so that it transitions out almost when the second modal is out
+        setTimeout(() => {
+            this.setState({ isModalVisible: false });
+        }, 200);
+    }
+
+    _showExtrasModal = () => {
+        this.setState({ isModalExtrasVisible: true });
+    }
+  
 
     render() {
 
@@ -54,8 +74,34 @@ export default class RestaurantCards extends Component {
         return(
             <View style={styles.container}>
                 <RestaurantHeader /> 
-                <RestaurantCarousel dothings={this._showModal} domorethings={this._hideModal}/>
-            
+                <RestaurantCarousel dothings={this._showModal}/>
+                <Modal isVisible={this.state.isModalVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 98, alignItems: 'center'}}>
+                    <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
+                    <CardView 
+                    text={'Item'} 
+                    backgroundColor={'green'} 
+                    genre={'Coffee'}    
+                    open={'Open'}    
+                    waitTime={'10 mins'}
+                    itemWidth={0.9*deviceW}
+                    itemHeight={deviceH}
+                    />
+                    </TouchableOpacity>
+
+                    <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 134, alignItems: 'center'}}>
+                    <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
+                    <CardView 
+                    text={'Item'} 
+                    backgroundColor={'aliceblue'} 
+                    genre={'Extras'}    
+                    open={'Open'}    
+                    waitTime={'10 mins'}
+                    itemWidth={0.9*deviceW}
+                    itemHeight={deviceH}
+                    />
+                    </TouchableOpacity>
+                </Modal>
+                </Modal>
             </View>
         );
     }

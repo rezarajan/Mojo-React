@@ -129,11 +129,6 @@ export default class ResturantCarousel extends Component {
         </TouchableOpacity>
   ;
 
-    // componentWillMount (){
-    //     this.props.dothings();
-    //     //this.props.domorethings();
-    // }
-
     render() {
 
         //setting the layout as a placeholder until the data is acquired from Firebase
