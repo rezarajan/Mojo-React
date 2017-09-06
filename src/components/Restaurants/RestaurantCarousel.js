@@ -98,7 +98,11 @@ export default class ResturantCarousel extends Component {
             var keyname = keysWorker("main", keysObject);
     
             //Appends any data(items) on particular tags to the corresponding child tag for reference later
-            keyItems[keyname] = keysObject[keyname.toString()];
+            keyItems.push({
+                [keyname]:{
+                [child.val().color]: keysObject[keyname.toString()]
+                }
+            });
 
             console.log(keyItems);
 
