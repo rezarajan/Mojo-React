@@ -75,9 +75,22 @@ export default class ResturantCarousel extends Component {
 
             //This operations provides the keys of any object specified, and only for the
             //level defined (does not give the kes for children of children unless specified)
-            var keysObject = Object.keys(child.child('tags').val());
-            console.log(keysObject);
+            //var keysObject = Object.keys(child.child('tags').val());
 
+            //keysObject[0] = {Halal: true, Kosher: false};
+
+            var keysObject = [];
+            keysObject = child.child('tags').val();
+            //keysObject[Object.keys(child.child('tags').val())] = {Halal: true, Kosher: false};
+
+            // This function find the key(s) for a specific value, rather than finding the value for key
+            keysWorker = (value, keyholder) => {
+                var object = keyholder;
+                return Object.keys(object).find(key => object[key] === value);
+              };
+            //console.log(child.child('tags').val());
+
+            console.log(keysWorker("main", keysObject));
 
           });
 
