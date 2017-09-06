@@ -111,7 +111,9 @@ export default class ResturantCarousel extends Component {
     // }
 
     _renderItem = ({item, index}) =>
-        <TouchableOpacity onPress={() => {
+        <TouchableOpacity 
+        activeOpacity={0.98}
+        onPress={() => {
             this.props.dothings();
             console.log(index);
             }}>
@@ -142,6 +144,14 @@ export default class ResturantCarousel extends Component {
             itemWidth={itemWidth}
             enableMomentum={false}
             //snapOnAndroid={false}
+            scrollEndDragDebounceValue={0}
+            animationFunc={'timing'}
+            animationOptions={{
+                friction: -1,
+                tension: 40,
+                isInteraction: false,
+                useNativeDriver: true
+            }}
             />
         :
             //change this to whatever loading layout as a placeholder
