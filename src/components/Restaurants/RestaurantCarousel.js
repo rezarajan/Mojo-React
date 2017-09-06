@@ -24,6 +24,8 @@ const itemWidth = 0.7*deviceW;
 
 const basePx = 375
 
+var keyItems = [];
+
 function px2dp(px) {
   return px *  deviceW / basePx
 }
@@ -80,8 +82,10 @@ export default class ResturantCarousel extends Component {
             //keysObject[0] = {Halal: true, Kosher: false};
 
             var keysObject = [];
+
             keysObject = child.child('tags').val();
             //keysObject[Object.keys(child.child('tags').val())] = {Halal: true, Kosher: false};
+            //keysObject = Object.keys(child.child('tags').val());
 
             // This function find the key(s) for a specific value, rather than finding the value for key
             keysWorker = (value, keyholder) => {
@@ -91,6 +95,12 @@ export default class ResturantCarousel extends Component {
             //console.log(child.child('tags').val());
 
             console.log(keysWorker("main", keysObject));
+            var keyname = keysWorker("main", keysObject);
+    
+            //Appends any data(items) on particular tags to the corresponding child tag for reference later
+            keyItems[keyname] = keysObject[keyname.toString()];
+
+            console.log(keyItems);
 
           });
 
