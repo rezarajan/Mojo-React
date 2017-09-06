@@ -34,12 +34,21 @@ export default class ResturantCarousel extends Component {
     constructor (props) {
         super(props);
 
+        this.pressFunction = this.pressFunction.bind(this);
+
         this.itemsRef = firebase.database().ref().child('listing/venue');
         this.state = {
             dataSource: null,
             tagValue: [],
             open: 'white',
+            isModalVisible: false,            
         };
+    }
+
+    pressFunction() {
+        //this.setState({ isModalVisible: true });
+        console.log('Card Clicked');
+        
     }
 
     // listens for firebase realtime updates
@@ -70,7 +79,6 @@ export default class ResturantCarousel extends Component {
         //Stores the items array received in the dataSource for access later
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
-            //tagValue: JSON.parse(JSON.stringify(tagsArray)),
           });
 
           //console.log(this.state.tagValue);
@@ -83,11 +91,30 @@ export default class ResturantCarousel extends Component {
         this.listenForItems(this.itemsRef);
     }
 
-    _renderItem ({item, index}) {
-        //item comes from the data source provided in the render() function
-        //console.log(item.restaurantName);
+    // _renderItem ({item, index}) {
+    //     //item comes from the data source provided in the render() function
         
-        return (
+
+    //         <TouchableOpacity onPress={() => this.pressFunction}>
+    //         <CardView 
+    //         text={item.restaurantName} 
+    //         backgroundColor={item.backgroundColor} 
+    //         genre={item.genre}    
+    //         open={item.open} 
+    //         icon={item.icon}     
+    //         index={index}
+    //         tags={item.tags}
+    //         waitTime={item.waitTime}
+    //         itemWidth={itemWidth}
+    //         />
+    //         </TouchableOpacity>
+    // }
+
+    _renderItem = ({item, index}) =>
+        <TouchableOpacity onPress={() => {
+            this.props.dothings();
+            console.log(index);
+            }}>
             <CardView 
             text={item.restaurantName} 
             backgroundColor={item.backgroundColor} 
@@ -98,15 +125,18 @@ export default class ResturantCarousel extends Component {
             tags={item.tags}
             waitTime={item.waitTime}
             itemWidth={itemWidth}
-            onPress={() => this.props.visibilityFunction() }
             />
-        );
-    }
+        </TouchableOpacity>
+  ;
+
+    // componentWillMount (){
+    //     this.props.dothings();
+    //     //this.props.domorethings();
+    // }
 
     render() {
 
         //setting the layout as a placeholder until the data is acquired from Firebase
-        //console.log(this.state.dataSource);
         const content = this.state.dataSource ?
             <Carousel
             ref={(c) => { this._carousel = c; }}
@@ -121,9 +151,12 @@ export default class ResturantCarousel extends Component {
         :
             //change this to whatever loading layout as a placeholder
             null;
+            
+
+            //console.log(this.props.dothings);
 
         return(
-            <View style={styles.container} > 
+            <View style={styles.container}> 
                 {content}
             </View>
         );

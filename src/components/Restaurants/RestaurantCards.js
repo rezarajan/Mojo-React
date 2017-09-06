@@ -29,24 +29,32 @@ function px2dp(px) {
 
 export default class RestaurantCards extends Component {
 
-    state = {
-        isModalVisible: false
+    constructor(props) {
+        super(props);
+        this._showModal = this._showModal.bind(this);
+        this._hideModal = this._hideModal.bind(this);
+        this.state = {
+            isModalVisible: false
+          }
       }
+
+    
 
 
     _showModal = () => {
         this.setState({ isModalVisible: true });
-        console.log('Card Clicked');
-    
     }
   
     _hideModal = () => this.setState({ isModalVisible: false })
 
     render() {
+
+        console.log(this.state.isModalVisible);
+
         return(
             <View style={styles.container}>
                 <RestaurantHeader /> 
-                <RestaurantCarousel visibilityFunction={this._showModal.bind(this)}/>
+                <RestaurantCarousel dothings={this._showModal} domorethings={this._hideModal}/>
             
             </View>
         );

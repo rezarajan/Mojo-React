@@ -6,6 +6,7 @@ import {
     View,
     Image,
     Dimensions,
+    TouchableOpacity,
 } from 'react-native';
 import RoundedText from './RoundedText';
 
@@ -21,6 +22,10 @@ export default class CardView extends Component {
         };
     } 
 
+    componentDidMount () {
+        this.props.dostuff;
+        //console.log(this.props.dostuff);
+    }
 
     render() {
 
@@ -39,9 +44,6 @@ export default class CardView extends Component {
             this.state.openIndicator='white'
         }
 
-        //console.log(this.props.index);
-        //console.log(this.props.tags);
-
         var tagView = [];
 
         //Loops through the tags JSON array and gets the key/value pair
@@ -52,11 +54,6 @@ export default class CardView extends Component {
         }
 
         //console.log(tagView);
-
-
-
-        
-
         return (
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth}]}>
