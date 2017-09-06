@@ -73,13 +73,21 @@ export default class ResturantCarousel extends Component {
             
             //tagsArray.push(child.child('tags').val());
 
+            //This operations provides the keys of any object specified, and only for the
+            //level defined (does not give the kes for children of children unless specified)
+            var keysObject = Object.keys(child.child('tags').val());
+            console.log(keysObject);
+
 
           });
+
 
         //Stores the items array received in the dataSource for access later
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
           });
+
+          console.log(this.state.dataSource);
 
           //console.log(this.state.tagValue);
     
