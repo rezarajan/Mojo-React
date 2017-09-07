@@ -22,11 +22,6 @@ export default class CardView extends Component {
         };
     } 
 
-    componentDidMount () {
-        this.props.dostuff;
-        //console.log(this.props.dostuff);
-    }
-
     render() {
 
         {/* This condition checks for the status of the restaurant passed and sets the appropriate text colour */}

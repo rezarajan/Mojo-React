@@ -76,7 +76,6 @@ export default class ResturantCarousel extends Component {
               waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
             });
 
-
             //This operations provides the keys of any object specified, and only for the
             //level defined (does not give the kes for children of children unless specified)
             //var keysObject1 = Object.keys(child.child('tags').val());
