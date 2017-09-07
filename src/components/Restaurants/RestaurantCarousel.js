@@ -36,7 +36,7 @@ export default class ResturantCarousel extends Component {
 
         this.pressFunction = this.pressFunction.bind(this);
 
-        this.itemsRef = firebase.database().ref().child('listing/venue');
+        this.itemsRef = firebase.database().ref();
         this.state = {
             dataSource: null,
             tagValue: [],
@@ -131,7 +131,7 @@ export default class ResturantCarousel extends Component {
           }
 
         //Uses a callback method to send the filtered data to the parent (RestaurantCards)
-        this.props.returnTagInfo(tempSortedItems); 
+        //this.props.returnTagInfo(tempSortedItems); 
 
         //Stores the items array received in the dataSource for access later
           this.setState({
@@ -143,9 +143,89 @@ export default class ResturantCarousel extends Component {
         });
       }
 
+
+      acquireMenu(itemsRef) {
+        itemsRef.on('value', (snap) => {
+    
+          // get children as an array
+          var items = [];
+          var tagsArray = [];
+          var keyItems = [];  
+          var keyname = [];   
+          var uniquekeys = [];   
+          snap.forEach((child) => {
+
+            //populating an array with the data from Firebase
+            items.push({
+              //title: child.val().title,
+              _key: child.key,
+              cost: child.val().cost ? child.val().cost : 0,
+              quantity: child.val().quantity ? child.val().quantity : 0,
+              tags: child.val().tags ? child.val().tags : {},
+            });
+
+            //This operations provides the keys of any object specified, and only for the
+            //level defined (does not give the kes for children of children unless specified)
+            //var keysObject1 = Object.keys(child.child('tags').val());
+
+            //Receives the tag information from Firebase to do a custom filter which works like a deep query later
+            //This information would be used for filtering item categories to populate the restaurant menu
+            var keysObject = [];
+            keysObject = child.val().tags ? child.val().tags : {};
+
+            // This function find the key(s) for a specific value, rather than finding the value for key
+            keysWorker = (value, keyholder) => {
+                var object = keyholder;
+                return Object.keys(object).find(key => object[key] === value);
+              };
+
+            //For the case when the tag is undefined it would just name the key "Undefined"
+            var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): "Undefined";
+            //cretaes an array of items with the main key tags for the particular items from Firebase
+            keyname.push(currentkey);
+
+            //Appends any data(items) on particular tags to the corresponding child tag for reference later
+            keyItems.push({
+                [currentkey]: {[child.key] : "true"}
+            });
+
+          });
+
+          //Creates an array of unique tags from the keyname array to be used later for filtering
+          uniquekeys = [...new Set(keyname)];
+
+          var tempCategoryHolder = [];
+          var tempSortedItems = [];
+          
+          //Filters the keyItems object using the unique key values from the uniquekeys array
+          for(index=0;index<uniquekeys.length;index++){
+
+              //Resets the temporary array
+              tempCategoryHolder = [];
+              keyItems.map((key, i) => {
+                  //Pushes the items of a particular category/tag to a temporary array using it's key
+                  key[uniquekeys[index]]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
+              });
+              
+              //Creates a temporary array for a particular category/tag 
+              //and populates it with the items from that category/tag
+              //from the temporary array above
+              for(i=0;i<tempCategoryHolder.length;i++){
+                  var temp = tempCategoryHolder[i];
+                  tempSortedItems[uniquekeys[index]] = {...tempSortedItems[uniquekeys[index]],[temp] : "true"}
+              }          
+  
+          }
+
+        //Uses a callback method to send the filtered data to the parent (RestaurantCards)
+        this.props.returnRestaurantInfo(tempSortedItems); 
+    
+        });
+      }
+
     componentDidMount() {
         //on launch this is store the key value pairs from firebase for populating the snap carousel
-        this.listenForItems(this.itemsRef);
+        this.listenForItems(this.itemsRef.child('listing/venue'));
     }
 
     _renderItem = ({item, index}) =>
@@ -155,6 +235,7 @@ export default class ResturantCarousel extends Component {
         activeOpacity={0.98}
         onPress={() => {
                 this.props.showModal();
+                this.acquireMenu(this.itemsRef.child('menu').child(item.restaurantName).child('Items'));
                 //console.log(index);
             }}>
             <CardView 

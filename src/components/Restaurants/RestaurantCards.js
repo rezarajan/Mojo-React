@@ -17,7 +17,7 @@ import RestaurantCarousel from './RestaurantCarousel';
 //import ActionButton from 'react-native-circular-action-menu';
 import {Dimensions} from 'react-native'
 import Modal from 'react-native-modal';
-import CardView from './CardView';
+import CardViewMenu from './CardViewMenu';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -76,6 +76,14 @@ export default class RestaurantCards extends Component {
         console.log(this.state.sorteditems);  
 
     }
+
+    returnRestaurantInfo = (tempSortedItems) => {
+        console.log('From Parent');
+        this.setState({
+            sorteditems: tempSortedItems
+        });
+        console.log(this.state.sorteditems);  
+    }
   
 
     render() {
@@ -85,10 +93,13 @@ export default class RestaurantCards extends Component {
         return(
             <View style={styles.container}>
                 <RestaurantHeader /> 
-                <RestaurantCarousel showModal={this._showModal} returnTagInfo={this.returnItemTagInfo}/>
+                <RestaurantCarousel 
+                showModal={this._showModal} 
+                returnTagInfo={this.returnItemTagInfo} 
+                returnRestaurantInfo={this.returnRestaurantInfo}/>
                 <Modal isVisible={this.state.isModalVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 98, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
-                    <CardView 
+                    <CardViewMenu 
                     text={'Item'} 
                     backgroundColor={'green'} 
                     genre={'Coffee'}    
@@ -96,13 +107,13 @@ export default class RestaurantCards extends Component {
                     waitTime={'10 mins'}
                     itemWidth={0.9*deviceW}
                     itemHeight={deviceH}
-                    tags={this.state.sorteditems}
+                    itemTags={this.state.sorteditems}
                     />
                     </TouchableOpacity>
 
                     <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 134, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
-                    <CardView 
+                    <CardViewMenu 
                     text={'Item'} 
                     backgroundColor={'aliceblue'} 
                     genre={'Extras'}    
@@ -110,7 +121,7 @@ export default class RestaurantCards extends Component {
                     waitTime={'10 mins'}
                     itemWidth={0.9*deviceW}
                     itemHeight={deviceH}
-                    tags={this.state.sorteditems}
+                    itemTags={this.state.sorteditems}
                     />
                     </TouchableOpacity>
                 </Modal>

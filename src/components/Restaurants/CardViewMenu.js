@@ -12,7 +12,7 @@ import RoundedText from './RoundedText';
 
 const deviceW = Dimensions.get('window').width;
 
-export default class CardViewMenu extends Component {
+export default class CardView extends Component {
 
     constructor (props) {
         super(props);
@@ -39,16 +39,24 @@ export default class CardViewMenu extends Component {
             this.state.openIndicator='white'
         }
 
-        var tagView = [];
+        var itemTagsArray = [];
 
-        
-        //Loops through the tags JSON array and gets the key/value pair of restaurant identifier tags
-        for (var key in this.props.tags) {
-            if (this.props.tags.hasOwnProperty(key)) {
-                tagView.push({tag: key});
+        //Loops through the tags JSON array and gets the key/value pair of menu item identifier tags
+        for (var key in this.props.itemTags) {
+            if (this.props.itemTags.hasOwnProperty(key)) {
+                Object.keys(this.props.itemTags[key]).map((keyName, i) => {
+                    console.log(keyName);
+                    itemTagsArray = [...itemTagsArray, keyName];
+                })
             }
         }
 
+
+        console.log(itemTagsArray);
+
+
+
+        //console.log(tagView);
         return (
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
@@ -70,15 +78,14 @@ export default class CardViewMenu extends Component {
                         </Text>
 
                         <View style={styles.categoriesGrid}>
-                            {/* rendering the tags */}
+                            {/* rendering the menu items and tags */}
                             {
-                                tagView.map((key, i) => {
+                                itemTagsArray.map((key, i) => {
+                                    console.log(key)
                                     return (
-                                        //<View><Text>{key.tag}</Text></View>
-                                        
                                         <RoundedText 
                                         key={i}
-                                        text={key.tag}
+                                        text={key}
                                         color='#FFFFFF'
                                         backgroundColor='rgba(24,172,222,1)'
                                         />
