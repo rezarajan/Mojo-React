@@ -62,6 +62,8 @@ export default class ResturantCarousel extends Component {
           var keyname = [];   
           var uniquekeys = [];   
           snap.forEach((child) => {
+
+            //populating an array with the data from Firebase
             items.push({
               //title: child.val().title,
               _key: child.key,
@@ -74,16 +76,15 @@ export default class ResturantCarousel extends Component {
               waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
             });
 
-            console.log(items);
 
             //This operations provides the keys of any object specified, and only for the
             //level defined (does not give the kes for children of children unless specified)
             //var keysObject1 = Object.keys(child.child('tags').val());
 
-
+            //Receives the tag information from Firebase to do a custom filter which works like a deep query later
+            //This information would be used for filtering item categories to populate the restaurant menu
             var keysObject = [];
-            keysObject = child.child('tags').val();
-            console.log(keysObject);
+            keysObject = child.val().tags ? child.val().tags : {};
 
             // This function find the key(s) for a specific value, rather than finding the value for key
             keysWorker = (value, keyholder) => {
@@ -105,18 +106,9 @@ export default class ResturantCarousel extends Component {
 
           //Creates an array of unique tags from the keyname array to be used later for filtering
           uniquekeys = [...new Set(keyname)];
-          console.log(uniquekeys);
-          console.log(keyItems);
 
-          //Filters the keyItems object using the unique key values from the uniquekeys array
-          for(index=0;index<uniquekeys.length;index++){
-            console.log('Tag: ' + uniquekeys[index]);
-              keyItems.map((key, i) => {
-                key[uniquekeys[index]]? console.log(key[uniquekeys[index]]): null;
-              });
-          }
-
-
+        //Uses a callback method to send the data to the parent (RestaurantCards), where the filtering would now be done
+          this.props.returnTagInfo(uniquekeys, keyItems);
         //Stores the items array received in the dataSource for access later
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
@@ -138,8 +130,8 @@ export default class ResturantCarousel extends Component {
         <TouchableOpacity 
         activeOpacity={0.98}
         onPress={() => {
-            this.props.dothings();
-            console.log(index);
+                this.props.showModal();
+                console.log(index);
             }}>
             <CardView 
             text={item.restaurantName} 
@@ -181,8 +173,6 @@ export default class ResturantCarousel extends Component {
             //change this to whatever loading layout as a placeholder
             null;
             
-
-            //console.log(this.props.dothings);
 
         return(
             <View style={styles.container}> 

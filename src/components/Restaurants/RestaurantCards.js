@@ -65,6 +65,19 @@ export default class RestaurantCards extends Component {
     _showExtrasModal = () => {
         this.setState({ isModalExtrasVisible: true });
     }
+
+    returnItemTagInfo = (uniquekeys, keyItems) => {
+        console.log('From Parent');
+
+        //Gets the data from the child
+        //Filters the keyItems object using the unique key values from the uniquekeys array
+        for(index=0;index<uniquekeys.length;index++){
+        console.log('Tag: ' + uniquekeys[index]);
+            keyItems.map((key, i) => {
+            key[uniquekeys[index]]? console.log(key[uniquekeys[index]]): null;
+            });
+        }
+    }
   
 
     render() {
@@ -74,7 +87,7 @@ export default class RestaurantCards extends Component {
         return(
             <View style={styles.container}>
                 <RestaurantHeader /> 
-                <RestaurantCarousel dothings={this._showModal}/>
+                <RestaurantCarousel showModal={this._showModal} returnTagInfo={this.returnItemTagInfo}/>
                 <Modal isVisible={this.state.isModalVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 98, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
                     <CardView 
