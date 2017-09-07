@@ -106,8 +106,33 @@ export default class ResturantCarousel extends Component {
           //Creates an array of unique tags from the keyname array to be used later for filtering
           uniquekeys = [...new Set(keyname)];
 
-        //Uses a callback method to send the data to the parent (RestaurantCards), where the filtering would now be done
-          this.props.returnTagInfo(uniquekeys, keyItems);
+          console.log('From Parent');
+          var tempCategoryHolder = [];
+          var tempSortedItems = [];
+          
+          //Filters the keyItems object using the unique key values from the uniquekeys array
+          for(index=0;index<uniquekeys.length;index++){
+
+              //Resets the temporary array
+              tempCategoryHolder = [];
+              keyItems.map((key, i) => {
+                  //Pushes the items of a particular category/tag to a temporary array using it's key
+                  key[uniquekeys[index]]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
+              });
+              
+              //Creates a temporary array for a particular category/tag 
+              //and populates it with the items from that category/tag
+              //from the temporary array above
+              for(i=0;i<tempCategoryHolder.length;i++){
+                  var temp = tempCategoryHolder[i];
+                  tempSortedItems[uniquekeys[index]] = {...tempSortedItems[uniquekeys[index]],[temp] : "true"}
+              }          
+  
+          }
+
+        //Uses a callback method to send the filtered data to the parent (RestaurantCards)
+        this.props.returnTagInfo(tempSortedItems); 
+
         //Stores the items array received in the dataSource for access later
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
@@ -130,7 +155,7 @@ export default class ResturantCarousel extends Component {
         activeOpacity={0.98}
         onPress={() => {
                 this.props.showModal();
-                console.log(index);
+                //console.log(index);
             }}>
             <CardView 
             text={item.restaurantName} 

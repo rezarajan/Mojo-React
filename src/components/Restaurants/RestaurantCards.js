@@ -38,7 +38,6 @@ export default class RestaurantCards extends Component {
         this.state = {
             isModalVisible: false,
             isExtrasModalVisible: false,
-            uniquetags: [],
             sorteditems: [],
           }
       }
@@ -68,37 +67,14 @@ export default class RestaurantCards extends Component {
         this.setState({ isModalExtrasVisible: true });
     }
 
-    returnItemTagInfo = (uniquekeys, keyItems) => {
+    returnItemTagInfo = (tempSortedItems) => {
         console.log('From Parent');
-        var tempCategoryHolder = [];
-        var tempSortedItems = [];
-        
         this.setState({
-            uniquetags: uniquekeys,
-            sorteditems: [],
+            sorteditems: tempSortedItems
         });
-        //console.log(this.state.uniquetags);
-        //Gets the data from the child
-        //Filters the keyItems object using the unique key values from the uniquekeys array
-        for(index=0;index<uniquekeys.length;index++){
-        //console.log('Tag: ' + uniquekeys[index]);
-            tempCategoryHolder = [];
-            keyItems.map((key, i) => {
-                key[uniquekeys[index]]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
-            });
-            
-            for(i=0;i<tempCategoryHolder.length;i++){
-                var temp = tempCategoryHolder[i];
-                tempSortedItems[uniquekeys[index]] = {...tempSortedItems[uniquekeys[index]],[temp] : "true"}
-            }
-            
-            this.setState({
-                sorteditems: tempSortedItems
-            });
 
-            console.log(this.state.sorteditems);            
+        console.log(this.state.sorteditems);  
 
-        }
     }
   
 
