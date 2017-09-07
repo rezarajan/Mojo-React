@@ -117,7 +117,7 @@ export default class RestaurantCards extends Component {
 
                     <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 134, alignItems: 'center'}}>
                     <ScrollView>
-                        <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
+                        <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
                             <CardViewMenu 
                             text={'Item'} 
                             backgroundColor={'aliceblue'} 
