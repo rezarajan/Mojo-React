@@ -91,7 +91,8 @@ export default class ResturantCarousel extends Component {
                 return Object.keys(object).find(key => object[key] === value);
               };
 
-            var currentkey = keysWorker("main", keysObject);
+            //For the case when the tag is undefined it would just name the key "Undefined"
+            var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): "Undefined";
             //cretaes an array of items with the main key tags for the particular items from Firebase
             keyname.push(currentkey);
 
@@ -109,8 +110,9 @@ export default class ResturantCarousel extends Component {
 
           //Filters the keyItems object using the unique key values from the uniquekeys array
           for(index=0;index<uniquekeys.length;index++){
+            console.log('Tag: ' + uniquekeys[index]);
               keyItems.map((key, i) => {
-                  console.log(key[uniquekeys[index]]);
+                key[uniquekeys[index]]? console.log(key[uniquekeys[index]]): null;
               });
           }
 
