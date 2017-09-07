@@ -24,8 +24,6 @@ const itemWidth = 0.7*deviceW;
 
 const basePx = 375
 
-var keyItems = [];
-
 function px2dp(px) {
   return px *  deviceW / basePx
 }
@@ -60,6 +58,9 @@ export default class ResturantCarousel extends Component {
           // get children as an array
           var items = [];
           var tagsArray = [];
+          var keyItems = [];  
+          var keyname = [];   
+          var uniquekeys = [];   
           snap.forEach((child) => {
             items.push({
               //title: child.val().title,
@@ -72,41 +73,46 @@ export default class ResturantCarousel extends Component {
               tags: child.val().tags ? child.val().tags : {},
               waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
             });
-            
-            //tagsArray.push(child.child('tags').val());
+
+            console.log(items);
 
             //This operations provides the keys of any object specified, and only for the
             //level defined (does not give the kes for children of children unless specified)
-            //var keysObject = Object.keys(child.child('tags').val());
+            //var keysObject1 = Object.keys(child.child('tags').val());
 
-            //keysObject[0] = {Halal: true, Kosher: false};
 
             var keysObject = [];
-
             keysObject = child.child('tags').val();
-            //keysObject[Object.keys(child.child('tags').val())] = {Halal: true, Kosher: false};
-            //keysObject = Object.keys(child.child('tags').val());
+            console.log(keysObject);
 
             // This function find the key(s) for a specific value, rather than finding the value for key
             keysWorker = (value, keyholder) => {
                 var object = keyholder;
                 return Object.keys(object).find(key => object[key] === value);
               };
-            //console.log(child.child('tags').val());
 
-            console.log(keysWorker("main", keysObject));
-            var keyname = keysWorker("main", keysObject);
-    
+            var currentkey = keysWorker("main", keysObject);
+            //cretaes an array of items with the main key tags for the particular items from Firebase
+            keyname.push(currentkey);
+
             //Appends any data(items) on particular tags to the corresponding child tag for reference later
             keyItems.push({
-                [keyname]:{
-                [child.val().color]: keysObject[keyname.toString()]
-                }
+                [currentkey]: {[child.val().restaurant] : "true"}
             });
 
-            console.log(keyItems);
-
           });
+
+          //Creates an array of unique tags from the keyname array to be used later for filtering
+          uniquekeys = [...new Set(keyname)];
+          console.log(uniquekeys);
+          console.log(keyItems);
+
+          //Filters the keyItems object using the unique key values from the uniquekeys array
+          for(index=0;index<uniquekeys.length;index++){
+              keyItems.map((key, i) => {
+                  console.log(key[uniquekeys[index]]);
+              });
+          }
 
 
         //Stores the items array received in the dataSource for access later
@@ -115,8 +121,6 @@ export default class ResturantCarousel extends Component {
           });
 
           console.log(this.state.dataSource);
-
-          //console.log(this.state.tagValue);
     
         });
       }
@@ -126,26 +130,9 @@ export default class ResturantCarousel extends Component {
         this.listenForItems(this.itemsRef);
     }
 
-    // _renderItem ({item, index}) {
-    //     //item comes from the data source provided in the render() function
-        
-
-    //         <TouchableOpacity onPress={() => this.pressFunction}>
-    //         <CardView 
-    //         text={item.restaurantName} 
-    //         backgroundColor={item.backgroundColor} 
-    //         genre={item.genre}    
-    //         open={item.open} 
-    //         icon={item.icon}     
-    //         index={index}
-    //         tags={item.tags}
-    //         waitTime={item.waitTime}
-    //         itemWidth={itemWidth}
-    //         />
-    //         </TouchableOpacity>
-    // }
-
     _renderItem = ({item, index}) =>
+        //item comes from the data source provided in the render() function
+        
         <TouchableOpacity 
         activeOpacity={0.98}
         onPress={() => {
