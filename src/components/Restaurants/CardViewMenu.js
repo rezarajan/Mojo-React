@@ -45,14 +45,10 @@ export default class CardView extends Component {
         for (var key in this.props.itemTags) {
             if (this.props.itemTags.hasOwnProperty(key)) {
                 Object.keys(this.props.itemTags[key]).map((keyName, i) => {
-                    console.log(keyName);
                     itemTagsArray = [...itemTagsArray, keyName];
                 })
             }
         }
-
-
-        console.log(itemTagsArray);
 
 
 
@@ -81,7 +77,6 @@ export default class CardView extends Component {
                             {/* rendering the menu items and tags */}
                             {
                                 itemTagsArray.map((key, i) => {
-                                    console.log(key)
                                     return (
                                         <RoundedText 
                                         key={i}

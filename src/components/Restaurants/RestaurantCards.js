@@ -9,6 +9,7 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
+    ScrollView,
 } from 'react-native';
 //import TabNavigator from 'react-native-tab-navigator';
 import Name from '../SignUp/Name';
@@ -18,6 +19,7 @@ import RestaurantCarousel from './RestaurantCarousel';
 import {Dimensions} from 'react-native'
 import Modal from 'react-native-modal';
 import CardViewMenu from './CardViewMenu';
+
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -98,32 +100,36 @@ export default class RestaurantCards extends Component {
                 returnTagInfo={this.returnItemTagInfo} 
                 returnRestaurantInfo={this.returnRestaurantInfo}/>
                 <Modal isVisible={this.state.isModalVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 98, alignItems: 'center'}}>
-                    <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
-                    <CardViewMenu 
-                    text={'Item'} 
-                    backgroundColor={'green'} 
-                    genre={'Coffee'}    
-                    open={'Open'}    
-                    waitTime={'10 mins'}
-                    itemWidth={0.9*deviceW}
-                    itemHeight={deviceH}
-                    itemTags={this.state.sorteditems}
-                    />
-                    </TouchableOpacity>
+                    <ScrollView>
+                        <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
+                            <CardViewMenu 
+                            text={'Item'} 
+                            backgroundColor={'green'} 
+                            genre={'Coffee'}    
+                            open={'Open'}    
+                            waitTime={'10 mins'}
+                            itemWidth={0.9*deviceW}
+                            itemHeight={deviceH}
+                            itemTags={this.state.sorteditems}
+                            />
+                        </TouchableOpacity>
+                    </ScrollView>
 
                     <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 134, alignItems: 'center'}}>
-                    <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
-                    <CardViewMenu 
-                    text={'Item'} 
-                    backgroundColor={'aliceblue'} 
-                    genre={'Extras'}    
-                    open={'Open'}    
-                    waitTime={'10 mins'}
-                    itemWidth={0.9*deviceW}
-                    itemHeight={deviceH}
-                    itemTags={this.state.sorteditems}
-                    />
-                    </TouchableOpacity>
+                    <ScrollView>
+                        <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
+                            <CardViewMenu 
+                            text={'Item'} 
+                            backgroundColor={'aliceblue'} 
+                            genre={'Coffee'}    
+                            open={'Open'}    
+                            waitTime={'10 mins'}
+                            itemWidth={0.9*deviceW}
+                            itemHeight={deviceH}
+                            itemTags={this.state.sorteditems}
+                            />
+                        </TouchableOpacity>
+                    </ScrollView>
                 </Modal>
                 </Modal>
             </View>
