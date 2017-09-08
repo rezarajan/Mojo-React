@@ -234,8 +234,6 @@ export default class ResturantCarousel extends Component {
         <TouchableOpacity 
         activeOpacity={0.98}
         onPress={() => {
-            console.log(this._carousel.currentIndex);
-            console.log(index);
             //checks the current index against the index of the item clicked
             this._carousel.currentIndex === index ? 
             //if index is the same then it opens the restaurant menu

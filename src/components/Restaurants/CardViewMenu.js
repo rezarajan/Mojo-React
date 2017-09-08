@@ -78,18 +78,39 @@ export default class CardView extends Component {
                             {
                                 itemTagsArray.map((key, i) => {
                                     return (
+
+                                        <View key={i}>
                                         <RoundedText 
-                                        key={i}
                                         text={key}
                                         color='#FFFFFF'
                                         backgroundColor='rgba(24,172,222,1)'
+                                        style={{borderRadius: 19, width: 72, height: 72}}
                                         />
+                                        <Text 
+                                        style={[
+                                            styles.moreinfo, 
+                                            {
+                                                width: 72,
+                                                marginTop: 8, 
+                                                marginBottom: 8, 
+                                                fontSize: 12, 
+                                                fontWeight: 'bold',
+                                                alignItems: 'center',
+                                                justifyContent:'center',
+                                                textAlign: 'center',
+                                            }
+                                            ]}>
+                                            {key}
+                                            </Text>
+                                        
+                                        </View>
+                                        
                                     );
                                 })
-                            }
+                                
+                            }                            
                             
                         </View>
-                        <Text style={[styles.moreinfo, {marginTop: 16, marginBottom: 8, fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery: {this.props.waitTime}</Text>
                     </View>
 
                 </View>
@@ -163,5 +184,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         marginTop: 16,
+        justifyContent: 'space-between',
     },
 });

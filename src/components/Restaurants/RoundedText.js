@@ -14,7 +14,7 @@ import {
 export default class RoundedText extends Component {
   render() {
     return (
-        <View style={[styles.button, {backgroundColor: this.props.backgroundColor, borderColor: this.props.backgroundColor}]}>
+        <View style={[styles.button, this.props.style, {backgroundColor: this.props.backgroundColor, borderColor: this.props.backgroundColor}]}>
           <Text style={[styles.text, {color: this.props.color}]}>{this.props.text}</Text>
         </View>
     );
