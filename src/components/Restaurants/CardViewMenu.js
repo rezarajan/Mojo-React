@@ -27,7 +27,7 @@ export default class CardView extends Component {
         };
     }
 
-    acquireExtras(itemsRef) {
+    acquireExtras(itemsRef, itemName) {
         itemsRef.on('value', (snap) => {
     
           // get children as an array
@@ -44,8 +44,11 @@ export default class CardView extends Component {
               _key: child.key,
               cost: child.val().cost ? child.val().cost : 0,
               quantity: child.val().quantity ? child.val().quantity : 0,
-              correspondingItems: child.val().correspondingItems ? child.val().correspondingItems : {},
-              tags: child.val().tags ? child.val().tags : {},
+              correspondingItems: child.child('correspondingItems').child(itemName).val() ? 
+              child.child('correspondingItems').child(itemName).val() 
+              && {tags: child.val().tags ? child.val().tags : {}}
+              : 
+              {},
             });
 
             //This operations provides the keys of any object specified, and only for the
@@ -55,7 +58,14 @@ export default class CardView extends Component {
             //Receives the tag information from Firebase to do a custom filter which works like a deep query later
             //This information would be used for filtering item categories to populate the restaurant menu
             var keysObject = [];
-            keysObject = child.val().tags ? child.val().tags : {};
+            
+            //if the item is found under the correspondingItems node then the tags are added
+            keysObject = child.child('correspondingItems').child(itemName).val() ? 
+            child.val().tags ? child.val().tags : {}
+            : 
+            [],
+            
+            
 
             // This function find the key(s) for a specific value, rather than finding the value for key
             keysWorker = (value, keyholder) => {
@@ -64,14 +74,17 @@ export default class CardView extends Component {
               };
 
             //For the case when the tag is undefined it would just name the key "Undefined"
-            var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): "Undefined";
+            var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): null;
+            
             //cretaes an array of items with the main key tags for the particular items from Firebase
-            keyname.push(currentkey);
+            //if the currentkey exists for the item
+            currentkey && 
+            [keyname.push(currentkey),
 
             //Appends any data(items) on particular tags to the corresponding child tag for reference later
             keyItems.push({
                 [currentkey]: {[child.key] : "true"}
-            });
+            })]
 
           });
 
@@ -100,7 +113,6 @@ export default class CardView extends Component {
               }          
   
           }
-          console.log(tempSortedItems);
 
         //Uses a callback method to send the filtered data to the parent (RestaurantCards)
         this.props.returnExtrasInfo && this.props.returnExtrasInfo(tempSortedItems); 
@@ -157,7 +169,7 @@ export default class CardView extends Component {
                                                         <View key={j}> 
                                                             <TouchableOpacity 
                                                             onPress={ () => {
-                                                                                this.acquireExtras(this.itemsRef.child('menu').child(this.props.restaurantName).child('Extras'));
+                                                                                this.acquireExtras(this.itemsRef.child('menu').child(this.props.restaurantName).child('Extras'), keyName);
                                                                                 this.props._showExtrasModal();
                                                                             }} 
                                                             activeOpacity={0.98}>
