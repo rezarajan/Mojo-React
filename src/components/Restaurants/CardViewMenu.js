@@ -44,8 +44,8 @@ export default class CardView extends Component {
               _key: child.key,
               cost: child.val().cost ? child.val().cost : 0,
               quantity: child.val().quantity ? child.val().quantity : 0,
-              correspondingItems: child.child('correspondingItems').child(itemName).val() ? 
-              child.child('correspondingItems').child(itemName).val() 
+              correspondingItems: child.child('correspondingItems').child(itemName).val() || !child.val().correspondingItems ? 
+              child.child('correspondingItems').child(itemName).val() || !child.val().correspondingItems 
               && {tags: child.val().tags ? child.val().tags : {}}
               : 
               {},
@@ -60,7 +60,9 @@ export default class CardView extends Component {
             var keysObject = [];
             
             //if the item is found under the correspondingItems node then the tags are added
-            keysObject = child.child('correspondingItems').child(itemName).val() ? 
+            //or if the correspondingItems node does not exist then the tags are added 
+            //(this is the case for when the extra corresponds to all items)
+            keysObject = child.child('correspondingItems').child(itemName).val() || !child.val().correspondingItems ? 
             child.val().tags ? child.val().tags : {}
             : 
             [],
