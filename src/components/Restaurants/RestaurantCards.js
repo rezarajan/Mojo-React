@@ -113,7 +113,6 @@ export default class RestaurantCards extends Component {
                             open={'Open'}    
                             waitTime={'10 mins'}
                             itemWidth={0.9*deviceW}
-                            itemHeight={deviceH}
                             itemTags={this.state.sorteditems}
                             />
                         </TouchableOpacity>
@@ -129,7 +128,6 @@ export default class RestaurantCards extends Component {
                             open={'Open'}    
                             waitTime={'10 mins'}
                             itemWidth={0.9*deviceW}
-                            itemHeight={deviceH}
                             itemTags={this.state.sorteditems}
                             />
                         </TouchableOpacity>

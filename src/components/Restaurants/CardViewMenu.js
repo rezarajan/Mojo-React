@@ -40,77 +40,69 @@ export default class CardView extends Component {
         }
 
         var itemTagsArray = [];
+        var tagKeys = [];
 
         //Loops through the tags JSON array and gets the key/value pair of menu item identifier tags
         for (var key in this.props.itemTags) {
             if (this.props.itemTags.hasOwnProperty(key)) {
+                tagKeys = [...tagKeys, key];
+                console.log(this.props.itemTags[key]);
                 Object.keys(this.props.itemTags[key]).map((keyName, i) => {
                     itemTagsArray = [...itemTagsArray, keyName];
                 })
             }
         }
-
-
-
-        //console.log(tagView);
+        
         return (
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
                 <View style={styles.header}>
-                    <View style={styles.profilepicWrap}>
-                        <Image style={styles.profilepic} source={{uri:this.props.icon}} />
-                    </View>
 
                     <View style={[styles.infoHolder]}>
-                        <View style={styles.mainInfo}>
-                            <Text style={styles.name}>{this.props.text}</Text>
-                            <Text style={[styles.openIndicator, {color: this.state.openIndicator}]}>{this.props.open}</Text>
-                        </View>
                         
                         <Text style={[styles.moreinfo]}>{this.props.genre}</Text>
-                        <Text style={[styles.moreinfo, {marginTop: 16, width: 186, fontSize: 12}]}>
 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. At certe gravius.
-                        </Text>
-
-                        <View style={styles.categoriesGrid}>
                             {/* rendering the menu items and tags */}
                             {
-                                itemTagsArray.map((key, i) => {
-                                    return (
-
-                                        <View key={i}>
-                                        <RoundedText 
-                                        text={key}
-                                        color='#FFFFFF'
-                                        backgroundColor='rgba(24,172,222,1)'
-                                        style={{borderRadius: 19, width: 72, height: 72}}
-                                        />
-                                        <Text 
-                                        style={[
-                                            styles.moreinfo, 
-                                            {
-                                                width: 72,
-                                                marginTop: 8, 
-                                                marginBottom: 8, 
-                                                fontSize: 12, 
-                                                fontWeight: 'bold',
-                                                alignItems: 'center',
-                                                justifyContent:'center',
-                                                textAlign: 'center',
-                                            }
-                                            ]}>
-                                            {key}
-                                            </Text>
-                                        
-                                        </View>
-                                        
+                                tagKeys.map((tagKey, i) => {
+                                    return(
+                                        [
+                                            <Text key={i} style={[styles.name, {marginTop: 16}]}>{tagKey}</Text>,
+                                            <View style={styles.categoriesGrid}>
+                                                {Object.keys(this.props.itemTags[tagKey]).map((keyName, j) => {
+                                                    return (
+                                                        <View key={j}>
+                                                            <RoundedText 
+                                                            text={keyName}
+                                                            color='#FFFFFF'
+                                                            backgroundColor='rgba(24,172,222,1)'
+                                                            style={{borderRadius: 19, width: 72, height: 72}}
+                                                            />
+                                                            <Text 
+                                                            style={[
+                                                                styles.moreinfo, 
+                                                                {
+                                                                    width: 72,
+                                                                    marginTop: 8, 
+                                                                    marginBottom: 8, 
+                                                                    fontSize: 12, 
+                                                                    fontWeight: 'bold',
+                                                                    alignItems: 'center',
+                                                                    justifyContent:'center',
+                                                                    textAlign: 'center',
+                                                                }
+                                                                ]}>
+                                                            {keyName}
+                                                            </Text>
+                                                        </View>
+                                                    );
+                                                })}
+                                            </View>
+                                        ]
                                     );
                                 })
                                 
                             }                            
-                            
-                        </View>
                     </View>
 
                 </View>
