@@ -237,7 +237,7 @@ export default class ResturantCarousel extends Component {
             //checks the current index against the index of the item clicked
             this._carousel.currentIndex === index ? 
             //if index is the same then it opens the restaurant menu
-            [this.props.showModal(item.backgroundColor),
+            [this.props.showModal(item.restaurantName, item.backgroundColor, item.waitTime, item.icon),
             this.acquireMenu(this.itemsRef.child('menu').child(item.restaurantName).child('Items'))]
             : 
             //if index is different then it snaps to that index

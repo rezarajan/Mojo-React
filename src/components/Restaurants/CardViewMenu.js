@@ -58,6 +58,17 @@ export default class CardView extends Component {
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
                 <View style={styles.header}>
 
+                    <View style={{flexDirection: 'row', marginBottom: -36, alignItems: 'center'}}>
+                    <View style={styles.profilepicWrap}>
+                        <Image style={styles.profilepic} source={{uri:this.props.icon}} />
+                    </View>
+
+                    <View style={{flexDirection: 'column', marginLeft: 8}}>
+                        <Text style={[styles.name]}>{this.props.restaurantName}</Text>
+                        <Text style={[styles.moreinfo, {fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery:{"\n"}{this.props.waitTime}</Text>
+                    </View>
+                    </View>
+
                     <View style={[styles.infoHolder]}>
                         
                         <Text style={[styles.moreinfo]}>{this.props.genre}</Text>
@@ -67,7 +78,7 @@ export default class CardView extends Component {
                                 tagKeys.map((tagKey, i) => {
                                     return(
                                         [
-                                            <Text key={i} style={[styles.name, {marginTop: 16}]}>{tagKey}</Text>,
+                                            <Text key={i} style={[styles.name, {marginTop: 24, marginBottom: -8}]}>{tagKey}</Text>,
                                             <View style={styles.categoriesGrid}>
                                                 {Object.keys(this.props.itemTags[tagKey]).map((keyName, j) => {
                                                     return (
@@ -75,7 +86,7 @@ export default class CardView extends Component {
                                                             <RoundedText 
                                                             text={keyName}
                                                             color='#FFFFFF'
-                                                            backgroundColor='rgba(24,172,222,1)'
+                                                            backgroundColor='rgba(255,255,255,1)'
                                                             style={{borderRadius: 19, width: 72, height: 72}}
                                                             />
                                                             <Text 
@@ -84,9 +95,8 @@ export default class CardView extends Component {
                                                                 {
                                                                     width: 72,
                                                                     marginTop: 8, 
-                                                                    marginBottom: 8, 
                                                                     fontSize: 12, 
-                                                                    fontWeight: 'bold',
+                                                                    fontWeight: 'normal',
                                                                     alignItems: 'center',
                                                                     justifyContent:'center',
                                                                     textAlign: 'center',
@@ -122,13 +132,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 16,
         backgroundColor: 'transparent',
-        marginTop: 34,
+        marginTop: 16,
     },
     profilepicWrap : {
-        alignSelf: 'center',
-        alignItems: 'center',
-        width: 90,
-        height: 90,
+        alignSelf: 'flex-start',
+        alignItems: 'flex-start',
+        width: 64,
+        height: 64,
         borderRadius: 100,
         borderColor: 'rgba(0,0,0,0.4)',
         borderWidth: 4,
@@ -139,12 +149,12 @@ const styles = StyleSheet.create({
         height: null,
         width: null,
         alignSelf: 'stretch',
-        borderRadius: 45,
+        borderRadius: 28,
         borderColor: 'white',
         borderWidth: 0,
     },
     infoHolder: {
-        marginTop: 34, 
+        marginTop: 24, 
         marginLeft: 16,
         marginRight: 16,
     },

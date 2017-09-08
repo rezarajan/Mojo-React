@@ -39,7 +39,10 @@ export default class RestaurantCards extends Component {
         this._showExtrasModal = this._showExtrasModal.bind(this);
         this.state = {
             isModalVisible: false,
+            restaurantName: 'Restaurant Name',
             modalColor: 'aliceblue',
+            waitTime: '0 mins',
+            icon: null,
             isExtrasModalVisible: false,
             sorteditems: [],
           }
@@ -48,10 +51,13 @@ export default class RestaurantCards extends Component {
     
 
 
-    _showModal = (color) => {
+    _showModal = (restaurantName, color, time, icon) => {
         this.setState({ 
-            isModalVisible: true,
+            restaurantName: restaurantName,
             modalColor: color,
+            waitTime: time,
+            icon: icon,
+            isModalVisible: true,            
         });
     }
   
@@ -107,11 +113,10 @@ export default class RestaurantCards extends Component {
                     <ScrollView>
                         <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
                             <CardViewMenu 
-                            text={'Item'} 
                             backgroundColor={this.state.modalColor} 
-                            genre={'Coffee'}    
-                            open={'Open'}    
-                            waitTime={'10 mins'}
+                            restaurantName={this.state.restaurantName}    
+                            waitTime={this.state.waitTime}
+                            icon={this.state.icon}
                             itemWidth={0.9*deviceW}
                             itemTags={this.state.sorteditems}
                             />
@@ -124,9 +129,9 @@ export default class RestaurantCards extends Component {
                             <CardViewMenu 
                             text={'Item'} 
                             backgroundColor={this.state.modalColor} 
-                            genre={'Coffee'}    
-                            open={'Open'}    
-                            waitTime={'10 mins'}
+                            restaurantName={this.state.restaurantName}    
+                            waitTime={this.state.waitTime}
+                            icon={this.state.icon}
                             itemWidth={0.9*deviceW}
                             itemTags={this.state.sorteditems}
                             />
