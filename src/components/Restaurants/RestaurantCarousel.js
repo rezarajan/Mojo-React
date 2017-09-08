@@ -34,8 +34,6 @@ export default class ResturantCarousel extends Component {
     constructor (props) {
         super(props);
 
-        this.pressFunction = this.pressFunction.bind(this);
-
         this.itemsRef = firebase.database().ref();
         this.state = {
             dataSource: null,
@@ -43,12 +41,6 @@ export default class ResturantCarousel extends Component {
             open: 'white',
             isModalVisible: false,            
         };
-    }
-
-    pressFunction() {
-        //this.setState({ isModalVisible: true });
-        console.log('Card Clicked');
-        
     }
 
     // listens for firebase realtime updates
@@ -106,7 +98,7 @@ export default class ResturantCarousel extends Component {
           //Creates an array of unique tags from the keyname array to be used later for filtering
           uniquekeys = [...new Set(keyname)];
 
-          console.log('From Parent');
+          //console.log('From Parent');
           var tempCategoryHolder = [];
           var tempSortedItems = [];
           
@@ -138,7 +130,7 @@ export default class ResturantCarousel extends Component {
             dataSource: JSON.parse(JSON.stringify(items)),
           });
 
-          console.log(this.state.dataSource);
+          //console.log(this.state.dataSource);
     
         });
       }

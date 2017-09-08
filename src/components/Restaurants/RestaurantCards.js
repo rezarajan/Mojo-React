@@ -45,6 +45,7 @@ export default class RestaurantCards extends Component {
             icon: null,
             isExtrasModalVisible: false,
             sorteditems: [],
+            sortedExtras: [],
           }
       }
 
@@ -80,27 +81,35 @@ export default class RestaurantCards extends Component {
     }
 
     returnItemTagInfo = (tempSortedItems) => {
-        console.log('From Parent');
+        //console.log('From Parent');
         this.setState({
             sorteditems: tempSortedItems
         });
 
-        console.log(this.state.sorteditems);  
+        //console.log(this.state.sorteditems);  
 
     }
 
     returnRestaurantInfo = (tempSortedItems) => {
-        console.log('From Parent');
+        //console.log('From Parent');
         this.setState({
             sorteditems: tempSortedItems
         });
-        console.log(this.state.sorteditems);  
+        //console.log(this.state.sorteditems);  
+    }
+
+    returnExtrasInfo = (tempSortedItems) => {
+        //console.log('From Parent');
+        this.setState({
+            sortedExtras: tempSortedItems
+        });
+        //console.log(this.state.sorteditems);  
     }
   
 
     render() {
 
-        console.log(this.state.isModalVisible);
+        //console.log(this.state.isModalVisible);
 
         return(
             <View style={styles.container}>
@@ -111,16 +120,16 @@ export default class RestaurantCards extends Component {
                 returnRestaurantInfo={this.returnRestaurantInfo}/>
                 <Modal isVisible={this.state.isModalVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 98, alignItems: 'center'}}>
                     <ScrollView>
-                        <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
-                            <CardViewMenu 
-                            backgroundColor={this.state.modalColor} 
-                            restaurantName={this.state.restaurantName}    
-                            waitTime={this.state.waitTime}
-                            icon={this.state.icon}
-                            itemWidth={0.9*deviceW}
-                            itemTags={this.state.sorteditems}
-                            />
-                        </TouchableOpacity>
+                        <CardViewMenu 
+                        backgroundColor={this.state.modalColor} 
+                        restaurantName={this.state.restaurantName}    
+                        waitTime={this.state.waitTime}
+                        icon={this.state.icon}
+                        itemWidth={0.9*deviceW}
+                        itemTags={this.state.sorteditems}
+                        returnExtrasInfo={this.returnExtrasInfo}
+                        _showExtrasModal={this._showExtrasModal}
+                        />
                     </ScrollView>
 
                     <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 134, alignItems: 'center'}}>
@@ -133,7 +142,7 @@ export default class RestaurantCards extends Component {
                             waitTime={this.state.waitTime}
                             icon={this.state.icon}
                             itemWidth={0.9*deviceW}
-                            itemTags={this.state.sorteditems}
+                            itemTags={this.state.sortedExtras}
                             />
                         </TouchableOpacity>
                     </ScrollView>
