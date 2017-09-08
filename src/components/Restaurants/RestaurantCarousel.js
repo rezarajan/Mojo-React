@@ -234,8 +234,17 @@ export default class ResturantCarousel extends Component {
         <TouchableOpacity 
         activeOpacity={0.98}
         onPress={() => {
-                this.props.showModal();
-                this.acquireMenu(this.itemsRef.child('menu').child(item.restaurantName).child('Items'));
+            console.log(this._carousel.currentIndex);
+            console.log(index);
+            //checks the current index against the index of the item clicked
+            this._carousel.currentIndex === index ? 
+            //if index is the same then it opens the restaurant menu
+            [this.props.showModal(item.backgroundColor),
+            this.acquireMenu(this.itemsRef.child('menu').child(item.restaurantName).child('Items'))]
+            : 
+            //if index is different then it snaps to that index
+            this._carousel.snapToItem(index);
+                
                 //console.log(index);
             }}>
             <CardView 

@@ -39,6 +39,7 @@ export default class RestaurantCards extends Component {
         this._showExtrasModal = this._showExtrasModal.bind(this);
         this.state = {
             isModalVisible: false,
+            modalColor: 'aliceblue',
             isExtrasModalVisible: false,
             sorteditems: [],
           }
@@ -47,8 +48,11 @@ export default class RestaurantCards extends Component {
     
 
 
-    _showModal = () => {
-        this.setState({ isModalVisible: true });
+    _showModal = (color) => {
+        this.setState({ 
+            isModalVisible: true,
+            modalColor: color,
+        });
     }
   
     _hideModal = () => {
@@ -104,7 +108,7 @@ export default class RestaurantCards extends Component {
                         <TouchableOpacity onPress={this._showExtrasModal} activeOpacity={0.98}>
                             <CardViewMenu 
                             text={'Item'} 
-                            backgroundColor={'green'} 
+                            backgroundColor={this.state.modalColor} 
                             genre={'Coffee'}    
                             open={'Open'}    
                             waitTime={'10 mins'}
@@ -120,7 +124,7 @@ export default class RestaurantCards extends Component {
                         <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
                             <CardViewMenu 
                             text={'Item'} 
-                            backgroundColor={'aliceblue'} 
+                            backgroundColor={this.state.modalColor} 
                             genre={'Coffee'}    
                             open={'Open'}    
                             waitTime={'10 mins'}
