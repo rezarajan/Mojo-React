@@ -144,15 +144,15 @@ export default class CardView extends Component {
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
                 <View style={styles.header}>
 
-                    <View style={{flexDirection: 'row', marginBottom: -36, alignItems: 'center'}}>
-                    <View style={styles.profilepicWrap}>
-                        <Image style={styles.profilepic} source={{uri:this.props.icon}} />
-                    </View>
-
-                    <View style={{flexDirection: 'column', marginLeft: 8}}>
-                        <Text style={[styles.name]}>{this.props.restaurantName}</Text>
-                        <Text style={[styles.moreinfo, {fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery:{"\n"}{this.props.waitTime}</Text>
-                    </View>
+                    <View style={{flexDirection: 'row', marginBottom: -36, marginLeft: 16, alignItems: 'center'}}>
+                        <View style={styles.profilepicWrap}>
+                            <Image style={styles.profilepic} source={{uri:this.props.icon}} />
+                        </View>
+    
+                        <View style={{flexDirection: 'column', marginLeft: 8}}>
+                            <Text style={[styles.name]}>{this.props.restaurantName}</Text>
+                            <Text style={[styles.moreinfo, {fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery:{"\n"}{this.props.waitTime}</Text>
+                        </View>
                     </View>
 
                     <View style={[styles.infoHolder]}>
@@ -220,9 +220,9 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         marginTop:8,
         borderRadius: 32,
-        shadowOffset:{  width: 0,  height: 8,  },
-        shadowColor: 'black',
-        shadowOpacity: 0.4,
+        shadowOffset:{  width: 0,  height: 4,  },
+        shadowColor: 'rgba(137,134,134,0.5)',
+        shadowOpacity: 0.5,
         shadowRadius: 2,
         elevation: 1,
     },

@@ -39,6 +39,8 @@ export default class RestaurantCards extends Component {
         this._showExtrasModal = this._showExtrasModal.bind(this);
         this.state = {
             isModalVisible: false,
+            headerVisible: false,
+            headerExtrasVisible: false,
             restaurantName: 'Restaurant Name',
             modalColor: 'aliceblue',
             waitTime: '0 mins',
@@ -60,24 +62,45 @@ export default class RestaurantCards extends Component {
             icon: icon,
             isModalVisible: true,            
         });
+        setTimeout(() => {
+            this.setState({ headerVisible: true });
+        }, 500);
     }
   
     _hideModal = () => {
 
+        var timer = 0;
+
+        //Check to see which modal(s) are visible to adjust the timing
+        //for displaying the header
+        this.state.isExtrasModalVisible? 
+        timer = 400:timer = 0;
+
         //Sets the state of the second modal to false and lets it transition down
         this.setState({ 
-        isModalExtrasVisible: false,
-        });
+            isExtrasModalVisible: false,
+            headerVisible: false,
+            headerExtrasVisible: false
+        })
 
         //sets a delay for setting the state of the first modal 
         //so that it transitions out almost when the second modal is out
         setTimeout(() => {
             this.setState({ isModalVisible: false });
-        }, 200);
+        }, timer);
     }
 
     _showExtrasModal = () => {
-        this.setState({ isModalExtrasVisible: true });
+        
+        this.setState({ 
+            isExtrasModalVisible: true
+        });
+
+        //sets a delay for setting the state of the second modal header
+        //so that it displays only when the slide transition is completed
+        setTimeout(() => {
+            this.setState({ headerExtrasVisible: true, });
+        }, 400);
     }
 
     returnItemTagInfo = (tempSortedItems) => {
@@ -118,8 +141,9 @@ export default class RestaurantCards extends Component {
                 showModal={this._showModal} 
                 returnTagInfo={this.returnItemTagInfo} 
                 returnRestaurantInfo={this.returnRestaurantInfo}/>
-                <Modal isVisible={this.state.isModalVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 98, marginBottom: 49, alignItems: 'center'}}>
-                    <ScrollView>
+                <Modal isVisible={this.state.isModalVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 0, marginBottom: -16, alignItems: 'center'}}>
+                    <View>
+                    <ScrollView style={{marginTop: 98}}>
                         <CardViewMenu 
                         backgroundColor={this.state.modalColor} 
                         restaurantName={this.state.restaurantName}    
@@ -131,22 +155,41 @@ export default class RestaurantCards extends Component {
                         _showExtrasModal={this._showExtrasModal}
                         />
                     </ScrollView>
+                    <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
+                        {
+                            this.state.headerVisible?
+                            <RestaurantHeader onPress={() => {
+                                    this._hideModal()
+                                }}/>
+                            : null
+                        } 
+                    
+                    </View>
+                    </View>
 
-                    <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 200, marginBottom: 49, alignItems: 'center'}}>
-                    <ScrollView marginTop={-102} paddingTop={102}>
-                        <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
-                            <CardViewMenu 
-                            text={'Item'} 
-                            //backgroundColor={this.state.modalColor} 
-                            backgroundColor={'white'} 
-                            restaurantName={this.state.restaurantName}    
-                            waitTime={this.state.waitTime}
-                            icon={this.state.icon}
-                            itemWidth={0.9*deviceW}
-                            itemTags={this.state.sortedExtras}
-                            />
-                        </TouchableOpacity>
+                    <Modal isVisible={this.state.isExtrasModalVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 0, marginBottom: -16, alignItems: 'center'}}>
+                    <ScrollView style={{marginTop:-202, paddingTop:402}}>
+                        <CardViewMenu 
+                        text={'Item'} 
+                        //backgroundColor={this.state.modalColor} 
+                        backgroundColor={'aliceblue'} 
+                        restaurantName={this.state.restaurantName}    
+                        waitTime={this.state.waitTime}
+                        icon={this.state.icon}
+                        itemWidth={0.9*deviceW}
+                        itemTags={this.state.sortedExtras}
+                        />
                     </ScrollView>
+                    <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
+                        {
+                            this.state.headerExtrasVisible?
+                            <RestaurantHeader onPress={() => {
+                                    this._hideModal()
+                                }}/>
+                            : null
+                        } 
+                    
+                    </View>
                 </Modal>
                 </Modal>
             </View>
