@@ -44,19 +44,19 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'globe'}
                 //title="Globe"
-                //renderIcon={() => <Image source={require('../../images/tabbar/globe_inactive.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
-                //renderSelectedIcon={() => <Image source={require('../../images/tabbar/globe_active.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/globe_inactive.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/globe_active.png')} style={{width: px2dp(20), height: px2dp(20)}}/>}
                 //badgeText="1"     //this allows a badge popup with a number to indicate an notification
-                //onPress={() => this.setState({ selectedTab: 'globe' })}
+                onPress={() => this.setState({ selectedTab: 'globe' })}
                 >
                 <RestaurantCards />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'pocket'}
                 //title="Pocket"
-                //renderIcon={() => <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
-                //renderSelectedIcon={() => <Image source={require('../../images/tabbar/pocket_active.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
-                //onPress={() => this.setState({ selectedTab: 'pocket' })}
+                renderIcon={() => <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/pocket_active.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
+                onPress={() => this.setState({ selectedTab: 'pocket' })}
                 >
                 <Name />
               </TabNavigator.Item>
@@ -64,42 +64,44 @@ export default class Home extends Component {
                 selected={this.state.selectedTab === 'mojo'}
                 //title="Mojo"
                 //renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
-                //renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
-                //onPress={() => this.setState({ selectedTab: 'mojo' })}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
+                onPress={() => this.setState({ selectedTab: 'mojo' })}
                 >
-                <SignUp />
+                <RestaurantCards />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'gifts'}
                 //title="Gifts"
-                //renderIcon={() => <Image source={require('../../images/tabbar/gifts_inactive.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
-                //renderSelectedIcon={() => <Image source={require('../../images/tabbar/gifts_active.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
-                //onPress={() => this.setState({ selectedTab: 'gifts' })}
+                renderIcon={() => <Image source={require('../../images/tabbar/gifts_inactive.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/gifts_active.png')} style={{width: px2dp(26), height: px2dp(26)}}/>}
+                onPress={() => this.setState({ selectedTab: 'gifts' })}
                 >
                 <Name />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
                 //title="Profile"
-                //renderIcon={() => <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
-                //renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
-                //onPress={() => this.setState({ selectedTab: 'profile' })}
+                renderIcon={() => <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
+                onPress={() => this.setState({ selectedTab: 'profile' })}
                 >
                 <Profile />
               </TabNavigator.Item>
             </TabNavigator>
-            {/* <TouchableOpacity onPress={() => {
+            <TouchableOpacity activeOpacity={0.98} onPress={() => {
                 const mojo_active = this.state.mojo_active;
-                this.setState({ selectedTab: 'mojo', mojo_active: !mojo_active });
+                //this.setState({ selectedTab: 'mojo', mojo_active: !mojo_active 
+                this.setState({ selectedTab: 'mojo', mojo_active: mojo_active});
                 }} >
                 {
                     //changes the source for the big mojo button on press
-                this.state.mojo_active ? 
+                //this.state.mojo_active ? 
+                this.state.selectedTab === 'mojo' ?
                 <Image source={require('../../images/tabbar/mojo_active.png')} style={[styles.buttonWrapper, {width: px2dp(72), height: px2dp(72)}]}/> 
                 : <Image source={require('../../images/tabbar/mojo_inactive.png')} style={[styles.buttonWrapper, {width: px2dp(72), height: px2dp(72)}]}/>
                 }
-            </TouchableOpacity> */}
-                <ActionButton 
+            </TouchableOpacity>
+                {/* <ActionButton 
                     position='center'
                     buttonColor='transparent' 
                     icon={
@@ -113,7 +115,7 @@ export default class Home extends Component {
                     this.setState({mojo_active: !mojo_active });
                     }} 
                 >
-                <ActionButton.Item buttonColor='#3498db' title='globe' onPress={() => 
+                <ActionButton.Item buttonColor='white' title='globe' onPress={() => 
                     {
                         const mojo_active = this.state.mojo_active;
                         this.setState({ 
@@ -126,7 +128,7 @@ export default class Home extends Component {
                     }>
                     <Image source={require('../../images/tabbar/globe_inactive.png')} style={{width: px2dp(20), height: px2dp(20)}}/>   
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#9b59b6' title='pocket' onPress={() => 
+                <ActionButton.Item buttonColor='white' title='pocket' onPress={() => 
                     {
                         const mojo_active = this.state.mojo_active;
                         this.setState({ 
@@ -139,7 +141,7 @@ export default class Home extends Component {
                     }>
                     <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title='mojo' onPress={() => 
+                <ActionButton.Item buttonColor='white' title='mojo' onPress={() => 
                     {
                         const mojo_active = this.state.mojo_active;
                         this.setState({ 
@@ -152,7 +154,7 @@ export default class Home extends Component {
                     }>
                     <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title='gifts' onPress={() => 
+                <ActionButton.Item buttonColor='white' title='gifts' onPress={() => 
                     {
                         const mojo_active = this.state.mojo_active;
                         this.setState({ 
@@ -165,7 +167,7 @@ export default class Home extends Component {
                     }>
                     <Image source={require('../../images/tabbar/gifts_inactive.png')} style={{width: px2dp(26), height: px2dp(26)}}/>
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title='profile' onPress={() => 
+                <ActionButton.Item buttonColor='white' title='profile' onPress={() => 
                     {
                         const mojo_active = this.state.mojo_active;
                         this.setState({ 
@@ -178,7 +180,7 @@ export default class Home extends Component {
                     }>
                     <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>
                 </ActionButton.Item>
-                </ActionButton>
+                </ActionButton> */}
             </View>
         );
     }

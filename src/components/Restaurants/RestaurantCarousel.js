@@ -247,6 +247,7 @@ export default class ResturantCarousel extends Component {
             tags={item.tags}
             waitTime={item.waitTime}
             itemWidth={itemWidth}
+            itemHeight={378}
             />
         </TouchableOpacity>
   ;

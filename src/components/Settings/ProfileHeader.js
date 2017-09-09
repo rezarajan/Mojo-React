@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 16,
+        //padding: 16,
         //backgroundColor: 'rgba(0,0,0,0.5)',
         backgroundColor: 'transparent',
     },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         borderColor: 'rgba(0,0,0,0.4)',
         //borderColor: 'transparent',
-        borderWidth: 4,
+        //borderWidth: 4,
         backgroundColor: 'white',
     },
     profilepic: {

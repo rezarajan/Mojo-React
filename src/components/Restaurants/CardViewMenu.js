@@ -185,7 +185,7 @@ export default class CardView extends Component {
                                                             style={[
                                                                 styles.moreinfo, 
                                                                 {
-                                                                    width: 80,
+                                                                    width: 72,
                                                                     marginTop: 8, 
                                                                     marginBottom: 8,
                                                                     fontSize: 12, 
@@ -220,6 +220,11 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         marginTop:8,
         borderRadius: 32,
+        shadowOffset:{  width: 0,  height: 8,  },
+        shadowColor: 'black',
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 1,
     },
     header: {
         alignItems: 'stretch',
@@ -234,17 +239,17 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64,
         borderRadius: 100,
-        borderColor: 'rgba(0,0,0,0.4)',
-        borderWidth: 4,
-        backgroundColor: 'white',
+        //borderColor: 'rgba(0,0,0,0.4)',
+        //borderWidth: 4,
+        //backgroundColor: 'white',
     },
     profilepic: {
         flex: 1,
         height: null,
         width: null,
         alignSelf: 'stretch',
-        borderRadius: 28,
-        borderColor: 'white',
+        borderRadius: 32,
+        //borderColor: 'white',
         borderWidth: 0,
     },
     infoHolder: {

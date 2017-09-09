@@ -118,7 +118,7 @@ export default class RestaurantCards extends Component {
                 showModal={this._showModal} 
                 returnTagInfo={this.returnItemTagInfo} 
                 returnRestaurantInfo={this.returnRestaurantInfo}/>
-                <Modal isVisible={this.state.isModalVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 98, alignItems: 'center'}}>
+                <Modal isVisible={this.state.isModalVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 98, marginBottom: 49, alignItems: 'center'}}>
                     <ScrollView>
                         <CardViewMenu 
                         backgroundColor={this.state.modalColor} 
@@ -132,12 +132,13 @@ export default class RestaurantCards extends Component {
                         />
                     </ScrollView>
 
-                    <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'white'} style={{justifyContent: 'flex-start', marginTop: 134, alignItems: 'center'}}>
-                    <ScrollView>
+                    <Modal isVisible={this.state.isModalExtrasVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 200, marginBottom: 49, alignItems: 'center'}}>
+                    <ScrollView marginTop={-102} paddingTop={102}>
                         <TouchableOpacity onPress={this._hideModal} activeOpacity={0.98}>
                             <CardViewMenu 
                             text={'Item'} 
-                            backgroundColor={this.state.modalColor} 
+                            //backgroundColor={this.state.modalColor} 
+                            backgroundColor={'white'} 
                             restaurantName={this.state.restaurantName}    
                             waitTime={this.state.waitTime}
                             icon={this.state.icon}

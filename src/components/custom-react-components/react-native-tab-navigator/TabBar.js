@@ -29,20 +29,20 @@ export default class TabBar extends React.Component {
 
 let styles = StyleSheet.create({
   container: {
-    //backgroundColor: '#ffffff',
-    backgroundColor: 'transparent',
+    backgroundColor: '#ffffff',
+    //backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    //height: Layout.tabBarHeight,
-    height: 0,
+    height: Layout.tabBarHeight,
+    //height: 0,
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
   },
   shadow: {
-    //backgroundColor: 'rgba(0, 0, 0, 0.25)',
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    //backgroundColor: 'transparent',
     height: Layout.pixel,
     position: 'absolute',
     left: 0,
