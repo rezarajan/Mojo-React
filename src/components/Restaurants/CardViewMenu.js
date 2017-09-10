@@ -7,6 +7,7 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
+    AsyncStorage,
 } from 'react-native';
 import * as firebase from 'firebase';
 import RoundedText from './RoundedText';
@@ -22,9 +23,26 @@ export default class CardView extends Component {
         this.state = {
             dataSource: null,
             tagValue: [],
+            currentRestaurantCart: [],
             open: 'white',
-            isModalVisible: false,            
+            isModalVisible: false,    
+            selectedextras: [],    
+            user: null,
         };
+    }
+
+    acquireCart(itemsRef) {
+        itemsRef.on('value', (snap) => {
+            
+            // get children as an array
+            var currentCart = [];  
+            snap.forEach((child) => {
+                currentCart = child.val();
+            });
+            this.setState({
+                currentRestaurantCart: currentCart
+            })
+        });
     }
 
     acquireExtras(itemsRef, itemName) {
@@ -117,11 +135,60 @@ export default class CardView extends Component {
           }
 
         //Uses a callback method to send the filtered data to the parent (RestaurantCards)
-        this.props.returnExtrasInfo && this.props.returnExtrasInfo(tempSortedItems); 
+        this.props.returnExtrasInfo && this.props.returnExtrasInfo(tempSortedItems, itemName); 
     
         });
       }
 
+      createNewItem(restaurantName, itemName) {
+
+        AsyncStorage.getItem('userData').then((user_data_json) => {
+            let userData = JSON.parse(user_data_json);
+            this.setState({
+              user: userData,
+            });
+            // main item data
+            var cartData = {
+                customeruid: this.state.user.uid,
+                quantity: 1,
+                cost: 1,
+            };
+    
+            // Get a key for a new Post.
+            var newPostKey = firebase.database().ref().child('test').push().key;
+            
+            // Write the new post's data simultaneously in the posts list and the user's post list.
+            var updates = {};
+    
+            updates['uid/' + this.state.user.uid + '/cart/' + restaurantName + '/' + itemName + '/details'] = cartData;
+            
+            firebase.database().ref().update(updates);
+        });
+      }
+
+      updateItem(uid, restaurantName, itemName, extraname, quantity, cost) {
+
+        AsyncStorage.getItem('userData').then((user_data_json) => {
+            let userData = JSON.parse(user_data_json);
+            this.setState({
+              user: userData,
+            });
+            
+            var extrasData = {
+                quantity: quantity,
+                cost: cost,
+            };
+          
+            // Write the new post's data simultaneously in the posts list and the user's post list.
+            var extrasUpdates = {};
+            //updates['test/' + restaurantName + '/' + itemName] = cartData;
+            extrasUpdates['uid/' + this.state.user.uid + '/cart/' + restaurantName + '/' + itemName + '/extras/' + extraname] = extrasData;
+          
+            //firebase.database().ref().update(updates);
+            firebase.database().ref().update(extrasUpdates);
+        });
+
+      }
 
     render() {
 
@@ -171,8 +238,13 @@ export default class CardView extends Component {
                                                         <View key={j}> 
                                                             <TouchableOpacity 
                                                             onPress={ () => {
-                                                                                this.acquireExtras(this.itemsRef.child('menu').child(this.props.restaurantName).child('Extras'), keyName);
-                                                                                this.props._showExtrasModal();
+                                                                //Checks to see which modal state it is in to assess which functions to execute on button press
+                                                                !this.props.modalState?
+                                                                                [this.acquireExtras(this.itemsRef.child('menu').child(this.props.restaurantName).child('Extras'), keyName),
+                                                                                this.props._showExtrasModal(),
+                                                                                this.createNewItem(this.props.restaurantName, keyName)]:
+                                                                                [console.log('Extras Modal'),
+                                                                                this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)]
                                                                             }} 
                                                             activeOpacity={0.98}>
                                                             <RoundedText 

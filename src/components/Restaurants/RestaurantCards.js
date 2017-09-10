@@ -42,6 +42,7 @@ export default class RestaurantCards extends Component {
             headerVisible: false,
             headerExtrasVisible: false,
             restaurantName: 'Restaurant Name',
+            itemName: 'Item',
             modalColor: 'aliceblue',
             waitTime: '0 mins',
             icon: null,
@@ -121,10 +122,11 @@ export default class RestaurantCards extends Component {
         //console.log(this.state.sorteditems);  
     }
 
-    returnExtrasInfo = (tempSortedItems) => {
+    returnExtrasInfo = (tempSortedItems, itemName) => {
         //console.log('From Parent');
         this.setState({
-            sortedExtras: tempSortedItems
+            sortedExtras: tempSortedItems,
+            itemName: itemName,
         });
         //console.log(this.state.sorteditems);  
     }
@@ -153,6 +155,7 @@ export default class RestaurantCards extends Component {
                         itemTags={this.state.sorteditems}
                         returnExtrasInfo={this.returnExtrasInfo}
                         _showExtrasModal={this._showExtrasModal}
+                        modalState={this.state.isExtrasModalVisible}
                         />
                     </ScrollView>
                     <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
@@ -178,6 +181,9 @@ export default class RestaurantCards extends Component {
                         icon={this.state.icon}
                         itemWidth={0.9*deviceW}
                         itemTags={this.state.sortedExtras}
+                        _showExtrasModal={this._showExtrasModal}
+                        modalState={this.state.isExtrasModalVisible}
+                        itemName={this.state.itemName}
                         />
                     </ScrollView>
                     <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>

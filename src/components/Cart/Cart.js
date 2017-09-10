@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Accordion from '../custom-react-components/react-native-collapsible/Accordion';
 import RoundedText from './RoundedText';
+
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
 
