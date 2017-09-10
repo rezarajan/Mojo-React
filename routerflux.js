@@ -12,6 +12,7 @@ import Email from "./src/components/SignUp/Email";
 import Password from "./src/components/SignUp/Password";
 import PasswordRe from "./src/components/SignUp/PasswordRe";
 import Home from "./src/components/Home/Home";
+import Cart from "./src/components/Cart/Cart";
 
 const App = () => {
   return (
@@ -64,6 +65,11 @@ const App = () => {
           component={Home}
           type="reset"
           title="home"
+        />
+        <Scene
+          key="cart"
+          component={Cart}
+          title="cart"
         />
       </Scene>
     </Router>

@@ -19,7 +19,7 @@ import RestaurantCarousel from './RestaurantCarousel';
 import {Dimensions} from 'react-native'
 import Modal from 'react-native-modal';
 import CardViewMenu from './CardViewMenu';
-
+import { Actions } from 'react-native-router-flux';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -136,7 +136,7 @@ export default class RestaurantCards extends Component {
 
         return(
             <View style={styles.container}>
-                <RestaurantHeader /> 
+                <RestaurantHeader onPress={() => {Actions.cart()}}/> 
                 <RestaurantCarousel 
                 showModal={this._showModal} 
                 returnTagInfo={this.returnItemTagInfo} 
