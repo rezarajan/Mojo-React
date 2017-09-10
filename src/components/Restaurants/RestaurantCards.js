@@ -152,7 +152,7 @@ export default class RestaurantCards extends Component {
 
         return(
             <View style={styles.container}>
-                <RestaurantHeader onPress={() => {Actions.cart()}}/> 
+                <RestaurantHeader onPressCart={() => {Actions.cart()}}/> 
                 <RestaurantCarousel 
                 showModal={this._showModal} 
                 returnTagInfo={this.returnItemTagInfo} 
@@ -176,9 +176,10 @@ export default class RestaurantCards extends Component {
                     <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
                         {
                             this.state.headerVisible?
-                            <RestaurantHeader onPress={() => {
+                            <RestaurantHeader onPressLogo={() => {
                                     this._hideModal()
-                                }}/>
+                                }}
+                                onPressCart={() => {this._hideModal(), Actions.cart()}}/>
                             : null
                         } 
                     
@@ -205,9 +206,10 @@ export default class RestaurantCards extends Component {
                     <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
                         {
                             this.state.headerExtrasVisible?
-                            <RestaurantHeader onPress={() => {
+                            <RestaurantHeader onPressLogo={() => {
                                     this._hideModal()
-                                }}/>
+                                }}
+                                onPressCart={() => {this._hideModal(), Actions.cart()}}/>
                             : null
                         } 
                     

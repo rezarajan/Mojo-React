@@ -36,10 +36,10 @@ export default class RestaurantCards extends Component {
     render() {
         return(
             <View style={styles.headerBackground} > 
-                <TouchableOpacity style={styles.logoHolder} onPress={this.props.onPress} activeOpacity={0.5}>
+                <TouchableOpacity style={styles.logoHolder} onPress={this.props.onPressLogo} activeOpacity={0.5}>
                     <Image style={styles.logoWrapper} source={require('../../images/statusbar/mojo_textLogo.png')} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPress} activeOpacity={0.5}>
+                <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPressCart} activeOpacity={0.5}>
                     <Image style={styles.cartWrapper} source={require('../../images/statusbar/shoppingCart.png')} />
                 </TouchableOpacity>
             </View>
