@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     TextInput,
     ScrollView,
+    AsyncStorage,
 } from 'react-native';
 //import TabNavigator from 'react-native-tab-navigator';
 import Name from '../SignUp/Name';
@@ -49,10 +50,23 @@ export default class RestaurantCards extends Component {
             isExtrasModalVisible: false,
             sorteditems: [],
             sortedExtras: [],
+            user: null,
           }
       }
 
-    
+      componentWillMount() {
+          console.log('Will Mount');
+
+          AsyncStorage.getItem('userData').then((user_data_json) => {
+            let userData = JSON.parse(user_data_json);
+            this.setState({
+                user: userData.uid
+            })
+        console.log(this.state.user);
+        
+        });
+      }
+
 
 
     _showModal = (restaurantName, color, time, icon) => {
@@ -151,6 +165,7 @@ export default class RestaurantCards extends Component {
                         restaurantName={this.state.restaurantName}    
                         waitTime={this.state.waitTime}
                         icon={this.state.icon}
+                        user={this.state.user}
                         itemWidth={0.9*deviceW}
                         itemTags={this.state.sorteditems}
                         returnExtrasInfo={this.returnExtrasInfo}
@@ -179,6 +194,7 @@ export default class RestaurantCards extends Component {
                         restaurantName={this.state.restaurantName}    
                         waitTime={this.state.waitTime}
                         icon={this.state.icon}
+                        user={this.state.user}
                         itemWidth={0.9*deviceW}
                         itemTags={this.state.sortedExtras}
                         _showExtrasModal={this._showExtrasModal}

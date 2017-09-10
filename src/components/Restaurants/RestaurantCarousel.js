@@ -9,6 +9,7 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
+    AsyncStorage,
 } from 'react-native';
 import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
