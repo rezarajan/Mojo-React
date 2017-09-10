@@ -12,16 +12,21 @@ import {
     Dimensions,
     FlatList,
 } from 'react-native';
-import Accordion from 'react-native-collapsible/Accordion';
-import RoundedText from '../Restaurants/RoundedText';
+import Accordion from '../custom-react-components/react-native-collapsible/Accordion';
+import RoundedText from './RoundedText';
+const deviceW = Dimensions.get('window').width;
 
 const SECTIONS = [
   {
     title: 'First',
-    content: 'Lorem ipsum...',
+    content: 'Tag',
   },
   {
     title: 'Second',
+    content: 'Lorem ipsum...',
+  },
+  {
+    title: 'Third',
     content: 'Lorem ipsum...',
   }
 ];
@@ -30,16 +35,29 @@ export default class Cart extends Component {
      
   _renderHeader(section) {
     return (
-      <View>
-        <RoundedText text={section.title}/>
+      <View style={{marginTop: -28}}>
+        <RoundedText 
+        text={section.title} 
+        backgroundColor={'white'}
+        borderTopLeftRadius={20}         // Rounded border
+        borderTopRightRadius={20}
+        borderBottomLeftRadius={0}         // Rounded border
+        borderBottomRightRadius={0}/>
       </View>
     );
   }
 
   _renderContent(section) {
     return (
-      <View>
-        <Text>{section.content}</Text>
+      <View style={{marginTop: -28, marginBottom: 28}}>
+      <RoundedText text={section.content}
+      backgroundColor= {'white'}
+      borderTopLeftRadius={0}         // Rounded border
+      borderTopRightRadius={0}
+      borderBottomLeftRadius={20}         // Rounded border
+      borderBottomRightRadius={20}
+      
+      />
       </View>
     );
   }
@@ -51,6 +69,7 @@ export default class Cart extends Component {
         sections={SECTIONS}
         renderHeader={this._renderHeader}
         renderContent={this._renderContent}
+        initiallyActiveSection={1}
       />
       </View>
     );
@@ -60,8 +79,10 @@ export default class Cart extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 16,
+    marginLeft: 8,
+    marginTop: 56,
+    alignSelf: 'center',
+    width: deviceW
   },
 })
 

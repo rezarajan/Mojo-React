@@ -5,6 +5,7 @@ import {
     Button, 
     StyleSheet, 
     View, 
+    Dimensions,
     Image,
     Text,
     TouchableOpacity,
@@ -17,7 +18,6 @@ import SignUp from '../SignUp/SignUp';
 import Name from '../SignUp/Name';
 import RestaurantCards from '../Restaurants/RestaurantCards';
 //import ActionButton from 'react-native-circular-action-menu';
-import {Dimensions} from 'react-native'
 
 import Profile from "../Settings/Profile";
 
