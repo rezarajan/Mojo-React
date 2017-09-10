@@ -15,6 +15,7 @@ import {
 import Accordion from '../custom-react-components/react-native-collapsible/Accordion';
 import RoundedText from './RoundedText';
 const deviceW = Dimensions.get('window').width;
+const deviceH = Dimensions.get('window').height;
 
 const SECTIONS = [
   {
@@ -28,6 +29,14 @@ const SECTIONS = [
   {
     title: 'Third',
     content: 'Lorem ipsum...',
+  },
+  {
+    title: 'Fourth',
+    content: 'Lorem ipsum...',
+  },
+  {
+    title: 'Fifth',
+    content: 'Lorem ipsum...',
   }
 ];
 
@@ -38,6 +47,7 @@ export default class Cart extends Component {
       <View style={{marginTop: -28}}>
         <RoundedText 
         text={section.title} 
+        width={deviceW}
         backgroundColor={'white'}
         borderTopLeftRadius={20}         // Rounded border
         borderTopRightRadius={20}
@@ -50,7 +60,8 @@ export default class Cart extends Component {
   _renderContent(section) {
     return (
       <View style={{marginTop: -28, marginBottom: 28}}>
-      <RoundedText text={section.content}
+      <RoundedText 
+      text={section.content}
       backgroundColor= {'white'}
       borderTopLeftRadius={0}         // Rounded border
       borderTopRightRadius={0}
@@ -64,7 +75,7 @@ export default class Cart extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {position: 'absolute', bottom: deviceH/SECTIONS.length}]}>
       <Accordion
         sections={SECTIONS}
         renderHeader={this._renderHeader}
@@ -82,6 +93,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginTop: 56,
     alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: deviceW
   },
 })

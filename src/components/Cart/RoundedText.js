@@ -22,8 +22,12 @@ export default class RoundedText extends Component {
         borderTopRightRadius: this.props.borderTopRightRadius,
         borderBottomLeftRadius: this.props.borderBottomLeftRadius,
         borderBottomRightRadius: this.props.borderBottomRightRadius,
+        width: this.props.width-16,
+        marginLeft: 8
         }]}>
-          <Text style={[styles.text, {color: this.props.color}]}>{this.props.text}</Text>
+          <Text style={[styles.text, {marginTop: 16, marginBottom: 28, color: this.props.color}]}>{this.props.text}</Text>
+
+          <View style={[{marginBottom: -10, width: this.props.width-16, height:1, backgroundColor:'grey', opacity: 0.6}]}/>
         </View>
     );
   }
@@ -32,7 +36,6 @@ export default class RoundedText extends Component {
 const styles = StyleSheet.create({
   // Button container
   button: {
-
     paddingHorizontal: 8,    // Horizontal padding
     paddingVertical: 4,      // Vertical padding
     justifyContent: 'center',
@@ -40,13 +43,13 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginRight: 8,
     height: 70,
-    shadowOpacity: 0.9,
+    shadowOpacity: 1,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowColor: 'black',
-    shadowRadius: 1.4,
+    shadowRadius: 2,
   },
 
   text: {
