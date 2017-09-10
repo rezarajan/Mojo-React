@@ -23,6 +23,7 @@ export default class RoundedText extends Component {
         borderBottomLeftRadius: this.props.borderBottomLeftRadius,
         borderBottomRightRadius: this.props.borderBottomRightRadius,
         width: this.props.width-16,
+        height:this.props.height,
         marginLeft: 8
         }]}>
           <Text style={[styles.text, {marginTop: 16, marginBottom: 28, color: this.props.color}]}>{this.props.text}</Text>
@@ -42,7 +43,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 8,
     marginRight: 8,
-    height: 70,
     shadowOpacity: 1,
     shadowOffset: {
       width: 0,
