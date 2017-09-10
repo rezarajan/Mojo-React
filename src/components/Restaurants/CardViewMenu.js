@@ -48,12 +48,7 @@ export default class CardView extends Component {
         });
         color?
         colorState='grey':
-        colorState='white'
-
-        console.log(color);
-        return colorState
-
-        
+        colorState='white'        
 
     }
 
@@ -171,6 +166,22 @@ export default class CardView extends Component {
         firebase.database().ref().update(updates);
       }
 
+      removeItem(restaurantName, itemName) {
+        // main item data
+        var cartData = {
+            customeruid: null,
+            quantity: null,
+            cost: null,
+        };
+        
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        var updates = {};
+    
+        updates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + itemName] = cartData;
+        
+        firebase.database().ref().update(updates);
+      }
+
       updateItem(uid, restaurantName, itemName, extraname, quantity, cost) {
         var extrasData = {
             quantity: quantity,
@@ -266,9 +277,33 @@ export default class CardView extends Component {
                                                                 !this.props.modalState?
                                                                     [this.acquireExtras(this.itemsRef.child('menu').child(this.props.restaurantName).child('Extras'), keyName),
                                                                     this.props._showExtrasModal(),
-                                                                    this.createNewItem(this.props.restaurantName, keyName)]:
+                                                                    this.acquireCart(
+                                                                    this.itemsRef.child('uid')
+                                                                    .child(this.props.user)
+                                                                    .child('cart').child(this.props.restaurantName)
+                                                                    .child(keyName),
+                                                                    ),
+                                                                    console.log(colorState),
+                                                                    colorState === 'white'?
+                                                                    this.createNewItem(this.props.restaurantName, keyName)
+                                                                    :
+                                                                    this.removeItem(this.props.restaurantName, keyName),
+                                                                    ]
+                                                                    :
                                                                     [console.log('Extras Modal'),
-                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)]
+                                                                    this.acquireCart(
+                                                                    this.itemsRef.child('uid')
+                                                                    .child(this.props.user)
+                                                                    .child('cart').child(this.props.restaurantName)
+                                                                    .child(this.props.itemName)
+                                                                    .child('extras')
+                                                                    .child(keyName)
+                                                                    ),
+                                                                    colorState === 'white'?
+                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)
+                                                                    :
+                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, null, null)
+                                                                    ]
                                                                 }} 
                                                             activeOpacity={0.9}>
                                                             <RoundedText 
