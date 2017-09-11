@@ -147,11 +147,12 @@ export default class RestaurantCards extends Component {
     }
 
     returnCartInfo = (items) => {
-        //console.log('From Parent');
+        console.log('From Parent');
+        console.log(items)
         this.setState({
             cart: items,
         });
-        //console.log(this.state.cart);  
+        console.log(this.state.cart);  
     }
   
 

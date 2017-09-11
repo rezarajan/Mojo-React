@@ -53,7 +53,7 @@ export default class CardView extends Component {
 
     // }
 
-    acquireCart(itemsRef, category) {
+    acquireCart(itemsRef) {
         itemsRef.on('value', (snap) => {
     
           // get children as an array
@@ -64,8 +64,6 @@ export default class CardView extends Component {
           var uniquekeys = [];   
           var quantityItems = [];
           snap.forEach((child) => {
-
-            console.log(child.val());
 
             //This operations provides the keys of any object specified, and only for the
             //level defined (does not give the kes for children of children unless specified)
@@ -81,9 +79,10 @@ export default class CardView extends Component {
               //(this is the case for when the extra corresponds to all items)
             
               _key: child.key,
-              cost: child.child(category).val().cost ? child.val().cost : 0,
-              quantity: child.child(category).val().quantity ? child.val().quantity : 0,
+              cost: child.val().cost ? child.val().cost : 0,
+              quantity: child.val().quantity ? child.val().quantity : 0,
             });
+            console.log(child.val());
 
             
             
@@ -108,8 +107,7 @@ export default class CardView extends Component {
             // })]
 
           });
-          console.log(items)
-;
+          //console.log(items)
           var tempCategoryHolder = [];
           var tempSortedItems = [];
           var tempquantityHolder = [];
@@ -124,10 +122,10 @@ export default class CardView extends Component {
         //           key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
         //       });
 
-              items.map((key, i) => {
-                    //key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
-                    console.log(key)
-              });
+            //   items.map((key, i) => {
+            //         //key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
+            //         console.log(key)
+            //   });
               
         //       //Creates a temporary array for a particular category/tag 
         //       //and populates it with the items from that category/tag
@@ -140,6 +138,7 @@ export default class CardView extends Component {
         //   }
 
         //Uses a callback method to send the filtered data to the parent (RestaurantCards)
+        //console.log('Returning Info')
         this.props.returnCartInfo && this.props.returnCartInfo(items); 
     
         });
@@ -360,21 +359,19 @@ export default class CardView extends Component {
                                                                     this.acquireCart(
                                                                     this.itemsRef.child('uid')
                                                                     .child(this.props.user)
-                                                                    .child('cart').child(this.props.restaurantName),
-                                                                    'extras'
+                                                                    .child('cart').child(this.props.restaurantName)
+                                                                    .child(keyName).child('extras')
                                                                     ),
                                                                     this.props._showExtrasModal(),
                                                                     {/* colorState === 'white'?
-                                                                    [colorState = 'grey',
-                                                                    this.createNewItem(this.props.restaurantName, keyName)]
+                                                                    this.createNewItem(this.props.restaurantName, keyName)
                                                                     :
                                                                     this.removeItem(this.props.restaurantName, keyName), */}
                                                                     ]
                                                                     :
                                                                     [console.log('Extras Modal'),
                                                                     {/* colorState === 'white'?
-                                                                    [colorState = 'grey',
-                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)]
+                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)
                                                                     :
                                                                     this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, null, null) */}
                                                                     ]
