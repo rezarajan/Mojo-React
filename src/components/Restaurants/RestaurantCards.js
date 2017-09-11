@@ -51,6 +51,7 @@ export default class RestaurantCards extends Component {
             sorteditems: [],
             sortedExtras: [],
             user: null,
+            cart: [],
           }
       }
 
@@ -144,6 +145,14 @@ export default class RestaurantCards extends Component {
         });
         //console.log(this.state.sorteditems);  
     }
+
+    returnCartInfo = (items) => {
+        //console.log('From Parent');
+        this.setState({
+            cart: items,
+        });
+        //console.log(this.state.cart);  
+    }
   
 
     render() {
@@ -156,7 +165,9 @@ export default class RestaurantCards extends Component {
                 <RestaurantCarousel 
                 showModal={this._showModal} 
                 returnTagInfo={this.returnItemTagInfo} 
-                returnRestaurantInfo={this.returnRestaurantInfo}/>
+                returnRestaurantInfo={this.returnRestaurantInfo}
+                returnCartInfo={this.returnCartInfo}   
+                user={this.state.user}/>
                 <Modal isVisible={this.state.isModalVisible} backdropColor={'transparent'} style={{justifyContent: 'flex-start', marginTop: 0, marginBottom: -16, alignItems: 'center'}}>
                     <View>
                     <ScrollView style={{marginTop: 98}}>
@@ -169,6 +180,8 @@ export default class RestaurantCards extends Component {
                         itemWidth={0.9*deviceW}
                         itemTags={this.state.sorteditems}
                         returnExtrasInfo={this.returnExtrasInfo}
+                        returnCartInfo={this.returnCartInfo}   
+                        cartInfo={this.state.cart}                     
                         _showExtrasModal={this._showExtrasModal}
                         modalState={this.state.isExtrasModalVisible}
                         />
@@ -198,6 +211,8 @@ export default class RestaurantCards extends Component {
                         user={this.state.user}
                         itemWidth={0.9*deviceW}
                         itemTags={this.state.sortedExtras}
+                        returnCartInfo={this.returnCartInfo}   
+                        cartInfo={this.state.cart}     
                         _showExtrasModal={this._showExtrasModal}
                         modalState={this.state.isExtrasModalVisible}
                         itemName={this.state.itemName}

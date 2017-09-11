@@ -216,6 +216,91 @@ export default class ResturantCarousel extends Component {
         });
       }
 
+      acquireCart(itemsRef) {
+        itemsRef.on('value', (snap) => {
+    
+          // get children as an array
+          var items = [];
+          var tagsArray = [];
+          var keyItems = [];  
+          var keyname = [];   
+          var uniquekeys = [];   
+          var quantityItems = [];
+          snap.forEach((child) => {
+
+            console.log(child.val());
+
+            //This operations provides the keys of any object specified, and only for the
+            //level defined (does not give the kes for children of children unless specified)
+            //var keysObject1 = Object.keys(child.child('tags').val());
+
+            //Receives the tag information from Firebase to do a custom filter which works like a deep query later
+            //This information would be used for filtering item categories to populate the restaurant menu
+            var quantityObject = [];
+            //populating an array with the data from Firebase
+            items.push({
+              //if the item is found under the correspondingItems node then the tags are added
+              //or if the correspondingItems node does not exist then the tags are added 
+              //(this is the case for when the extra corresponds to all items)
+            
+              _key: child.key,
+              cost: child.child('details').val().cost ? child.child('details').val().cost : 0,
+              quantity: child.child('details').val().quantity ? child.child('details').val().quantity : 0,
+            });
+
+            
+            
+
+            // // This function find the key(s) for a specific value, rather than finding the value for key
+            // keysWorker = (value, keyholder) => {
+            //     var object = keyholder;
+            //     return Object.keys(object).find(key => object[key] === value);
+            //   };
+
+            // //For the case when the tag is undefined it would just name the key "Undefined"
+            // var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): null;
+            
+            // //cretaes an array of items with the main key tags for the particular items from Firebase
+            // //if the currentkey exists for the item
+            // currentkey && 
+            // [keyname.push(currentkey),
+
+            // //Appends any data(items) on particular tags to the corresponding child tag for reference later
+            // keyItems.push({
+            //     [currentkey]: {[child.key] : "true"}
+            // })]
+
+          });
+
+          var tempCategoryHolder = [];
+          var tempSortedItems = [];
+          var tempquantityHolder = [];
+          
+        //   //Filters the keyItems object using the unique key values from the uniquekeys array
+        //   for(index=0;index<uniquekeys.length;index++){
+
+        //       //Resets the temporary array
+        //       tempCategoryHolder = [];
+        //       quantityItems.map((key, i) => {
+        //           //Pushes the items of a particular category/tag to a temporary array using it's key
+        //           key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
+        //       });
+        //       //Creates a temporary array for a particular category/tag 
+        //       //and populates it with the items from that category/tag
+        //       //from the temporary array above
+        //       for(i=0;i<tempCategoryHolder.length;i++){
+        //           var temp = tempCategoryHolder[i];
+        //           tempSortedItems[uniquekeys[index]] = {...tempSortedItems[uniquekeys[index]],[temp] : "true"}
+        //       }          
+  
+        //   }
+
+        //Uses a callback method to send the filtered data to the parent (RestaurantCards)
+        this.props.returnCartInfo && this.props.returnCartInfo(items); 
+    
+        });
+      }
+
     componentDidMount() {
         //on launch this is store the key value pairs from firebase for populating the snap carousel
         this.listenForItems(this.itemsRef.child('listing/venue'));
@@ -231,7 +316,8 @@ export default class ResturantCarousel extends Component {
             this._carousel.currentIndex === index ? 
             //if index is the same then it opens the restaurant menu
             [this.props.showModal(item.restaurantName, item.backgroundColor, item.waitTime, item.icon),
-            this.acquireMenu(this.itemsRef.child('menu').child(item.restaurantName).child('Items'))]
+            this.acquireMenu(this.itemsRef.child('menu').child(item.restaurantName).child('Items')),
+            this.acquireCart(this.itemsRef.child('uid').child(this.props.user).child('cart').child(item.restaurantName))]
             : 
             //if index is different then it snaps to that index
             this._carousel.snapToItem(index);

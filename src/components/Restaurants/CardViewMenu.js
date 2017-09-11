@@ -12,6 +12,7 @@ import * as firebase from 'firebase';
 import RoundedText from './RoundedText';
 
 const deviceW = Dimensions.get('window').width;
+var foundYet = false;
 var colorState;
 
 export default class CardView extends Component {
@@ -31,26 +32,118 @@ export default class CardView extends Component {
         };
     }
 
-    async acquireCart(itemsRef) {
-        //references firebase to see if items are in the cart
-        //and sets the appropriate colour for the item background
-        //based on the result
-        var color;
-        itemsRef.on('value', (snap) => {
+    // acquireCart(itemsRef) {
+    //     //references firebase to see if items are in the cart
+    //     //and sets the appropriate colour for the item background
+    //     //based on the result
+    //     var color;
+    //     itemsRef.on('value', (snap) => {
             
-            snap.forEach((child) => {
-                child.val()? 
-                color='grey'
-                :
-                color='white'
-                console.log(color);
-            });
-        });
-        color?
-        colorState='grey':
-        colorState='white'        
+    //         snap.forEach((child) => {
+    //             child.val()? 
+    //             color='grey'
+    //             :
+    //             color='white'
+    //             console.log(color);
+    //         });
+    //     });
+    //     color?
+    //     colorState='grey':
+    //     colorState='white'        
 
-    }
+    // }
+
+    acquireCart(itemsRef, category) {
+        itemsRef.on('value', (snap) => {
+    
+          // get children as an array
+          var items = [];
+          var tagsArray = [];
+          var keyItems = [];  
+          var keyname = [];   
+          var uniquekeys = [];   
+          var quantityItems = [];
+          snap.forEach((child) => {
+
+            console.log(child.val());
+
+            //This operations provides the keys of any object specified, and only for the
+            //level defined (does not give the kes for children of children unless specified)
+            //var keysObject1 = Object.keys(child.child('tags').val());
+
+            //Receives the tag information from Firebase to do a custom filter which works like a deep query later
+            //This information would be used for filtering item categories to populate the restaurant menu
+            var quantityObject = [];
+            //populating an array with the data from Firebase
+            items.push({
+              //if the item is found under the correspondingItems node then the tags are added
+              //or if the correspondingItems node does not exist then the tags are added 
+              //(this is the case for when the extra corresponds to all items)
+            
+              _key: child.key,
+              cost: child.child(category).val().cost ? child.val().cost : 0,
+              quantity: child.child(category).val().quantity ? child.val().quantity : 0,
+            });
+
+            
+            
+
+            // // This function find the key(s) for a specific value, rather than finding the value for key
+            // keysWorker = (value, keyholder) => {
+            //     var object = keyholder;
+            //     return Object.keys(object).find(key => object[key] === value);
+            //   };
+
+            // //For the case when the tag is undefined it would just name the key "Undefined"
+            // var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): null;
+            
+            // //cretaes an array of items with the main key tags for the particular items from Firebase
+            // //if the currentkey exists for the item
+            // currentkey && 
+            // [keyname.push(currentkey),
+
+            // //Appends any data(items) on particular tags to the corresponding child tag for reference later
+            // keyItems.push({
+            //     [currentkey]: {[child.key] : "true"}
+            // })]
+
+          });
+          console.log(items)
+;
+          var tempCategoryHolder = [];
+          var tempSortedItems = [];
+          var tempquantityHolder = [];
+          
+        //   //Filters the keyItems object using the unique key values from the uniquekeys array
+        //   for(index=0;index<uniquekeys.length;index++){
+
+        //       //Resets the temporary array
+        //       tempCategoryHolder = [];
+        //       quantityItems.map((key, i) => {
+        //           //Pushes the items of a particular category/tag to a temporary array using it's key
+        //           key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
+        //       });
+
+              items.map((key, i) => {
+                    //key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
+                    console.log(key)
+              });
+              
+        //       //Creates a temporary array for a particular category/tag 
+        //       //and populates it with the items from that category/tag
+        //       //from the temporary array above
+        //       for(i=0;i<tempCategoryHolder.length;i++){
+        //           var temp = tempCategoryHolder[i];
+        //           tempSortedItems[uniquekeys[index]] = {...tempSortedItems[uniquekeys[index]],[temp] : "true"}
+        //       }          
+  
+        //   }
+
+        //Uses a callback method to send the filtered data to the parent (RestaurantCards)
+        this.props.returnCartInfo && this.props.returnCartInfo(items); 
+    
+        });
+      }
 
     acquireExtras(itemsRef, itemName) {
         itemsRef.on('value', (snap) => {
@@ -120,6 +213,7 @@ export default class CardView extends Component {
 
           var tempCategoryHolder = [];
           var tempSortedItems = [];
+          var tempquantityHolder = [];
           
           //Filters the keyItems object using the unique key values from the uniquekeys array
           for(index=0;index<uniquekeys.length;index++){
@@ -241,68 +335,48 @@ export default class CardView extends Component {
                                             <Text key={i} style={[styles.name, {marginTop: 24, marginBottom: -16}]}>{tagKey}</Text>,
                                             <View style={styles.categoriesGrid}>
                                                 {Object.keys(this.props.itemTags[tagKey]).map((keyName, j) => {
-                                                    return (
-                                                        //checks to see which modal state is active and then
-                                                        //references firebase for the remote cart items
-                                                        //and sets the colour state for the backgronud
-                                                        //depending on whether the item is in the cart or not
-                                                        !this.props.modalState?
-                                                        this.acquireCart(
-                                                            this.itemsRef.child('uid')
-                                                            .child(this.props.user)
-                                                            .child('cart').child(this.props.restaurantName)
-                                                            .child(keyName)
-                                                            )
+                                                    return(
+                                                    foundYet = false,
+                                                    this.props.cartInfo.map((cartItem, k) => {
+                                                        console.log(cartItem['_key'])
+                                                        console.log(keyName)
+
+                                                        !foundYet?
+                                                        cartItem['_key'] === keyName?
+                                                        [colorState = 'grey', foundYet = true, console.log('same')] : colorState = 'white'
                                                         :
-                                                        this.props.itemName?
-                                                        this.acquireCart(
-                                                            this.itemsRef.child('uid')
-                                                            .child(this.props.user)
-                                                            .child('cart').child(this.props.restaurantName)
-                                                            .child(this.props.itemName)
-                                                            .child('extras')
-                                                            .child(keyName)
-                                                            )
-                                                            :
-                                                            console.log('No item name'),
-                                                            colorState?
-                                                            colorState=colorState
-                                                            :
-                                                            colorState='white',
-                                                            console.log(colorState),
+                                                        null
+
+                                                    }),
+
+
+                                                        
                                                         <View key={j}> 
                                                             <TouchableOpacity 
                                                             onPress={ () => {
                                                                 //Checks to see which modal state it is in to assess which functions to execute on button press
                                                                 !this.props.modalState?
                                                                     [this.acquireExtras(this.itemsRef.child('menu').child(this.props.restaurantName).child('Extras'), keyName),
-                                                                    this.props._showExtrasModal(),
                                                                     this.acquireCart(
                                                                     this.itemsRef.child('uid')
                                                                     .child(this.props.user)
-                                                                    .child('cart').child(this.props.restaurantName)
-                                                                    .child(keyName),
+                                                                    .child('cart').child(this.props.restaurantName),
+                                                                    'extras'
                                                                     ),
-                                                                    console.log(colorState),
-                                                                    colorState === 'white'?
-                                                                    this.createNewItem(this.props.restaurantName, keyName)
+                                                                    this.props._showExtrasModal(),
+                                                                    {/* colorState === 'white'?
+                                                                    [colorState = 'grey',
+                                                                    this.createNewItem(this.props.restaurantName, keyName)]
                                                                     :
-                                                                    this.removeItem(this.props.restaurantName, keyName),
+                                                                    this.removeItem(this.props.restaurantName, keyName), */}
                                                                     ]
                                                                     :
                                                                     [console.log('Extras Modal'),
-                                                                    this.acquireCart(
-                                                                    this.itemsRef.child('uid')
-                                                                    .child(this.props.user)
-                                                                    .child('cart').child(this.props.restaurantName)
-                                                                    .child(this.props.itemName)
-                                                                    .child('extras')
-                                                                    .child(keyName)
-                                                                    ),
-                                                                    colorState === 'white'?
-                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)
+                                                                    {/* colorState === 'white'?
+                                                                    [colorState = 'grey',
+                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)]
                                                                     :
-                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, null, null)
+                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, null, null) */}
                                                                     ]
                                                                 }} 
                                                             activeOpacity={0.9}>
@@ -330,7 +404,9 @@ export default class CardView extends Component {
                                                             </Text>
                                                             </TouchableOpacity>
                                                         </View>
-                                                    );
+                                                    
+                                                    )
+                                                    
                                                 })}
                                             </View>
                                         ]
