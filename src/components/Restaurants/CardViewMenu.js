@@ -240,6 +240,20 @@ export default class CardView extends Component {
         });
       }
 
+      acquireSubSpace(restaurantName, itemName){
+          var itemsRef = firebase.database().ref().child('uid').child(this.props.user).child('cart').child(restaurantName).child(itemName).child('details');
+          var taken = false;
+        itemsRef.on('value', (snap) => {
+            snap.forEach((child) => {
+                taken = true;
+                console.log('Hello')
+            });
+        });
+
+        console.log(taken);
+        return taken;
+      }
+
       createNewItem(restaurantName, itemName) {
         // main item data
         var cartData = {
@@ -339,6 +353,8 @@ export default class CardView extends Component {
                                                     this.props.cartInfo.map((cartItem, k) => {
                                                         console.log(cartItem['_key'])
                                                         console.log(keyName)
+                                                        console.log('Color: ' + colorState)
+
 
                                                         !foundYet?
                                                         cartItem['_key'] === keyName?
@@ -362,7 +378,12 @@ export default class CardView extends Component {
                                                                     .child('cart').child(this.props.restaurantName)
                                                                     .child(keyName).child('extras')
                                                                     ),
-                                                                    this.props._showExtrasModal(),
+                                                                    
+                                                                    this.acquireSubSpace(this.props.restaurantName, keyName)? 
+                                                                    this.removeItem(this.props.restaurantName, keyName)
+                                                                    :
+                                                                    [this.createNewItem(this.props.restaurantName, keyName),
+                                                                    this.props._showExtrasModal()],
                                                                     {/* colorState === 'white'?
                                                                     this.createNewItem(this.props.restaurantName, keyName)
                                                                     :
@@ -370,6 +391,7 @@ export default class CardView extends Component {
                                                                     ]
                                                                     :
                                                                     [console.log('Extras Modal'),
+                                                                    this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1),
                                                                     {/* colorState === 'white'?
                                                                     this.updateItem(this.props.itemName, this.props.restaurantName, this.props.itemName, keyName, 1, 1)
                                                                     :

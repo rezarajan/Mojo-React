@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 8,
     marginRight: 8,
+    shadowOpacity: 0.4,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: 'black',
+    shadowRadius: 2,
   },
 
   text: {

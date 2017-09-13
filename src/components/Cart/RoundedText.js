@@ -28,7 +28,7 @@ export default class RoundedText extends Component {
         }]}>
           <Text style={[styles.text, {marginTop: 16, marginBottom: 28, color: this.props.color}]}>{this.props.text}</Text>
 
-          <View style={[{marginBottom: -10, width: this.props.width-16, height:1, backgroundColor:'grey', opacity: 0.6}]}/>
+          <View style={[{marginBottom: -10, width: this.props.width-16, height:1, backgroundColor:'rgba(226,226,226,1)', opacity: 0.6}]}/>
         </View>
     );
   }
