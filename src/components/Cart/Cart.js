@@ -75,21 +75,27 @@ export default class Cart extends Component {
   var itemsRef = firebase.database().ref().child('uid').child(this.state.user).child('cart');
   var items = [];
   itemsRef.orderByKey().on('value', (snap) => {
+
+    //Resets the state of itemsData for the case that the node is updated in real time
+    //This function, since asynchronous, must hold this function to reset the state of
+    //itemsData
+    this.setState({
+      itemsData: [],
+    });
       snap.forEach((child) => {
         //TODO: fill out header here using the Restaurant name as child.key
         //Then filter for the items the user chose from each restaurant
           itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
             snap.forEach((subChild) => {
-                //console.log('Key Order: ' + subChild.key);
-                //console.log('Key Order Cost: ' + subChild.child('details').val().cost);
-                //populating an array with the data from Firebase
-                // items.push({
-                //   restaurantName: child.key ? child.key : 'Restaurant Name',
-                //   cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0,
-                // });
-
                 this.setState({
-                  itemsData: [...this.state.itemsData,  {restaurantName: child.key ? child.key : 'Restaurant Name', cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0}]  
+                  itemsData: 
+                  [
+                    ...this.state.itemsData,  
+                    {
+                      restaurantName: child.key ? child.key : 'Restaurant Name', 
+                      cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
+                    }
+                  ]  
                 });
             });
         });
@@ -135,6 +141,7 @@ export default class Cart extends Component {
   }
 
   render() {
+    console.log(this.state.itemsData);
     return (
       <View>
         <View style={[styles.container, {position: 'absolute', top: 98, height: deviceH-98, marginTop: 0}]}>
