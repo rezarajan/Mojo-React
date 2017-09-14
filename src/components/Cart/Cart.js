@@ -51,6 +51,7 @@ export default class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        itemsData: [],
         user: null,
       }
   }
@@ -72,19 +73,31 @@ export default class Cart extends Component {
   logthemAll(){
     //this uses the orderByKey method to acquire the unique push keys for each item
   var itemsRef = firebase.database().ref().child('uid').child(this.state.user).child('cart');
+  var items = [];
   itemsRef.orderByKey().on('value', (snap) => {
       snap.forEach((child) => {
         //TODO: fill out header here using the Restaurant name as child.key
         //Then filter for the items the user chose from each restaurant
           itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
             snap.forEach((subChild) => {
-                console.log('Key Order: ' + subChild.key);
-                console.log('Key Order Cost: ' + subChild.child('details').val().cost);
+                //console.log('Key Order: ' + subChild.key);
+                //console.log('Key Order Cost: ' + subChild.child('details').val().cost);
+                //populating an array with the data from Firebase
+                // items.push({
+                //   restaurantName: child.key ? child.key : 'Restaurant Name',
+                //   cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0,
+                // });
+
+                this.setState({
+                  itemsData: [...this.state.itemsData,  {restaurantName: child.key ? child.key : 'Restaurant Name', cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0}]  
+                });
             });
         });
-          //console.log('Value Order: ' + child.child('details').val().cost);
       });
   });
+
+  console.log(this.state.itemsData);
+  
 }
 
      
@@ -92,7 +105,7 @@ export default class Cart extends Component {
     return (
       <View style={{marginTop: -28}}>
         <RoundedText 
-        text={section.title} 
+        text={section.restaurantName} 
         width={0.9*deviceW}
         height={70}
         backgroundColor={'white'}
@@ -108,7 +121,7 @@ export default class Cart extends Component {
     return (
       <View style={{marginTop: -28, marginBottom: 28}}>
       <RoundedText 
-      text={section.content}
+      text={section.cost}
       height={360}
       backgroundColor= {'white'}
       borderTopLeftRadius={0}         // Rounded border
@@ -127,7 +140,7 @@ export default class Cart extends Component {
         <View style={[styles.container, {position: 'absolute', top: 98, height: deviceH-98, marginTop: 0}]}>
           <ScrollView style={{paddingTop: 28}}>
           <Accordion
-            sections={SECTIONS}
+            sections={this.state.itemsData}
             renderHeader={this._renderHeader}
             renderContent={this._renderContent}
             initiallyActiveSection={1}
