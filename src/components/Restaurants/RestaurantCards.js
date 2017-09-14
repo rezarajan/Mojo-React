@@ -52,6 +52,7 @@ export default class RestaurantCards extends Component {
             sortedExtras: [],
             user: null,
             cart: [],
+            uniqueKey: null,
           }
       }
 
@@ -146,6 +147,14 @@ export default class RestaurantCards extends Component {
         //console.log(this.state.sorteditems);  
     }
 
+    returnUniqueKey = (uniqueKey) => {
+        //console.log('From Parent');
+        this.setState({
+            uniqueKey: uniqueKey,
+        });
+        //console.log(this.state.sorteditems);  
+    }
+
     returnCartInfo = (items) => {
         console.log('From Parent');
         console.log(items)
@@ -182,7 +191,8 @@ export default class RestaurantCards extends Component {
                         itemTags={this.state.sorteditems}
                         returnExtrasInfo={this.returnExtrasInfo}
                         returnCartInfo={this.returnCartInfo}   
-                        cartInfo={this.state.cart}                     
+                        cartInfo={this.state.cart}              
+                        returnUniqueKey={this.returnUniqueKey}       
                         _showExtrasModal={this._showExtrasModal}
                         modalState={this.state.isExtrasModalVisible}
                         />
@@ -217,6 +227,7 @@ export default class RestaurantCards extends Component {
                         _showExtrasModal={this._showExtrasModal}
                         modalState={this.state.isExtrasModalVisible}
                         itemName={this.state.itemName}
+                        uniqueKey={this.state.uniqueKey}
                         />
                     </ScrollView>
                     <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>

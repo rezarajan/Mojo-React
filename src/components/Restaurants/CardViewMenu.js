@@ -241,17 +241,27 @@ export default class CardView extends Component {
       }
 
       acquireSubSpace(restaurantName, itemName){
-          var itemsRef = firebase.database().ref().child('uid').child(this.props.user).child('cart').child(restaurantName).child(itemName).child('details');
+
+        //references the path of the restaurant item to see if the user has it in the cart or not
+        //Referenced later to determine the behaviour of onPress activities
+          var itemsRef = firebase.database().ref().child('uid').child(this.props.user).child('cart').child(restaurantName).child(itemName);
           var taken = false;
         itemsRef.on('value', (snap) => {
             snap.forEach((child) => {
                 taken = true;
-                console.log('Hello')
             });
         });
-
-        console.log(taken);
         return taken;
+      }
+
+      logthemAll(){
+        var itemsRef = firebase.database().ref().child('uid').child(this.props.user).child('cart').child('Starbucks');
+        itemsRef.orderByKey().on('child_added', (snap) => {
+            snap.forEach((child) => {
+                console.log('Key Order: ' + child.key);
+                //console.log('Value Order: ' + child.child('details').val().cost);
+            });
+        });
       }
 
       createNewItem(restaurantName, itemName) {
@@ -268,9 +278,11 @@ export default class CardView extends Component {
         // Write the new post's data simultaneously in the posts list and the user's post list.
         var updates = {};
     
-        updates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + itemName + '/details'] = cartData;
+        updates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + itemName + '/' + newPostKey + '/details'] = cartData;
         
         firebase.database().ref().update(updates);
+
+        this.props.returnUniqueKey(newPostKey);
       }
 
       removeItem(restaurantName, itemName) {
@@ -298,7 +310,7 @@ export default class CardView extends Component {
         // Write the new post's data simultaneously in the posts list and the user's post list.
         var extrasUpdates = {};
         //updates['test/' + restaurantName + '/' + itemName] = cartData;
-        extrasUpdates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + itemName + '/extras/' + extraname] = extrasData;
+        extrasUpdates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + itemName + '/' + this.props.uniqueKey + '/extras/' + extraname] = extrasData;
       
         //firebase.database().ref().update(updates);
         firebase.database().ref().update(extrasUpdates);
@@ -354,6 +366,7 @@ export default class CardView extends Component {
                                                         console.log(cartItem['_key'])
                                                         console.log(keyName)
                                                         console.log('Color: ' + colorState)
+                                                        this.logthemAll();
 
 
                                                         !foundYet?
@@ -376,11 +389,12 @@ export default class CardView extends Component {
                                                                     this.itemsRef.child('uid')
                                                                     .child(this.props.user)
                                                                     .child('cart').child(this.props.restaurantName)
-                                                                    .child(keyName).child('extras')
+                                                                    .child(keyName)
                                                                     ),
                                                                     
                                                                     this.acquireSubSpace(this.props.restaurantName, keyName)? 
-                                                                    this.removeItem(this.props.restaurantName, keyName)
+                                                                    [this.createNewItem(this.props.restaurantName, keyName),
+                                                                    this.props._showExtrasModal()]
                                                                     :
                                                                     [this.createNewItem(this.props.restaurantName, keyName),
                                                                     this.props._showExtrasModal()],
