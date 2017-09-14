@@ -67,9 +67,11 @@ const styles = StyleSheet.create({
         },
          //Mojo button holder
          logoHolder: {
-            position: 'absolute',
-            right: deviceW/2,
-            left: deviceW/2,
+            //position: 'absolute',
+            //right: deviceW/2,
+            //left: deviceW/2,
+            alignItems: 'center',
+            justifyContent: 'center'
           //   marginBottom: 24,
           },
          //Cart button wrapper
