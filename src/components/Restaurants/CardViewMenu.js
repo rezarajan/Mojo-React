@@ -32,113 +32,21 @@ export default class CardView extends Component {
         };
     }
 
-    // acquireCart(itemsRef) {
-    //     //references firebase to see if items are in the cart
-    //     //and sets the appropriate colour for the item background
-    //     //based on the result
-    //     var color;
-    //     itemsRef.on('value', (snap) => {
-            
-    //         snap.forEach((child) => {
-    //             child.val()? 
-    //             color='grey'
-    //             :
-    //             color='white'
-    //             console.log(color);
-    //         });
-    //     });
-    //     color?
-    //     colorState='grey':
-    //     colorState='white'        
-
-    // }
-
     acquireCart(itemsRef) {
         itemsRef.on('value', (snap) => {
-    
-          // get children as an array
           var items = [];
-          var tagsArray = [];
-          var keyItems = [];  
-          var keyname = [];   
-          var uniquekeys = [];   
-          var quantityItems = [];
+
           snap.forEach((child) => {
-
-            //This operations provides the keys of any object specified, and only for the
-            //level defined (does not give the kes for children of children unless specified)
-            //var keysObject1 = Object.keys(child.child('tags').val());
-
-            //Receives the tag information from Firebase to do a custom filter which works like a deep query later
-            //This information would be used for filtering item categories to populate the restaurant menu
             var quantityObject = [];
-            //populating an array with the data from Firebase
+            //populating an array with the data from Firebase for the extras menu
             items.push({
-              //if the item is found under the correspondingItems node then the tags are added
-              //or if the correspondingItems node does not exist then the tags are added 
-              //(this is the case for when the extra corresponds to all items)
-            
               _key: child.key,
               cost: child.val().cost ? child.val().cost : 0,
               quantity: child.val().quantity ? child.val().quantity : 0,
             });
-            console.log(child.val());
-
-            
-            
-
-            // // This function find the key(s) for a specific value, rather than finding the value for key
-            // keysWorker = (value, keyholder) => {
-            //     var object = keyholder;
-            //     return Object.keys(object).find(key => object[key] === value);
-            //   };
-
-            // //For the case when the tag is undefined it would just name the key "Undefined"
-            // var currentkey = keysWorker("main", keysObject)? keysWorker("main", keysObject): null;
-            
-            // //cretaes an array of items with the main key tags for the particular items from Firebase
-            // //if the currentkey exists for the item
-            // currentkey && 
-            // [keyname.push(currentkey),
-
-            // //Appends any data(items) on particular tags to the corresponding child tag for reference later
-            // keyItems.push({
-            //     [currentkey]: {[child.key] : "true"}
-            // })]
-
           });
-          //console.log(items)
-          var tempCategoryHolder = [];
-          var tempSortedItems = [];
-          var tempquantityHolder = [];
-          
-        //   //Filters the keyItems object using the unique key values from the uniquekeys array
-        //   for(index=0;index<uniquekeys.length;index++){
 
-        //       //Resets the temporary array
-        //       tempCategoryHolder = [];
-        //       quantityItems.map((key, i) => {
-        //           //Pushes the items of a particular category/tag to a temporary array using it's key
-        //           key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
-        //       });
-
-            //   items.map((key, i) => {
-            //         //key[index]? tempCategoryHolder.push(Object.keys(key[uniquekeys[index]])): null;
-            //         console.log(key)
-            //   });
-              
-        //       //Creates a temporary array for a particular category/tag 
-        //       //and populates it with the items from that category/tag
-        //       //from the temporary array above
-        //       for(i=0;i<tempCategoryHolder.length;i++){
-        //           var temp = tempCategoryHolder[i];
-        //           tempSortedItems[uniquekeys[index]] = {...tempSortedItems[uniquekeys[index]],[temp] : "true"}
-        //       }          
-  
-        //   }
-
-        //Uses a callback method to send the filtered data to the parent (RestaurantCards)
-        //console.log('Returning Info')
+        //Uses a callback method to send the \data to the parent (RestaurantCards)
         this.props.returnCartInfo && this.props.returnCartInfo(items); 
     
         });
@@ -255,6 +163,7 @@ export default class CardView extends Component {
       }
 
       logthemAll(){
+          //this uses the orderByKey method to acquire the unique push keys for each item
         var itemsRef = firebase.database().ref().child('uid').child(this.props.user).child('cart').child('Starbucks');
         itemsRef.orderByKey().on('child_added', (snap) => {
             snap.forEach((child) => {
@@ -336,7 +245,7 @@ export default class CardView extends Component {
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
                 <View style={styles.header}>
-
+                    { !this.props.hideHeader?
                     <View style={{flexDirection: 'row', marginBottom: -36, marginLeft: 16, alignItems: 'center'}}>
                         <View style={styles.profilepicWrap}>
                             <Image style={styles.profilepic} source={{uri:this.props.icon}} />
@@ -347,6 +256,9 @@ export default class CardView extends Component {
                             <Text style={[styles.moreinfo, {fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery:{"\n"}{this.props.waitTime}</Text>
                         </View>
                     </View>
+                    :
+                    null
+                    }
 
                     <View style={[styles.infoHolder]}>
                         
@@ -420,6 +332,7 @@ export default class CardView extends Component {
                                                                     marginTop: 8, 
                                                                     marginBottom: 8,
                                                                     fontSize: 12, 
+                                                                    color: this.props.textColor,
                                                                     fontWeight: 'normal',
                                                                     alignItems: 'center',
                                                                     justifyContent:'center',

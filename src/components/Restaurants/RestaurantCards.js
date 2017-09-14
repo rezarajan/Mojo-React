@@ -182,6 +182,7 @@ export default class RestaurantCards extends Component {
                     <View>
                     <ScrollView style={{marginTop: 98}}>
                         <CardViewMenu 
+                        textColor={'white'}
                         backgroundColor={this.state.modalColor} 
                         restaurantName={this.state.restaurantName}    
                         waitTime={this.state.waitTime}
@@ -214,8 +215,9 @@ export default class RestaurantCards extends Component {
                     <ScrollView style={{marginTop:-202, paddingTop:402}}>
                         <CardViewMenu 
                         text={'Item'} 
-                        //backgroundColor={this.state.modalColor} 
-                        backgroundColor={'aliceblue'} 
+                        textColor={'grey'}
+                        backgroundColor={'white'}                  
+                        hideHeader={true}
                         restaurantName={this.state.restaurantName}    
                         waitTime={this.state.waitTime}
                         icon={this.state.icon}
