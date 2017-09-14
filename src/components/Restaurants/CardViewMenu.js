@@ -392,16 +392,9 @@ export default class CardView extends Component {
                                                                     .child(keyName)
                                                                     ),
                                                                     
-                                                                    this.acquireSubSpace(this.props.restaurantName, keyName)? 
-                                                                    [this.createNewItem(this.props.restaurantName, keyName),
-                                                                    this.props._showExtrasModal()]
-                                                                    :
+                                                                    //this.acquireSubSpace(this.props.restaurantName, keyName)? 
                                                                     [this.createNewItem(this.props.restaurantName, keyName),
                                                                     this.props._showExtrasModal()],
-                                                                    {/* colorState === 'white'?
-                                                                    this.createNewItem(this.props.restaurantName, keyName)
-                                                                    :
-                                                                    this.removeItem(this.props.restaurantName, keyName), */}
                                                                     ]
                                                                     :
                                                                     [console.log('Extras Modal'),
