@@ -109,9 +109,9 @@ export default class Cart extends Component {
         width={0.9*deviceW}
         height={70}
         backgroundColor={'white'}
-        borderTopLeftRadius={20}         // Rounded border
-        borderTopRightRadius={20}
-        borderBottomLeftRadius={0}         // Rounded border
+        borderTopLeftRadius={20}    // Rounded border
+        borderTopRightRadius={20}   // Rounded border
+        borderBottomLeftRadius={0}         
         borderBottomRightRadius={0}/>
       </View>
     );
@@ -124,10 +124,10 @@ export default class Cart extends Component {
       text={section.cost}
       height={360}
       backgroundColor= {'white'}
-      borderTopLeftRadius={0}         // Rounded border
+      borderTopLeftRadius={0}         
       borderTopRightRadius={0}
-      borderBottomLeftRadius={20}         // Rounded border
-      borderBottomRightRadius={20}
+      borderBottomLeftRadius={20}   // Rounded border
+      borderBottomRightRadius={20}  // Rounded border
       
       />
       </View>

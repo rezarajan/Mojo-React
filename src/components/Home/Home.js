@@ -33,7 +33,7 @@ function px2dp(px) {
 export default class Home extends Component {
 
     state= {
-        selectedTab: 'globe',
+        selectedTab: 'mojo',
         mojo_active: true,
       };
 
@@ -63,8 +63,8 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
                 //title="Mojo"
-                renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(72), height: px2dp(72)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(72), height: px2dp(72)}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(28), height: px2dp(28)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(28), height: px2dp(28)}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}
                 >
                 <RestaurantCards />

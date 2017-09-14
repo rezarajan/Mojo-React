@@ -13,7 +13,7 @@ import RoundedText from './RoundedText';
 
 const deviceW = Dimensions.get('window').width;
 var foundYet = false;
-var colorState;
+var colorState = 'white';
 
 export default class CardView extends Component {
 
