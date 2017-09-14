@@ -63,8 +63,8 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
                 //title="Mojo"
-                //renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(22), height: px2dp(22)}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(72), height: px2dp(72)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(72), height: px2dp(72)}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}
                 >
                 <RestaurantCards />
@@ -88,7 +88,7 @@ export default class Home extends Component {
                 <Profile />
               </TabNavigator.Item>
             </TabNavigator>
-            <TouchableOpacity activeOpacity={0.98} onPress={() => {
+            {/* <TouchableOpacity activeOpacity={0.98} onPress={() => {
                 const mojo_active = this.state.mojo_active;
                 //this.setState({ selectedTab: 'mojo', mojo_active: !mojo_active 
                 this.setState({ selectedTab: 'mojo', mojo_active: mojo_active});
@@ -100,7 +100,7 @@ export default class Home extends Component {
                 <Image source={require('../../images/tabbar/mojo_active.png')} style={[styles.buttonWrapper, {width: px2dp(72), height: px2dp(72)}]}/> 
                 : <Image source={require('../../images/tabbar/mojo_inactive.png')} style={[styles.buttonWrapper, {width: px2dp(72), height: px2dp(72)}]}/>
                 }
-            </TouchableOpacity>
+            </TouchableOpacity> */}
                 {/* <ActionButton 
                     position='center'
                     buttonColor='transparent' 

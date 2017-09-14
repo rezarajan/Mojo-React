@@ -275,15 +275,12 @@ export default class CardView extends Component {
                                                     return(
                                                     foundYet = false,
                                                     this.props.cartInfo.map((cartItem, k) => {
-                                                        console.log(cartItem['_key'])
-                                                        console.log(keyName)
-                                                        console.log('Color: ' + colorState)
-                                                        this.logthemAll();
-
+                                                        //console.log(cartItem['_key'])
+                                                        //console.log(keyName)
 
                                                         !foundYet?
                                                         cartItem['_key'] === keyName?
-                                                        [colorState = 'grey', foundYet = true, console.log('same')] : colorState = 'white'
+                                                        [colorState = 'grey', foundYet = true] : colorState = 'white'
                                                         :
                                                         null
 

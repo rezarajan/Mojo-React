@@ -57,14 +57,14 @@ export default class RestaurantCards extends Component {
       }
 
       componentWillMount() {
-          console.log('Will Mount');
+          //console.log('Will Mount');
 
           AsyncStorage.getItem('userData').then((user_data_json) => {
             let userData = JSON.parse(user_data_json);
             this.setState({
                 user: userData.uid
             })
-        console.log(this.state.user);
+        //console.log(this.state.user);
         
         });
       }
@@ -156,12 +156,12 @@ export default class RestaurantCards extends Component {
     }
 
     returnCartInfo = (items) => {
-        console.log('From Parent');
-        console.log(items)
+        //console.log('From Parent');
+        //console.log(items)
         this.setState({
             cart: items,
         });
-        console.log(this.state.cart);  
+        //console.log(this.state.cart);  
     }
   
 

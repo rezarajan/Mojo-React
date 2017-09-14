@@ -12,10 +12,12 @@ import {
     Dimensions,
     FlatList,
     ScrollView,
+    AsyncStorage,
 } from 'react-native';
 import Accordion from '../custom-react-components/react-native-collapsible/Accordion';
 import RoundedText from './RoundedText';
 import RestaurantHeader from '../Restaurants/RestaurantHeader';
+import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
 const deviceW = Dimensions.get('window').width;
@@ -45,6 +47,46 @@ const SECTIONS = [
 ];
 
 export default class Cart extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        user: null,
+      }
+  }
+
+  componentWillMount() {
+
+    AsyncStorage.getItem('userData').then((user_data_json) => {
+      let userData = JSON.parse(user_data_json);
+      this.setState({
+          user: userData.uid
+      })
+      console.log(this.state.user)
+      this.logthemAll();
+  
+  });
+}
+
+//TODO: Optimize this for rendering the cart layout
+  logthemAll(){
+    //this uses the orderByKey method to acquire the unique push keys for each item
+  var itemsRef = firebase.database().ref().child('uid').child(this.state.user).child('cart');
+  itemsRef.orderByKey().on('value', (snap) => {
+      snap.forEach((child) => {
+        //TODO: fill out header here using the Restaurant name as child.key
+        //Then filter for the items the user chose from each restaurant
+          itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
+            snap.forEach((subChild) => {
+                console.log('Key Order: ' + subChild.key);
+                console.log('Key Order Cost: ' + subChild.child('details').val().cost);
+            });
+        });
+          //console.log('Value Order: ' + child.child('details').val().cost);
+      });
+  });
+}
+
      
   _renderHeader(section) {
     return (
