@@ -60,6 +60,7 @@ export default class Cart extends Component {
     this.setState({
       itemsData: [],
     });
+    // This is a test comment
       snap.forEach((child) => {
         //Just like the statement above, this is resetting the state of the items for
         //a realtime update
