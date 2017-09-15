@@ -29,7 +29,7 @@ export default class Cart extends Component {
     super(props);
     this.state = {
         itemsData: [],
-        subItemsData: {},
+        subItemsData: [],
         user: null,
       }
   }
@@ -47,10 +47,10 @@ export default class Cart extends Component {
   });
 }
 
-//TODO: Optimize this for rendering the cart layout
   logthemAll(){
     //this uses the orderByKey method to acquire the unique push keys for each item
   var itemsRef = firebase.database().ref().child('uid').child(this.state.user).child('cart');
+  var restaurantItems = [];
   var items = [];
   itemsRef.orderByKey().on('value', (snap) => {
 
@@ -61,9 +61,6 @@ export default class Cart extends Component {
       itemsData: [],
     });
       snap.forEach((child) => {
-        //TODO: fill out header here using the Restaurant name as child.key
-        //Then filter for the items the user chose from each restaurant
-
         //Just like the statement above, this is resetting the state of the items for
         //a realtime update
         items = [];
@@ -77,6 +74,8 @@ export default class Cart extends Component {
 
             });
         });
+        //temporary array to section the data based on restaurant, for use by the _renderContent function
+        restaurantItems.push(items);
 
         this.setState({
           itemsData: 
@@ -84,20 +83,12 @@ export default class Cart extends Component {
             ...this.state.itemsData,  
             {
               restaurantName: child.key ? child.key : 'Restaurant Name', 
-              //cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
             }
           ],
-          subItemsData: items,  
+          subItemsData: restaurantItems,  
         });
       });
-  });
-
-  console.log(this.state.itemsData);
-  //This is how to acquire data from the items map
-  this.state.map((key, i) => {
-    console.log(key.cost);
-  });
-  
+  });  
 }
 
      
@@ -117,32 +108,33 @@ export default class Cart extends Component {
     );
   }
 
-  _renderContent(section, subItemsData) {
+  _renderContent(section, subItemsData, key) {
+    console.log(section)
     return(
-    subItemsData.map((key, i) => {
+      subItemsData[key].map((key, i) => {
+      console.log(key.cost)
       return (
-        <View style={{marginTop: -8, marginBottom: 0}}>
-          <RoundedText 
-          text={key.cost}
-          width={0.9*deviceW}
-          separatorWidth={0.8*deviceW}
-          height={360}
-          backgroundColor= {'grey'}
-          borderTopLeftRadius={0}         
-          borderTopRightRadius={0}
-          borderBottomLeftRadius={0}   // Rounded border
-          borderBottomRightRadius={0}  // Rounded border
-          
-          />
-        </View>
-      );
-    })
-  );
-
+                <View style={{marginTop: -8, marginBottom: 0}}>
+                  <RoundedText 
+                  text={key.cost}
+                  width={0.9*deviceW}
+                  separatorWidth={0.8*deviceW}
+                  height={360}
+                  backgroundColor= {'grey'}
+                  borderTopLeftRadius={0}         
+                  borderTopRightRadius={0}
+                  borderBottomLeftRadius={0}   // Rounded border
+                  borderBottomRightRadius={0}  // Rounded border
+                  
+                  />
+                </View>
+              );
+        })
+    );
   }
 
   render() {
-    console.log(this.state.itemsData);
+
     return (
       <View>
         <View style={[styles.container, {position: 'absolute', top: 98, height: deviceH-98, marginTop: 0}]}>

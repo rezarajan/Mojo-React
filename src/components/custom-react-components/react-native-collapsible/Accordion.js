@@ -96,7 +96,6 @@ export default class Accordion extends Component {
               collapsed={this.state.activeSection !== key}
               {...collapsibleProps}
             >
-            {/* The content data is modified to return the Restaurant node data */}
               {this.props.renderContent(
                 section,
                 this.props.subItemsData,
