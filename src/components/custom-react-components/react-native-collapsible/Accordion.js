@@ -98,6 +98,7 @@ export default class Accordion extends Component {
             >
               {this.props.renderContent(
                 section,
+                this.props.subItemsData,
                 key,
                 this.state.activeSection === key
               )}

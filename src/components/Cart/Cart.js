@@ -29,6 +29,7 @@ export default class Cart extends Component {
     super(props);
     this.state = {
         itemsData: [],
+        subItemsData: {},
         user: null,
       }
   }
@@ -63,6 +64,20 @@ export default class Cart extends Component {
         //TODO: fill out header here using the Restaurant name as child.key
         //Then filter for the items the user chose from each restaurant
 
+        //Just like the statement above, this is resetting the state of the items for
+        //a realtime update
+        items = [];
+        
+          itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
+            snap.forEach((subChild) => {
+                //populating an array with the data from Firebase
+                items.push({
+                  cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
+                });
+
+            });
+        });
+
         this.setState({
           itemsData: 
           [
@@ -71,40 +86,29 @@ export default class Cart extends Component {
               restaurantName: child.key ? child.key : 'Restaurant Name', 
               //cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
             }
-          ]  
+          ],
+          subItemsData: items,  
         });
-
-
-        //   itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
-        //     snap.forEach((subChild) => {
-        //         this.setState({
-        //           itemsData: 
-        //           [
-        //             ...this.state.itemsData,  
-        //             {
-        //               restaurantName: child.key ? child.key : 'Restaurant Name', 
-        //               cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
-        //             }
-        //           ]  
-        //         });
-        //     });
-        // });
       });
   });
 
   console.log(this.state.itemsData);
+  //This is how to acquire data from the items map
+  this.state.map((key, i) => {
+    console.log(key.cost);
+  });
   
 }
 
      
   _renderHeader(section) {
     return (
-      <View style={{marginTop: -28}}>
+      <View style={{marginTop: 0}}>
         <RoundedText 
         text={section.restaurantName} 
         width={0.9*deviceW}
         height={70}
-        backgroundColor={'white'}
+        backgroundColor={'grey'}
         borderTopLeftRadius={20}    // Rounded border
         borderTopRightRadius={20}   // Rounded border
         borderBottomLeftRadius={0}         
@@ -113,21 +117,28 @@ export default class Cart extends Component {
     );
   }
 
-  _renderContent(section) {
-    return (
-      <View style={{marginTop: -28, marginBottom: 28}}>
-      <RoundedText 
-      text={section.restaurantName}
-      height={360}
-      backgroundColor= {'white'}
-      borderTopLeftRadius={0}         
-      borderTopRightRadius={0}
-      borderBottomLeftRadius={20}   // Rounded border
-      borderBottomRightRadius={20}  // Rounded border
-      
-      />
-      </View>
-    );
+  _renderContent(section, subItemsData) {
+    return(
+    subItemsData.map((key, i) => {
+      return (
+        <View style={{marginTop: -8, marginBottom: 0}}>
+          <RoundedText 
+          text={key.cost}
+          width={0.9*deviceW}
+          separatorWidth={0.8*deviceW}
+          height={360}
+          backgroundColor= {'grey'}
+          borderTopLeftRadius={0}         
+          borderTopRightRadius={0}
+          borderBottomLeftRadius={0}   // Rounded border
+          borderBottomRightRadius={0}  // Rounded border
+          
+          />
+        </View>
+      );
+    })
+  );
+
   }
 
   render() {
@@ -136,12 +147,13 @@ export default class Cart extends Component {
       <View>
         <View style={[styles.container, {position: 'absolute', top: 98, height: deviceH-98, marginTop: 0}]}>
           <ScrollView style={{paddingTop: 28}}>
-          <Accordion
-            sections={this.state.itemsData}
-            renderHeader={this._renderHeader}
-            renderContent={this._renderContent}
-            initiallyActiveSection={1}
-          />
+            <Accordion
+              sections={this.state.itemsData}
+              subItemsData={this.state.subItemsData}
+              renderHeader={this._renderHeader}
+              renderContent={this._renderContent}
+              initiallyActiveSection={1}
+            />
           </ScrollView>
         </View>
         <RestaurantHeader onPressLogo={() => {

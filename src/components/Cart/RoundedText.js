@@ -28,7 +28,8 @@ export default class RoundedText extends Component {
         }]}>
           <Text style={[styles.text, {marginTop: 16, marginBottom: 28, color: this.props.color}]}>{this.props.text}</Text>
 
-          <View style={[{marginBottom: -10, width: this.props.width-16, height:1, backgroundColor:'rgba(226,226,226,1)', opacity: 0.6}]}/>
+          {/* The conditional check here allows for the detection of wheter the separator is the header separator or the content separator */}
+          <View style={[{marginBottom: -10, width: this.props.separatorWidth? this.props.separatorWidth-16:this.props.width-16, height:1, backgroundColor:'rgba(226,226,226,1)', opacity: 0.6}]}/>
         </View>
     );
   }
