@@ -23,29 +23,6 @@ import { Actions } from 'react-native-router-flux';
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
 
-const SECTIONS = [
-  {
-    title: 'First',
-    content: 'Tag',
-  },
-  {
-    title: 'Second',
-    content: 'Lorem ipsum...',
-  },
-  {
-    title: 'Third',
-    content: 'Lorem ipsum...',
-  },
-  {
-    title: 'Fourth',
-    content: 'Lorem ipsum...',
-  },
-  {
-    title: 'Fifth',
-    content: 'Lorem ipsum...',
-  }
-];
-
 export default class Cart extends Component {
 
   constructor(props) {
@@ -85,20 +62,33 @@ export default class Cart extends Component {
       snap.forEach((child) => {
         //TODO: fill out header here using the Restaurant name as child.key
         //Then filter for the items the user chose from each restaurant
-          itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
-            snap.forEach((subChild) => {
-                this.setState({
-                  itemsData: 
-                  [
-                    ...this.state.itemsData,  
-                    {
-                      restaurantName: child.key ? child.key : 'Restaurant Name', 
-                      cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
-                    }
-                  ]  
-                });
-            });
+
+        this.setState({
+          itemsData: 
+          [
+            ...this.state.itemsData,  
+            {
+              restaurantName: child.key ? child.key : 'Restaurant Name', 
+              //cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
+            }
+          ]  
         });
+
+
+        //   itemsRef.child(child.key).orderByKey().on('child_added', (snap) => {
+        //     snap.forEach((subChild) => {
+        //         this.setState({
+        //           itemsData: 
+        //           [
+        //             ...this.state.itemsData,  
+        //             {
+        //               restaurantName: child.key ? child.key : 'Restaurant Name', 
+        //               cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
+        //             }
+        //           ]  
+        //         });
+        //     });
+        // });
       });
   });
 
@@ -127,7 +117,7 @@ export default class Cart extends Component {
     return (
       <View style={{marginTop: -28, marginBottom: 28}}>
       <RoundedText 
-      text={section.cost}
+      text={section.restaurantName}
       height={360}
       backgroundColor= {'white'}
       borderTopLeftRadius={0}         

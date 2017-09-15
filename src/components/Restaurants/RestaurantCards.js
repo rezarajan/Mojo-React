@@ -198,7 +198,7 @@ export default class RestaurantCards extends Component {
                         modalState={this.state.isExtrasModalVisible}
                         />
                     </ScrollView>
-                    <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
+                    <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-21}}>
                         {
                             this.state.headerVisible?
                             <RestaurantHeader onPressLogo={() => {
@@ -232,7 +232,7 @@ export default class RestaurantCards extends Component {
                         uniqueKey={this.state.uniqueKey}
                         />
                     </ScrollView>
-                    <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-19}}>
+                    <View style={{height: 90, width: deviceW,  backgroundColor:'transparent', position: 'absolute', top: 0, marginLeft:-21}}>
                         {
                             this.state.headerExtrasVisible?
                             <RestaurantHeader onPressLogo={() => {
