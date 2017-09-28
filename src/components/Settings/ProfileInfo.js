@@ -45,7 +45,7 @@ export default class ProfileInfo extends Component {
                         </View>
                     </View>
                     <View style={[styles.bar]} >
-                        <View style={[styles.barItem, styles.barSeparator, {flexDirection: 'row'}]} >
+                        <View style={[styles.barItem, styles.barSeparator, {flexDirection: 'row', alignItems: 'center'}]} >
                             <Text style={styles.barBottom}>Email: </Text>
                             <TextInput
                                 placeholder="johndoe@email.com"
@@ -55,7 +55,7 @@ export default class ProfileInfo extends Component {
                                 //onChangeText={(text) => this.setState({email:text})}
                             />
                         </View>
-                        <View style={[styles.barItem, {flexDirection: 'row'}]} >
+                        <View style={[styles.barItem, {flexDirection: 'row', alignItems: 'center'}]} >
                             <Text style={styles.barBottom}>Phone:</Text>
                             <TextInput
                                 placeholder="(333) 333-3333"
