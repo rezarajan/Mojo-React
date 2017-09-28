@@ -10,7 +10,6 @@ import {
     TouchableOpacity,
     TextInput,
     AsyncStorage,
-    FlatList,
 } from 'react-native';
 import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
@@ -22,8 +21,7 @@ const deviceH = Dimensions.get('window').height;
 
 //Change this to whatver width the CardView is to be
 //and the chnages propogate to the render() and CardView layout
-const itemWidth = 320;
-const itemHeight = 90;
+const itemWidth = 0.7*deviceW;
 
 const basePx = 375
 
@@ -268,7 +266,7 @@ export default class ResturantCarousel extends Component {
             tags={item.tags}
             waitTime={item.waitTime}
             itemWidth={itemWidth}
-            itemHeight={itemHeight}
+            itemHeight={378}
             />
         </TouchableOpacity>
   ;
@@ -276,38 +274,29 @@ export default class ResturantCarousel extends Component {
     render() {
 
         //setting the layout as a placeholder until the data is acquired from Firebase
-        // const content = this.state.dataSource ?
-        //     <Carousel
-        //     ref={(c) => { this._carousel = c; }}
-        //     data={this.state.dataSource}
-        //     renderItem={this._renderItem}
-        //     sliderWidth={deviceW}
-        //     sliderHeight={deviceH}
-        //     itemWidth={itemWidth}
-        //     enableMomentum={false}
-        //     //snapOnAndroid={false}
-        //     scrollEndDragDebounceValue={0}
-        //     animationFunc={'timing'}
-        //     animationOptions={{
-        //         friction: -1,
-        //         tension: 40,
-        //         isInteraction: false,
-        //         useNativeDriver: true
-        //     }}
-        //     />
-        // :
-        //     //change this to whatever loading layout as a placeholder
-        //     null;
-            
         const content = this.state.dataSource ?
-        <FlatList
-                data={this.state.dataSource}
-                renderItem={this._renderItem}
-                keyExtractor={(item, index) => index}
-        />
-    :
-        //change this to whatever loading layout as a placeholder
-        null;
+            <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.dataSource}
+            renderItem={this._renderItem}
+            sliderWidth={deviceW}
+            sliderHeight={deviceH}
+            itemWidth={itemWidth}
+            enableMomentum={false}
+            //snapOnAndroid={false}
+            scrollEndDragDebounceValue={0}
+            animationFunc={'timing'}
+            animationOptions={{
+                friction: -1,
+                tension: 40,
+                isInteraction: false,
+                useNativeDriver: true
+            }}
+            />
+        :
+            //change this to whatever loading layout as a placeholder
+            null;
+            
 
         return(
             <View style={styles.container}> 
@@ -322,8 +311,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        paddingBottom: 49,
-        alignItems: 'center'
+        marginTop: 36,
 
        },
          //Mojo button wrapper

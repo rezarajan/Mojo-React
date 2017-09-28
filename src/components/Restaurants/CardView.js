@@ -52,45 +52,25 @@ export default class CardViewMenu extends Component {
         return (
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
-                <View style={styles.header}>
+                <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
                     <View style={styles.profilepicWrap}>
                         <Image style={styles.profilepic} source={{uri:this.props.icon}} />
                     </View>
-
-                    <View style={[styles.infoHolder]}>
-                        <View style={styles.mainInfo}>
-                            <Text style={styles.name}>{this.props.text}</Text>
-                            <Text style={[styles.openIndicator, {color: this.state.openIndicator}]}>{this.props.open}</Text>
-                        </View>
-                        
-                        <Text style={[styles.moreinfo]}>{this.props.genre}</Text>
-                        <Text style={[styles.moreinfo, {marginTop: 16, width: 186, fontSize: 12}]}>
-
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. At certe gravius.
-                        </Text>
-
-                        <View style={styles.categoriesGrid}>
-                            {/* rendering the tags */}
-                            {
-                                tagView.map((key, i) => {
-                                    return (
-                                        //<View><Text>{key.tag}</Text></View>
-                                        
-                                        <RoundedText 
-                                        key={i}
-                                        text={key.tag}
-                                        color='#FFFFFF'
-                                        backgroundColor='rgba(24,172,222,1)'
-                                        />
-                                    );
-                                })
-                            }
-                            
-                        </View>
-                        <Text style={[styles.moreinfo, {marginTop: 16, marginBottom: 8, fontSize: 12, fontWeight: 'bold'}]}>Average Time to Delivery: {this.props.waitTime}</Text>
+                    <View style={styles.mainInfo}>
+                        <Text style={styles.name}>{this.props.text}</Text>
                     </View>
-
                 </View>
+
+                <View style={styles.extraInfo}>
+                    <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/>
+                    <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
+                        <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
+                            <Text style={[styles.timings, {fontWeight: 'bold'}]}>Today's Timings</Text>
+                            <Text style={[styles.timings]}>{this.props.open}</Text>
+                        </View>
+                    </View>
+                </View>
+                
             </View>
         );
     }
@@ -98,25 +78,20 @@ export default class CardViewMenu extends Component {
 
 const styles = StyleSheet.create({
     headerBackground: {
-        alignItems: 'stretch',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginTop:8,
-        borderRadius: 32,
-    },
-    header: {
-        alignItems: 'stretch',
-        justifyContent: 'center',
-        padding: 16,
-        backgroundColor: 'transparent',
-        marginTop: 34,
+        borderRadius: 0,
+        borderWidth: 1,
+        borderColor: 'rgba(181,181,181,1)',
     },
     profilepicWrap : {
-        alignSelf: 'center',
-        alignItems: 'center',
-        width: 90,
-        height: 90,
-        borderRadius: 100,
-        //borderColor: 'rgba(0,0,0,0.4)',
-        //borderWidth: 4,
+        marginLeft: 10,
+        width: 54,
+        height: 54,
+        borderRadius: 27,
+        justifyContent: 'center',
         backgroundColor: 'white',
     },
     profilepic: {
@@ -125,41 +100,45 @@ const styles = StyleSheet.create({
         width: null,
         alignSelf: 'stretch',
         borderRadius: 45,
-        borderColor: 'white',
         borderWidth: 0,
-    },
-    infoHolder: {
-        marginTop: 34, 
-        marginLeft: 16,
-        marginRight: 16,
     },
     mainInfo: {
         justifyContent: 'space-between', 
         flexDirection: 'row',
+        marginLeft: 16,
+        marginRight: 16,
+    },
+    extraInfo: {
+        flexDirection: 'column',        
+        marginRight: 10,
     },
     name: {
-        //width: 136,
         fontSize: 16,
         fontFamily: 'Avenir',
         fontWeight: 'bold',
         color: 'white',
     },
-    openIndicator: {
-        fontSize: 14,
+    timings: {
+        alignItems: 'center',
+        fontSize: 12,
         color: 'white',
-        fontWeight: 'bold',
         fontFamily: 'Avenir',
     },
+    openIndicatorIcon : {
+        marginLeft: 10,
+        marginTop: 8,
+        marginBottom: 12,
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        alignSelf: 'flex-end',
+        borderColor: 'rgba(181,181,181,1)',      
+        borderWidth: 1,  
+    },
     moreinfo: {
-        alignSelf: 'flex-start',
         fontSize: 14,
         color: 'white',
         fontWeight: '300',
         fontFamily: 'Avenir',
-    },
-    categoriesGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginTop: 16,
     },
 });

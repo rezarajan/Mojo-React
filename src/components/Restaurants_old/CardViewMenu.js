@@ -77,7 +77,7 @@ export default class CardView extends Component {
             });
 
             //This operations provides the keys of any object specified, and only for the
-            //level defined (does not give the keys for children of children unless specified)
+            //level defined (does not give the kes for children of children unless specified)
             //var keysObject1 = Object.keys(child.child('tags').val());
 
             //Receives the tag information from Firebase to do a custom filter which works like a deep query later
