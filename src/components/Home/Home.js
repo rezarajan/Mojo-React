@@ -9,6 +9,7 @@ import {
     Image,
     Text,
     TouchableOpacity,
+    StatusBar,
     TextInput,
 } from 'react-native';
 //import TabNavigator from 'react-native-tab-navigator';
@@ -17,6 +18,8 @@ import ActionButton from '../custom-react-components/react-native-circular-actio
 import SignUp from '../SignUp/SignUp';
 import Name from '../SignUp/Name';
 import RestaurantCards from '../Restaurants/RestaurantCards';
+import MainCards from '../Restaurants/MainCards';
+
 //import ActionButton from 'react-native-circular-action-menu';
 
 import Profile from "../Settings/Profile";
@@ -30,6 +33,12 @@ function px2dp(px) {
   return px *  deviceW / basePx
 }
 
+const MyStatusBar = ({backgroundColor, ...props}) => (
+    <View style={[styles.statusBar, { backgroundColor }]}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  );
+
 export default class Home extends Component {
 
     state= {
@@ -40,12 +49,13 @@ export default class Home extends Component {
     render() {
         return(
             <View style={styles.container}>
+            <MyStatusBar backgroundColor="white" barStyle="dark-content" />
             <TabNavigator>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'pocket'}
                 //title="Pocket"
-                renderIcon={() => <Image source={require('../../images/tabbar/pocket_inactive.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/pocket_active.png')} style={{width: px2dp(25), height: px2dp(23)}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/OrderTracking_inactive.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/OrderTracking_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
                 onPress={() => this.setState({ selectedTab: 'pocket' })}
                 >
                 <Name />
@@ -53,11 +63,11 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
                 //title="Mojo"
-                renderIcon={() => <Image source={require('../../images/tabbar/mojo_inactive.png')} style={{width: px2dp(28), height: px2dp(28)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/mojo_active.png')} style={{width: px2dp(28), height: px2dp(28)}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}
                 >
-                <RestaurantCards />
+                <MainCards />
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
@@ -81,16 +91,6 @@ const styles = StyleSheet.create({
         width: deviceW,
         backgroundColor: 'white',
 
-       },
-         //Mojo button wrapper
-        buttonWrapper: {
-          backgroundColor: 'transparent',
-          flexDirection: 'row',
-          position: 'absolute',
-          bottom: 14,
-          left: (deviceW/2) - 36,
-          justifyContent: 'center',
-          alignItems: 'center'
         },
 })
 

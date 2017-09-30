@@ -62,10 +62,7 @@ export default class CardViewMenu extends Component {
                 </View>
 
                 <View style={styles.extraInfo}>
-<<<<<<< HEAD
-=======
                     {/* The open indicator dot and restaurant timings */}
->>>>>>> 2d161d04396a3dab84310e9bf2a5656cb13283cd
                     <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/>
                     <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
                         <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
@@ -86,13 +83,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop:8,
-<<<<<<< HEAD
-        borderRadius: 0,
-        borderWidth: 1,
-=======
-        borderRadius: 4,
+        borderRadius: 10,
         borderWidth: 0.5,
->>>>>>> 2d161d04396a3dab84310e9bf2a5656cb13283cd
         borderColor: 'rgba(181,181,181,1)',
     },
     profilepicWrap : {
@@ -142,11 +134,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignSelf: 'flex-end',
         borderColor: 'rgba(181,181,181,1)',      
-<<<<<<< HEAD
-        borderWidth: 1,  
-=======
         borderWidth: 0.5,  
->>>>>>> 2d161d04396a3dab84310e9bf2a5656cb13283cd
     },
     moreinfo: {
         fontSize: 14,

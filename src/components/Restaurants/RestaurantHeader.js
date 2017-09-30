@@ -40,7 +40,7 @@ export default class RestaurantCards extends Component {
                     <Image style={styles.logoWrapper} source={require('../../images/statusbar/mojo_textLogo.png')} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPressCart} activeOpacity={0.5}>
-                    <Image style={styles.cartWrapper} source={require('../../images/statusbar/shoppingCart.png')} />
+                    <Image style={styles.cartWrapper} source={require('../../images/statusbar/ShoppingCart.png')} />
                 </TouchableOpacity>
             </View>
         );
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
          //Mojo button wrapper
         logoWrapper: {
           alignSelf: 'center',
-          width: 120,
-          height: 33,
+          width: 91,
+          height: 24,
           marginTop: 8,
           marginLeft: 60,
           marginRight: 60
@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
           },
          //Cart button wrapper
          cartWrapper: {
-            width: 45,
-            height: 45,
-            marginTop:8,
+            width: 35,
+            height: 24,
+            marginTop: 8,
           },
           //Cart button holder
          cartHolder: {
@@ -93,9 +93,9 @@ const styles = StyleSheet.create({
             // top: 0,
             // left: 0,
             width: deviceW,
-            height: 98,
+            height: 85,
             borderBottomColor: 'rgba(241,241,241,1)',
-            borderBottomWidth: 1,
+            borderBottomWidth: 0,
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'flex-end',
