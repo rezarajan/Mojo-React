@@ -50,7 +50,7 @@ export default class Home extends Component {
         return(
             <View style={styles.container}>
             <MyStatusBar backgroundColor="white" barStyle="dark-content" />
-            <TabNavigator>
+            <TabNavigator hidesTabTouch={true}>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'pocket'}
                 //title="Pocket"
@@ -63,7 +63,7 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
                 //title="Mojo"
-                renderIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_inactive.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}
                 >
