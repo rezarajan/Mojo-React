@@ -48,6 +48,7 @@ export default class ResturantCarousel extends Component {
 
     // listens for firebase realtime updates
     listenForItems(itemsRef) {
+        console.log('Hello')
         itemsRef.on('value', (snap) => {
     
           // get children as an array
@@ -237,7 +238,7 @@ export default class ResturantCarousel extends Component {
 
     componentDidMount() {
         //on launch this is store the key value pairs from firebase for populating the snap carousel
-        this.listenForItems(this.itemsRef.child('listing/venue'));
+        this.listenForItems(this.itemsRef.child('listing').child('venue'));
     }
 
     _renderItem = ({item, index}) =>
