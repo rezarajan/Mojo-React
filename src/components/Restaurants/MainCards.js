@@ -203,10 +203,10 @@ _renderItemMain = ({item, index}) =>
                 {content}   
                 </View>
                 <ScrollableTabView
-                renderTabBar={() => <ScrollableTabBar />}
+                renderTabBar={() => <View/>}
                 ref={(tabView) => { this.state.tabViewRef?
                 this.state.tabViewRef:this.setState({ tabViewRef: tabView }); }}
-                onChangeTab={(i, ref)=> this.state.slider1Ref.snapToItem(i['i'])}>
+                onChangeTab={(i)=> this.state.slider1Ref.snapToItem(i['i'])}>
 
                 {
                     this.state.dataSource?
