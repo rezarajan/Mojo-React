@@ -146,9 +146,9 @@ export default class MainCards extends Component {
                 {
                     this.state.dataSource?
                     this.state.dataSource.map((key, i) => {
-                        var venueRef = i>0? 'venue2':'venue';
+                        var venueRef = i>0? 'venue':'venue';
                         return(
-                            <RestaurantCarousel tabLabel={key['genre']} venue={venueRef}/>
+                            <RestaurantCarousel tabLabel={key['genre']} venue={venueRef} genre={key['genre']}/>
                         )
                 })
                 :

@@ -49,7 +49,10 @@ export default class ResturantCarousel extends Component {
     // listens for firebase realtime updates
     listenForItems(itemsRef) {
         console.log('Hello')
-        itemsRef.on('value', (snap) => {
+        //queries only for restaurants in a particular genre
+        //the false condition may be set to a value which gives some sort of
+        //default placeholder
+        itemsRef.orderByChild('genre').equalTo(this.props.genre?this.props.genre:'Restaurant').on('value', (snap) => {
     
           // get children as an array
           var items = [];
