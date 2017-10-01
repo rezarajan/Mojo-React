@@ -38,6 +38,7 @@ export default class MainCards extends Component {
             dataSource: null,  
             slider1Ref: null,
             slider2Ref: null, 
+            tabViewRef: null,
             venue: null,      
         };
         this.data = [
@@ -99,6 +100,7 @@ export default class MainCards extends Component {
             
             //console.log(index);
         this.state.slider1Ref.snapToItem(index);
+        this.state.tabViewRef?this.state.tabViewRef.goToPage(index):null;
         //this.state.slider2Ref.snapToItem(index);
         
         }}>
@@ -201,14 +203,16 @@ _renderItemMain = ({item, index}) =>
                 {content}   
                 </View>
                 <ScrollableTabView
-                renderTabBar={() => <ScrollableTabBar />}>
+                renderTabBar={() => <ScrollableTabBar />}
+                ref={(tabView) => { this.state.tabViewRef?
+                this.state.tabViewRef:this.setState({ tabViewRef: tabView }); }}>
 
                 {
                     this.state.dataSource?
                     this.state.dataSource.map((key, i) => {
-                                    return(
-                                        <RestaurantCarousel tabLabel={key['genre']}/>
-                                    )
+                        return(
+                            <RestaurantCarousel tabLabel={key['genre']}/>
+                        )
                 })
                 :
                 <RestaurantCarousel />
