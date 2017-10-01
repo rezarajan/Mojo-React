@@ -39,6 +39,9 @@ export default class CardViewMenu extends Component {
             this.state.openIndicator='white'
         }
 
+        //receives the contrasting color and sets the value accordingly
+        var contrastColour = this.props.contrastratio === 'dark'?'white':'rgba(35,31,32,1)';
+
         var tagView = [];
 
         
@@ -57,7 +60,7 @@ export default class CardViewMenu extends Component {
                         <Image style={styles.profilepic} source={{uri:this.props.icon}} />
                     </View>
                     <View style={styles.mainInfo}>
-                        <Text style={styles.name}>{this.props.text}</Text>
+                        <Text style={[styles.name, {color: contrastColour}]}>{this.props.text}</Text>
                     </View>
                 </View>
 
@@ -66,8 +69,8 @@ export default class CardViewMenu extends Component {
                     <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/>
                     <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
                         <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
-                            <Text style={[styles.timings, {fontWeight: 'bold'}]}>Today's Timings</Text>
-                            <Text style={[styles.timings]}>{this.props.open}</Text>
+                            <Text style={[styles.timings, {fontWeight: 'bold', color: contrastColour}]}>Today's Timings</Text>
+                            <Text style={[styles.timings, {color: contrastColour}]}>{this.props.open}</Text>
                         </View>
                     </View>
                 </View>

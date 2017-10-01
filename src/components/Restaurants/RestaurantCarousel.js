@@ -17,6 +17,9 @@ import Carousel from 'react-native-snap-carousel';
 import * as firebase from 'firebase';
 import CardView from './CardView';
 
+var Color = require('../custom-react-components/color');
+
+
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
 
@@ -48,7 +51,6 @@ export default class ResturantCarousel extends Component {
 
     // listens for firebase realtime updates
     listenForItems(itemsRef) {
-        console.log('Hello')
         //queries only for restaurants in a particular genre
         //the false condition may be set to a value which gives some sort of
         //default placeholder
@@ -73,7 +75,12 @@ export default class ResturantCarousel extends Component {
               icon: child.val().icon ? child.val().icon : '../../images/mojomonkey.png',
               tags: child.val().tags ? child.val().tags : {},
               waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
+              contrastratio: Color(child.val().color).dark()?'dark':'light',
             });
+
+            //note that contrastratio uses a Color class to convert the colour to
+            //rgb and then determines if it is dark or light
+            //this value is used by the child to set the correct contrasting colour
 
             //This operations provides the keys of any object specified, and only for the
             //level defined (does not give the kes for children of children unless specified)
@@ -271,6 +278,7 @@ export default class ResturantCarousel extends Component {
             index={index}
             tags={item.tags}
             waitTime={item.waitTime}
+            contrastratio={item.contrastratio}
             itemWidth={itemWidth}
             itemHeight={itemHeight}
             />
