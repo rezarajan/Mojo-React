@@ -205,13 +205,15 @@ _renderItemMain = ({item, index}) =>
                 <ScrollableTabView
                 renderTabBar={() => <ScrollableTabBar />}
                 ref={(tabView) => { this.state.tabViewRef?
-                this.state.tabViewRef:this.setState({ tabViewRef: tabView }); }}>
+                this.state.tabViewRef:this.setState({ tabViewRef: tabView }); }}
+                onChangeTab={(i, ref)=> this.state.slider1Ref.snapToItem(i['i'])}>
 
                 {
                     this.state.dataSource?
                     this.state.dataSource.map((key, i) => {
+                        var venueRef = i>0? 'venue2':'venue';
                         return(
-                            <RestaurantCarousel tabLabel={key['genre']}/>
+                            <RestaurantCarousel tabLabel={key['genre']} venue={venueRef}/>
                         )
                 })
                 :

@@ -238,7 +238,7 @@ export default class ResturantCarousel extends Component {
 
     componentDidMount() {
         //on launch this is store the key value pairs from firebase for populating the snap carousel
-        this.listenForItems(this.itemsRef.child('listing').child('venue'));
+        this.listenForItems(this.itemsRef.child('listing').child(this.props.venue?this.props.venue:'venue'));
     }
 
     _renderItem = ({item, index}) =>
