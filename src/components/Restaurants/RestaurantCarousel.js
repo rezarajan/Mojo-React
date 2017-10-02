@@ -54,7 +54,7 @@ export default class ResturantCarousel extends Component {
         //queries only for restaurants in a particular genre
         //the false condition may be set to a value which gives some sort of
         //default placeholder
-        itemsRef.orderByChild('genre').equalTo(this.props.genre?this.props.genre:'Restaurant').on('value', (snap) => {
+        itemsRef.orderByChild(this.props.genre?this.props.genre:'genre').equalTo(true).on('value', (snap) => {
     
           // get children as an array
           var items = [];
@@ -68,14 +68,14 @@ export default class ResturantCarousel extends Component {
             items.push({
               //title: child.val().title,
               _key: child.key,
-              restaurantName: child.val().restaurant ? child.val().restaurant : 'Restaurant Name',
-              backgroundColor: child.val().color ? child.val().color : 'aliceblue',
-              genre: child.val().genre ? child.val().genre : 'Genre',
-              open: child.val().open ? child.val().open : 'No Times',
-              icon: child.val().icon ? child.val().icon : '../../images/mojomonkey.png',
-              tags: child.val().tags ? child.val().tags : {},
-              waitTime: child.val().waittime ? child.val().waittime : 'Unknown',
-              contrastratio: Color(child.val().color).dark()?'dark':'light',
+              restaurantName: child.child('details').val().restaurant ? child.child('details').val().restaurant : 'Restaurant Name',
+              backgroundColor: child.child('details').val().color ? child.child('details').val().color : 'aliceblue',
+              genre: child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
+              open: child.child('details').val().open ? child.child('details').val().open : 'No Times',
+              icon: child.child('details').val().icon ? child.child('details').val().icon : '../../images/mojomonkey.png',
+              tags: child.child('details').val().tags ? child.child('details').val().tags : {},
+              waitTime: child.child('details').val().waittime ? child.child('details').val().waittime : 'Unknown',
+              contrastratio: Color(child.child('details').val().color).dark()?'dark':'light',
             });
 
             //note that contrastratio uses a Color class to convert the colour to

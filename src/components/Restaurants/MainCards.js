@@ -55,7 +55,7 @@ export default class MainCards extends Component {
               snap.forEach((child) => {
                 //populating an array with the data from Firebase
                 items.push(
-                    child.val().genre ? child.val().genre : 'Genre',
+                    child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
                 );
               });
               uniquekeys = [...new Set(items)];
@@ -148,7 +148,7 @@ export default class MainCards extends Component {
                     this.state.dataSource.map((key, i) => {
                         var venueRef = i>0? 'venue':'venue';
                         return(
-                            <RestaurantCarousel tabLabel={key['genre']} venue={venueRef} genre={key['genre']}/>
+                            <RestaurantCarousel key={i} tabLabel={key['genre']} venue={venueRef} genre={key['genre']}/>
                         )
                 })
                 :

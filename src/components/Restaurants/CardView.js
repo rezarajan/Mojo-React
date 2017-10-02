@@ -52,6 +52,7 @@ export default class CardViewMenu extends Component {
             }
         }
 
+
         return (
             //cretaes a background for the profile pic
             <View style={[styles.headerBackground, {backgroundColor: this.props.backgroundColor, width: this.props.itemWidth, height: this.props.itemHeight}]}>
