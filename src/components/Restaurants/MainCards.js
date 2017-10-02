@@ -49,20 +49,37 @@ export default class MainCards extends Component {
             itemsRef.on('value', (snap) => {
         
               // get children as an array
-              var items = [];
-              var uniquekeys = [];  
+              //var items = [];
+              var restaurantTags = [];
+              //var uniquekeys = [];  
+              var uniquekeysTags = []; 
+              var keyname = [];               
               var tempHolder = []; 
               snap.forEach((child) => {
                 //populating an array with the data from Firebase
-                items.push(
-                    child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
-                );
+                // items.push(
+                //     child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
+                // );
+                var restaurantTags = [];              
+                restaurantTags = child.val().categories ? child.val().categories : {};
+
+                //filters the node for the categories with the value as true
+                for(var key in restaurantTags) {
+                    if(restaurantTags[key] === true) {
+                        keyname.push(key);            
+                    }
+                }              
               });
-              uniquekeys = [...new Set(items)];
-              for(i=0;i<uniquekeys.length;i++){
-              tempHolder.push({genre: uniquekeys[i]});
+
+              //uniquekeys = [...new Set(items)];              
+
+              //creates a list of unique tags based on the tags the restaurants are
+              //attached to
+              uniquekeysTags = [...new Set(keyname)];              
+              
+              for(i=0;i<uniquekeysTags.length;i++){
+              tempHolder.push({genre: uniquekeysTags[i]});
               }
-              console.log(tempHolder);
               
               //Stores the items array received in the dataSource for access later
               this.setState({

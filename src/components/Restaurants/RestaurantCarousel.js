@@ -54,7 +54,7 @@ export default class ResturantCarousel extends Component {
         //queries only for restaurants in a particular genre
         //the false condition may be set to a value which gives some sort of
         //default placeholder
-        itemsRef.orderByChild(this.props.genre?this.props.genre:'genre').equalTo(true).on('value', (snap) => {
+        itemsRef.orderByChild(this.props.genre?'categories/'+this.props.genre:'categories/genre').equalTo(true).on('value', (snap) => {
     
           // get children as an array
           var items = [];

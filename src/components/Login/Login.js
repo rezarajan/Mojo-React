@@ -33,7 +33,7 @@ export default class Login extends Component {
         // const userData = this.props.firebaseApp.auth().currentUser;
         AsyncStorage.getItem('userData').then((user_data_json) => {
           let userData = JSON.parse(user_data_json);
-          console.log(userData);
+          //console.log(userData);
           this.setState({
             user: userData,
             loading: false,
