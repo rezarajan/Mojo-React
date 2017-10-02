@@ -41,6 +41,7 @@ export default class MainCards extends Component {
             tabViewRef: null,
             currentIndex: 0,
             venue: null,      
+            valueToCompare: null,
         };
     }
 
@@ -50,7 +51,7 @@ export default class MainCards extends Component {
         
               // get children as an array
               //var items = [];
-              var restaurantTags = [];
+              var tags = [];
               //var uniquekeys = [];  
               var uniquekeysTags = []; 
               var keyname = [];               
@@ -60,12 +61,22 @@ export default class MainCards extends Component {
                 // items.push(
                 //     child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
                 // );
-                var restaurantTags = [];              
-                restaurantTags = child.val().categories ? child.val().categories : {};
+
+                //finding tags based on the mode used for the component
+                //type:venueMode or menuMode
+                var tags = [];
+                this.props.venueMode?             
+                [tags = child.val().categories ? child.val().categories : {},
+                this.setState({valueToCompare:"true"})]
+                :
+                [tags = child.val().categories ? child.val().categories : {},
+                this.setState({valueToCompare:"main"})]
+                ;
+                
 
                 //filters the node for the categories with the value as true
-                for(var key in restaurantTags) {
-                    if(restaurantTags[key] === true) {
+                for(var key in tags) {
+                    if(tags[key] === this.state.valueToCompare) {
                         keyname.push(key);            
                     }
                 }              
@@ -89,8 +100,11 @@ export default class MainCards extends Component {
           }
 
     componentDidMount() {
+        this.props.venueMode?
         //on launch this is store the key value pairs from firebase for populating the snap carousel
-        this.listenForItems(this.itemsRef.child('listing/venue'));
+        this.listenForItems(this.itemsRef.child('listing/venue'))
+        :
+        null;
     }
 
     _renderItem = ({item, index}) =>
@@ -165,7 +179,12 @@ export default class MainCards extends Component {
                     this.state.dataSource.map((key, i) => {
                         var venueRef = i>0? 'venue':'venue';
                         return(
-                            <RestaurantCarousel key={i} tabLabel={key['genre']} venue={venueRef} genre={key['genre']}/>
+                            <RestaurantCarousel 
+                            key={i} 
+                            tabLabel={key['genre']} 
+                            venue={venueRef} 
+                            genre={key['genre']} 
+                            valueToCompare={this.state.valueToCompare}/>
                         )
                 })
                 :

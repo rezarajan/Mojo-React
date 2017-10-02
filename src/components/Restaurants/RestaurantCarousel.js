@@ -54,7 +54,7 @@ export default class ResturantCarousel extends Component {
         //queries only for restaurants in a particular genre
         //the false condition may be set to a value which gives some sort of
         //default placeholder
-        itemsRef.orderByChild(this.props.genre?'categories/'+this.props.genre:'categories/genre').equalTo(true).on('value', (snap) => {
+        itemsRef.orderByChild(this.props.genre?'categories/'+this.props.genre:'categories/genre').equalTo(this.props.valueToCompare).on('value', (snap) => {
     
           // get children as an array
           var items = [];
@@ -247,8 +247,11 @@ export default class ResturantCarousel extends Component {
       }
 
     componentDidMount() {
+
+        this.props.valueToCompare?
         //on launch this is store the key value pairs from firebase for populating the snap carousel
-        this.listenForItems(this.itemsRef.child('listing').child(this.props.venue?this.props.venue:'venue'));
+        this.listenForItems(this.itemsRef.child('listing').child(this.props.venue?this.props.venue:'venue')):
+        null;
     }
 
     _renderItem = ({item, index}) =>

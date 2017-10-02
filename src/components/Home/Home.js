@@ -67,7 +67,7 @@ export default class Home extends Component {
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' })}
                 >
-                <MainCards />
+                <MainCards venueMode={true}/>
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
