@@ -91,9 +91,11 @@ export default class CardViewMenu extends Component {
                             </View>
                         </View>
                     </View>
+                    <TouchableOpacity activeOpacity={0.8}>
                     <View style={[styles.bottomBar, {width: this.props.itemWidth-1, backgroundColor: forceContrastColour}]}>
                             <Text style={[styles.timings, {color: bottomBarTextColor, fontWeight: 'bold', textAlign: 'center'}]}> Get this Item </Text>
                     </View>
+                    </TouchableOpacity>
                     </View>
                 </View>
         );

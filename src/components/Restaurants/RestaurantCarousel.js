@@ -172,7 +172,7 @@ export default class ResturantCarousel extends Component {
         //item comes from the data source provided in the render() function
         
         <TouchableOpacity 
-        activeOpacity={0.98}
+        activeOpacity={0.96}
         onPress={() => {
             //checks the current index against the index of the item clicked
             //this.props.changeMode? 
