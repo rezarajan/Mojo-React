@@ -19,6 +19,7 @@ import SignUp from '../SignUp/SignUp';
 import Name from '../SignUp/Name';
 import RestaurantCards from '../Restaurants/RestaurantCards';
 import MainCards from '../Restaurants/MainCards';
+import MenuCards from '../Menu/MenuCards';
 
 //import ActionButton from 'react-native-circular-action-menu';
 
@@ -78,7 +79,7 @@ export default class Home extends Component {
                   </TabNavigator.Item>
                   <TabNavigator.Item
                   selected={this.state.subselectedTab === 'menu'}>
-                    <Profile />
+                    <MenuCards setRestaurantState={() => {this.setState({subselectedTab: 'mojo'})}}/>
                   </TabNavigator.Item>
                 </TabNavigator>
               </TabNavigator.Item>

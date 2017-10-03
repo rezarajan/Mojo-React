@@ -15,7 +15,7 @@ import {
 import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
 import * as firebase from 'firebase';
-import CardView from './CardView';
+import CardViewMenu from './CardViewMenu';
 
 var Color = require('../custom-react-components/color');
 
@@ -34,7 +34,7 @@ function px2dp(px) {
   return px *  deviceW / basePx
 }
 
-export default class ResturantCarousel extends Component {
+export default class MenuCarousel extends Component {
 
 
     constructor (props) {
@@ -183,8 +183,9 @@ export default class ResturantCarousel extends Component {
             //console.log(this.props.venueMode);
                 
                 //console.log(index);
+                this.props.goToRestaurants&&this.props.goToRestaurants();
             }}>
-            <CardView 
+            <CardViewMenu 
             text={item.restaurantName} 
             backgroundColor={item.backgroundColor} 
             genre={item.genre}    
@@ -258,4 +259,4 @@ const styles = StyleSheet.create({
         },
 })
 
-AppRegistry.registerComponent('Mojo', () => RestaurantCarousel);
+AppRegistry.registerComponent('Mojo', () => MenuCarousel);

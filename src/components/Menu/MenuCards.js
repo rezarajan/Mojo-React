@@ -14,8 +14,8 @@ import {
     Dimensions,
 } from 'react-native';
 
-import RestaurantHeader from './RestaurantHeader';
-import RestaurantCarousel from './RestaurantCarousel';
+import MenuHeader from './MenuHeader';
+import MenuCarousel from './MenuCarousel';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView, {ScrollableTabBar,} from '../custom-react-components/react-native-scrollable-tab-view';
 import { ViewPager, TabbedPager } from 'react-native-viewpager-carousel'
@@ -30,7 +30,7 @@ const itemWidth = 0.5*deviceW;
 const itemHeight = 20;
 
 
-export default class MainCards extends Component {
+export default class MenuCards extends Component {
 
     constructor(props) {
         super(props);
@@ -167,12 +167,15 @@ export default class MainCards extends Component {
                      // TODO: change this venue to the venue picked up by GeoFire
                      var venueRef = i>0? 'venue':'venue';
                      return(
-                         <RestaurantCarousel 
+                         <MenuCarousel 
                          key={i} 
                          tabLabel={key['genre']} 
                          venue={venueRef} 
                          genre={key['genre']} 
-                         valueToCompare={"true"}/>
+                         valueToCompare={"true"}
+                         goToRestaurants={()=> {
+                            this.props.setRestaurantState&&this.props.setRestaurantState();
+                        }}/>
                      )
              })
              :
@@ -182,7 +185,7 @@ export default class MainCards extends Component {
 
         return(
             <View style={styles.container}>
-                <RestaurantHeader onPressCart={() => {Actions.cart()}}/> 
+                <MenuHeader onPressCart={() => {Actions.cart()}}/> 
                 <View style={[{alignItems: 'center'}]}>
                 {tabContent}   
                 </View>
@@ -201,4 +204,4 @@ const styles = StyleSheet.create({
        },
 })
 
-AppRegistry.registerComponent('Mojo', () => MainCards);
+AppRegistry.registerComponent('Mojo', () => MenuCards);

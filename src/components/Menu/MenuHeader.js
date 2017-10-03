@@ -26,7 +26,7 @@ function px2dp(px) {
   return px *  deviceW / basePx
 }
 
-export default class RestaurantCards extends Component {
+export default class MenuHeader extends Component {
 
     state= {
         selectedTab: 'globe',
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
           },
 })
 
-AppRegistry.registerComponent('Mojo', () => RestaurantCards);
+AppRegistry.registerComponent('Mojo', () => MenuHeader);
