@@ -172,10 +172,7 @@ export default class MainCards extends Component {
                          tabLabel={key['genre']} 
                          venue={venueRef} 
                          genre={key['genre']} 
-                         valueToCompare={"true"}
-                         goToMenu={(slideIndex)=> {
-                            this.props.setMenuState&&this.props.setMenuState();
-                        }}/>
+                         valueToCompare={"true"}/>
                      )
              })
              :

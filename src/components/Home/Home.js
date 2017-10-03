@@ -41,10 +41,14 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 
 export default class Home extends Component {
 
-    state= {
+    constructor(props) {
+      super(props);
+      this.state = {
         selectedTab: 'mojo',
+        subselectedTab: 'mojo',
         mojo_active: true,
       };
+    }
 
     render() {
         return(
@@ -65,9 +69,18 @@ export default class Home extends Component {
                 //title="Mojo"
                 renderIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_inactive.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
-                onPress={() => this.setState({ selectedTab: 'mojo' })}
+                onPress={() => this.setState({ selectedTab: 'mojo' , subselectedTab: 'mojo'})}
                 >
-                <MainCards venueMode={true}/>
+                <TabNavigator hidesTabTouch={true}>
+                  <TabNavigator.Item
+                  selected={this.state.subselectedTab === 'mojo'}>
+                    <MainCards setMenuState={() => {this.setState({subselectedTab: 'menu'})}}/>
+                  </TabNavigator.Item>
+                  <TabNavigator.Item
+                  selected={this.state.subselectedTab === 'menu'}>
+                    <Profile />
+                  </TabNavigator.Item>
+                </TabNavigator>
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
