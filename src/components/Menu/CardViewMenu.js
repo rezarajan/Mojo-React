@@ -41,6 +41,19 @@ export default class CardViewMenu extends Component {
         //receives the contrasting color and sets the value accordingly
         var contrastColour = this.props.contrastratio === 'dark'?'white':'rgba(35,31,32,1)';
 
+        //for the case where the background colour is white it forces a black background
+        var forceContrastColour = this.props.backgroundColor === 'white'?'black':this.props.backgroundColor;
+
+        var bottomBarTextColor = forceContrastColour === 'black'?'white':contrastColour;
+
+        //sets the bottom bar colour based 
+        var bottomBarTextColor;
+        forceContrastColour === 'black'?
+        bottomTextColor = 'white'
+        :
+        bottomTextColor = contrastColour
+        ;
+
         var tagView = [];
 
         
@@ -56,7 +69,7 @@ export default class CardViewMenu extends Component {
                 <View style={[styles.headerBackground, {backgroundColor: 'white', width: this.props.itemWidth, height: this.props.itemHeight}]}>
                     <View style={[{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}]}>
                         {/* Spacer View */}
-                        <View style={[{height: 10}]}/>
+                        <View style={[{height: 4}]}/>
                     <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}]}>
                         <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
                             {/* <View style={styles.profilepicWrap}>
@@ -72,14 +85,14 @@ export default class CardViewMenu extends Component {
                             {/* <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/> */}
                             <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
                                 <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
-                                    <Text style={[styles.timings, {fontWeight: 'bold', color: 'rgba(35,31,32,1)'}]}>Today's Timings</Text>
-                                    <Text style={[styles.timings, {color: 'rgba(35,31,32,1)'}]}>{this.props.open}</Text>
+                                    <Text style={[styles.timings, {fontWeight: 'bold', color: 'rgba(35,31,32,1)'}]}>$0.00</Text>
+                                    {/* <Text style={[styles.timings, {color: 'rgba(35,31,32,1)'}]}>{this.props.open}</Text> */}
                                 </View>
                             </View>
                         </View>
                     </View>
-                    <View style={[styles.bottomBar, {width: this.props.itemWidth-1, backgroundColor: this.props.backgroundColor}]}>
-                            <Text style={[styles.timings, {color: contrastColour, textAlign: 'center'}]}> Get this Item </Text>
+                    <View style={[styles.bottomBar, {width: this.props.itemWidth-1, backgroundColor: forceContrastColour}]}>
+                            <Text style={[styles.timings, {color: bottomBarTextColor, fontWeight: 'bold', textAlign: 'center'}]}> Get this Item </Text>
                     </View>
                     </View>
                 </View>
@@ -116,12 +129,12 @@ const styles = StyleSheet.create({
     mainInfo: {
         justifyContent: 'space-between', 
         flexDirection: 'row',
-        marginLeft: 16,
+        marginLeft: 26,
         marginRight: 16,
     },
     extraInfo: {
         flexDirection: 'column',        
-        marginRight: 10,
+        marginRight: 26,
     },
     name: {
         fontSize: 16,
@@ -131,7 +144,7 @@ const styles = StyleSheet.create({
     },
     timings: {
         alignItems: 'center',
-        fontSize: 12,
+        fontSize: 14,
         color: 'white',
         fontFamily: 'Avenir',
     },
@@ -161,6 +174,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         borderBottomLeftRadius: 10, 
-        borderBottomRightRadius: 10
+        borderBottomRightRadius: 10,
     }
 });
