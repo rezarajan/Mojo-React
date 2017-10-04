@@ -75,11 +75,11 @@ export default class Home extends Component {
                 <TabNavigator hidesTabTouch={true}>
                   <TabNavigator.Item
                   selected={this.state.subselectedTab === 'mojo'}>
-                    <MainCards setMenuState={() => {this.setState({subselectedTab: 'menu'})}}/>
+                    <MainCards filterforValue={"true"} setMenuState={() => {this.setState({subselectedTab: 'menu'})}}/>
                   </TabNavigator.Item>
                   <TabNavigator.Item
                   selected={this.state.subselectedTab === 'menu'}>
-                    <MenuCards setRestaurantState={() => {this.setState({subselectedTab: 'mojo'})}}/>
+                    <MenuCards filterforValue={"category"} setRestaurantState={() => {this.setState({subselectedTab: 'mojo'})}}/>
                   </TabNavigator.Item>
                 </TabNavigator>
               </TabNavigator.Item>

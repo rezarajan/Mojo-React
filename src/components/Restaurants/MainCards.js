@@ -41,7 +41,6 @@ export default class MainCards extends Component {
             slider2Ref: null, 
             tabViewRef: null,
             currentIndex: 0,
-            venueMode: "true",
             venue: null,    
             valueToCompare: true,
             restaurant: 'Starbucks',
@@ -69,10 +68,12 @@ export default class MainCards extends Component {
                 var tags = [];           
                 tags = child.val().categories ? child.val().categories : {};
                 
+                //receives the value to filter the categories for
+                const categoryCheck = this.props.filterforValue?this.props.filterforValue:'';
 
                 //filters the node for the categories with the value as true
                 for(var key in tags) {
-                    if(tags[key] === "true") {
+                    if(tags[key] === categoryCheck) {
                         keyname.push(key);            
                     }
                 }              
@@ -119,6 +120,9 @@ export default class MainCards extends Component {
   
 
     render() {
+
+        //receives the value to filter the categories for
+        const categoryCheck = this.props.filterforValue?this.props.filterforValue:'';
 
         //console.log(this.state.isModalVisible);
 
@@ -172,7 +176,7 @@ export default class MainCards extends Component {
                          tabLabel={key['genre']} 
                          venue={venueRef} 
                          genre={key['genre']} 
-                         valueToCompare={"true"}
+                         valueToCompare={categoryCheck}
                          goToMenu={(slideIndex)=> {
                             this.props.setMenuState&&this.props.setMenuState();
                         }}/>
