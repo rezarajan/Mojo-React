@@ -16,7 +16,7 @@ import {
 import TabNavigator from '../custom-react-components/react-native-tab-navigator/TabNavigator';
 import ActionButton from '../custom-react-components/react-native-circular-action-menu/ActionButton';
 import SignUp from '../SignUp/SignUp';
-import Name from '../SignUp/Name';
+import Categories from '../Search/Categories';
 import RestaurantCards from '../Restaurants/RestaurantCards';
 import MainCards from '../Restaurants/MainCards';
 import MenuCards from '../Menu/MenuCards';
@@ -56,6 +56,7 @@ export default class Home extends Component {
             <View style={styles.container}>
             <MyStatusBar backgroundColor="white" barStyle="dark-content" />
             <TabNavigator hidesTabTouch={true}>
+
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'pocket'}
                 //title="Pocket"
@@ -63,8 +64,9 @@ export default class Home extends Component {
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/OrderTracking_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
                 onPress={() => this.setState({ selectedTab: 'pocket' })}
                 >
-                <Name />
+                <Categories filterforValue={"category"}/>
               </TabNavigator.Item>
+
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'mojo'}
                 //title="Mojo"
@@ -72,6 +74,7 @@ export default class Home extends Component {
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 onPress={() => this.setState({ selectedTab: 'mojo' , subselectedTab: 'mojo'})}
                 >
+
                 <TabNavigator hidesTabTouch={true}>
                   <TabNavigator.Item
                   selected={this.state.subselectedTab === 'mojo'}>
@@ -82,7 +85,9 @@ export default class Home extends Component {
                     <MenuCards filterforValue={"category"} setRestaurantState={() => {this.setState({subselectedTab: 'mojo'})}}/>
                   </TabNavigator.Item>
                 </TabNavigator>
+
               </TabNavigator.Item>
+
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
                 //title="Profile"
@@ -92,6 +97,7 @@ export default class Home extends Component {
                 >
                 <Profile />
               </TabNavigator.Item>
+
             </TabNavigator>
             </View>
         );
