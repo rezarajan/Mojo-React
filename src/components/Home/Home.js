@@ -52,7 +52,10 @@ export default class Home extends Component {
         searchVenue: null,
         searchCategory: null,
         mojo_active: true,
+        menu_active: false,        
         results_active: false,
+        restaurant: null,
+        dominantColour: null,
       };
     }
 
@@ -111,17 +114,43 @@ export default class Home extends Component {
                 //title="Mojo"
                 renderIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_inactive.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
-                onPress={() => this.setState({ selectedTab: 'mojo' , mainSelectedTab: 'mojo'})}
+                onPress={() => this.setState({ 
+                  selectedTab: 'mojo' , 
+                  menu_active: false})}
                 >
 
                 <TabNavigator hidesTabTouch={true}>
                   <TabNavigator.Item
                   selected={this.state.mainSelectedTab === 'mojo'}>
-                    <MainCards filterforValue={"true"} setMenuState={() => {this.setState({mainSelectedTab: 'menu'})}}/>
+                    <MainCards 
+                    filterforValue={"true"} 
+                    setMenuState={(restaurant, colour) => {
+                      this.setState({
+                        restaurant: restaurant, 
+                        dominantColour: colour, 
+                        menu_active: true,
+                        mainSelectedTab: 'menu'
+                        })
+                        }} />
                   </TabNavigator.Item>
                   <TabNavigator.Item
                   selected={this.state.mainSelectedTab === 'menu'}>
-                    <MenuCards restaurant={'Starbucks'} filterforValue={"main"} setRestaurantState={() => {this.setState({mainSelectedTab: 'mojo'})}}/>
+                    <MenuCards 
+                    menu_active={this.state.menu_active}
+                    restaurant={this.state.restaurant} 
+                    backgroundColor={this.state.dominantColour} 
+                    filterforValue={"main"} 
+                    setRestaurantState={() => {
+                      this.setState({
+                        menu_active: false,
+                      })
+                      }}
+                    changeTabs={() => {
+                      this.setState({
+                        mainSelectedTab: 'mojo'
+                      })
+                      }}
+                    />
                   </TabNavigator.Item>
                 </TabNavigator>
 

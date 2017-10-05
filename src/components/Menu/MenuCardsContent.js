@@ -14,14 +14,16 @@ import {
     Dimensions,
 } from 'react-native';
 
-import RestaurantHeader from './RestaurantHeader';
-import RestaurantCarousel from './RestaurantCarousel';
+import MenuHeader from './MenuHeader';
+import MenuCarousel from './MenuCarousel';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView, {ScrollableTabBar,} from '../custom-react-components/react-native-scrollable-tab-view';
 import { ViewPager, TabbedPager } from 'react-native-viewpager-carousel'
 import Carousel from 'react-native-snap-carousel';
 import FlipCard from 'react-native-flip-card';
 import * as firebase from 'firebase';
+
+var Color = require('../custom-react-components/color');
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -30,11 +32,14 @@ const itemWidth = 0.5*deviceW;
 const itemHeight = 20;
 
 
-export default class MainCards extends Component {
+export default class MenuCardsContent extends Component {
 
     constructor(props) {
         super(props);
         this.itemsRef = firebase.database().ref();
+        this.contrastratio= Color(this.props.backgroundColor).dark()?'dark':'light';        
+        //for the case where the background colour is light it forces a black colour for text
+        this.forceContrastColour = this.contrastratio === 'light'?'black':this.props.backgroundColor;
         this.state = {
             dataSource: null,  
             slider1Ref: null,
@@ -66,7 +71,7 @@ export default class MainCards extends Component {
                 //finding tags based on the mode used for the component
                 //type:venueMode or menuMode
                 var tags = [];           
-                tags = child.val().categories ? child.val().categories : {};
+                tags = child.val().tags ? child.val().tags : {};
                 
                 //receives the value to filter the categories for
                 const categoryCheck = this.props.filterforValue?this.props.filterforValue:'';
@@ -97,7 +102,7 @@ export default class MainCards extends Component {
           }
 
     componentDidMount() {
-        this.listenForItems(this.itemsRef.child('listing/venue'))        
+        this.listenForItems(this.itemsRef.child('menu').child(this.props.restaurant).child('Items'))        
     }
 
     _renderItem = ({item, index}) =>
@@ -112,7 +117,7 @@ export default class MainCards extends Component {
         //this.state.slider2Ref.snapToItem(index);
         
         }}>
-        <Text style={[{width: itemWidth, height: 36, color: '#18ACDE', alignSelf: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Avenir', fontSize: 18, fontWeight: 'bold'}]}> {item.genre} </Text>
+        <Text style={[{width: itemWidth, height: 36, color: this.forceContrastColour, alignSelf: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Avenir', fontSize: 18, fontWeight: 'bold'}]}> {item.genre} </Text>
     </TouchableOpacity>
 ;
 
@@ -124,10 +129,8 @@ export default class MainCards extends Component {
         //receives the value to filter the categories for
         const categoryCheck = this.props.filterforValue?this.props.filterforValue:'';
 
-        //console.log(this.state.isModalVisible);
-
         //setting the layout as a placeholder until the data is acquired from Firebase
-         const tabContent = this.state.dataSource ?
+         var tabContent = this.state.dataSource ?
              <Carousel
              ref={(c) => { this.state.slider1Ref? this.state.slider1Ref: this.setState({ slider1Ref: c }); }}
              data={this.state.dataSource}
@@ -157,7 +160,7 @@ export default class MainCards extends Component {
              //change this to whatever loading layout as a placeholder
              null;
 
-             const containerContent = 
+             var containerContent = 
              <ScrollableTabView
              renderTabBar={() => <View/>}
              ref={(tabView) => { this.state.tabViewRef?
@@ -169,16 +172,17 @@ export default class MainCards extends Component {
                  this.state.dataSource?
                  this.state.dataSource.map((key, i) => {
                      // TODO: change this venue to the venue picked up by GeoFire
-                     var venueRef = i>0? 'venue':'venue';
+                     //var venueRef = i>0? 'venue':'venue';
                      return(
-                         <RestaurantCarousel 
+                         <MenuCarousel 
                          key={i} 
                          tabLabel={key['genre']} 
-                         venue={venueRef} 
+                         restaurant={this.props.restaurant} 
                          genre={key['genre']} 
                          valueToCompare={categoryCheck}
-                         goToMenu={(restaurant, colour)=> {
-                            this.props.setMenuState&&this.props.setMenuState(restaurant, colour);
+                         backgroundColor={this.props.backgroundColor}
+                         goToRestaurants={()=> {
+                            this.props.setRestaurantState&&this.props.setRestaurantState();
                         }}/>
                      )
              })
@@ -189,7 +193,7 @@ export default class MainCards extends Component {
 
         return(
             <View style={styles.container}>
-                <RestaurantHeader onPressCart={() => {Actions.cart()}}/> 
+                <MenuHeader onPressCart={() => {Actions.cart()}}/> 
                 <View style={[{alignItems: 'center'}]}>
                 {tabContent}   
                 </View>
@@ -208,4 +212,4 @@ const styles = StyleSheet.create({
        },
 })
 
-AppRegistry.registerComponent('Mojo', () => MainCards);
+AppRegistry.registerComponent('Mojo', () => MenuCardsContent);
