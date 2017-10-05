@@ -17,6 +17,7 @@ import TabNavigator from '../custom-react-components/react-native-tab-navigator/
 import ActionButton from '../custom-react-components/react-native-circular-action-menu/ActionButton';
 import SignUp from '../SignUp/SignUp';
 import Categories from '../Search/Categories';
+import SearchCards from '../Search/SearchCards';
 import RestaurantCards from '../Restaurants/RestaurantCards';
 import MainCards from '../Restaurants/MainCards';
 import MenuCards from '../Menu/MenuCards';
@@ -46,8 +47,12 @@ export default class Home extends Component {
       super(props);
       this.state = {
         selectedTab: 'mojo',
-        subselectedTab: 'mojo',
+        mainSelectedTab: 'mojo',
+        searchSelectedTab: 'grid',
+        searchVenue: null,
+        searchCategory: null,
         mojo_active: true,
+        results_active: false,
       };
     }
 
@@ -58,13 +63,47 @@ export default class Home extends Component {
             <TabNavigator hidesTabTouch={true}>
 
               <TabNavigator.Item
-                selected={this.state.selectedTab === 'pocket'}
+                selected={this.state.selectedTab === 'search'}
                 //title="Pocket"
                 renderIcon={() => <Image source={require('../../images/tabbar/OrderTracking_inactive.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/OrderTracking_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
-                onPress={() => this.setState({ selectedTab: 'pocket' })}
+                onPress={() => this.setState({ selectedTab: 'search', searchSelectedTab: 'grid', results_active: false})}
                 >
-                <Categories filterforValue={"category"}/>
+
+                <TabNavigator hidesTabTouch={true}>
+                  <TabNavigator.Item
+                  selected={this.state.searchSelectedTab === 'grid'}>
+                    <Categories 
+                    filterforValue={"category"} 
+                    goToResults={(venue, category) => {
+                      this.setState({
+                        searchVenue: venue, 
+                        searchCategory: category, 
+                        results_active: true,
+                        searchSelectedTab: 'results'
+                        })
+                        }}/>                    
+                  </TabNavigator.Item>
+                  <TabNavigator.Item
+                  selected={this.state.searchSelectedTab === 'results'}>
+                    <SearchCards 
+                    results_active={this.state.results_active}
+                    venue={this.state.searchVenue&&this.state.searchVenue} 
+                    genre={this.state.searchCategory&&this.state.searchCategory} 
+                    filterforValue={"category"} 
+                    setSearchState={() => {
+                      this.setState({
+                      results_active: false,                      
+                    })
+                    }}
+                    changeTabs={() => {
+                      this.setState({
+                      searchSelectedTab: 'grid'
+                    })
+                    }}/> 
+                  </TabNavigator.Item>
+                </TabNavigator>
+
               </TabNavigator.Item>
 
               <TabNavigator.Item
@@ -72,17 +111,17 @@ export default class Home extends Component {
                 //title="Mojo"
                 renderIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_inactive.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
-                onPress={() => this.setState({ selectedTab: 'mojo' , subselectedTab: 'mojo'})}
+                onPress={() => this.setState({ selectedTab: 'mojo' , mainSelectedTab: 'mojo'})}
                 >
 
                 <TabNavigator hidesTabTouch={true}>
                   <TabNavigator.Item
-                  selected={this.state.subselectedTab === 'mojo'}>
-                    <MainCards filterforValue={"true"} setMenuState={() => {this.setState({subselectedTab: 'menu'})}}/>
+                  selected={this.state.mainSelectedTab === 'mojo'}>
+                    <MainCards filterforValue={"true"} setMenuState={() => {this.setState({mainSelectedTab: 'menu'})}}/>
                   </TabNavigator.Item>
                   <TabNavigator.Item
-                  selected={this.state.subselectedTab === 'menu'}>
-                    <MenuCards filterforValue={"category"} setRestaurantState={() => {this.setState({subselectedTab: 'mojo'})}}/>
+                  selected={this.state.mainSelectedTab === 'menu'}>
+                    <MenuCards filterforValue={"category"} setRestaurantState={() => {this.setState({mainSelectedTab: 'mojo'})}}/>
                   </TabNavigator.Item>
                 </TabNavigator>
 

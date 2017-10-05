@@ -15,7 +15,7 @@ import {
 import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
 import * as firebase from 'firebase';
-import CardViewMenu from './CardViewMenu';
+import SearchCardView from './SearchCardView';
 
 var Color = require('../custom-react-components/color');
 
@@ -34,7 +34,7 @@ function px2dp(px) {
   return px *  deviceW / basePx
 }
 
-export default class MenuCarousel extends Component {
+export default class SearchCarousel extends Component {
 
 
     constructor (props) {
@@ -54,7 +54,7 @@ export default class MenuCarousel extends Component {
 
         //receives the value to filter the categories for
         const categoryCheck = this.props.valueToCompare?this.props.valueToCompare:'';
-        
+
         //queries only for restaurants in a particular genre
         //the false condition may be set to a value which gives some sort of
         //default placeholder
@@ -93,10 +93,10 @@ export default class MenuCarousel extends Component {
 
           });
 
-        //Stores the items array received in the dataSource for access later
+          //Stores the items array received in the dataSource for access later          
           this.setState({
             dataSource: JSON.parse(JSON.stringify(items)),
-          });
+          })
 
           //console.log(this.state.dataSource);
     
@@ -111,7 +111,7 @@ export default class MenuCarousel extends Component {
         //item comes from the data source provided in the render() function
         
         <TouchableOpacity 
-        activeOpacity={0.98}
+        activeOpacity={0.96}
         onPress={() => {
             //checks the current index against the index of the item clicked
             //this.props.changeMode? 
@@ -122,9 +122,9 @@ export default class MenuCarousel extends Component {
             //console.log(this.props.venueMode);
                 
                 //console.log(index);
-                this.props.goToRestaurants&&this.props.goToRestaurants();
+                this.props.goToSearch&&this.props.goToSearch();
             }}>
-            <CardViewMenu 
+            <SearchCardView 
             text={item.restaurantName} 
             backgroundColor={item.backgroundColor} 
             genre={item.genre}    
@@ -198,4 +198,4 @@ const styles = StyleSheet.create({
         },
 })
 
-AppRegistry.registerComponent('Mojo', () => MenuCarousel);
+AppRegistry.registerComponent('Mojo', () => SearchCarousel);

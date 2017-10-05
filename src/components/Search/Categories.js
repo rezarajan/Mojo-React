@@ -95,24 +95,6 @@ export default class Categories extends Component {
     componentDidMount() {
         this.listenForItems(this.itemsRef.child('listing/venue'))        
     }
-
-    _renderItem = ({item, index}) =>
-    //item comes from the data source provided in the render() function
-    
-    <TouchableOpacity 
-    activeOpacity={0.5}
-    onPress={() => {
-        this.state.slider1Ref.snapToItem(index);
-        this.setState({currentIndex: index});
-        //this.state.tabViewRef?this.state.tabViewRef.goToPage(index):null;
-        //this.state.slider2Ref.snapToItem(index);
-        
-        }}>
-        <Text style={[{width: itemWidth, height: 36, color: '#18ACDE', alignSelf: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Avenir', fontSize: 18, fontWeight: 'bold'}]}> {item.genre} </Text>
-    </TouchableOpacity>
-;
-
-
   
 
     render() {
@@ -127,13 +109,18 @@ export default class Categories extends Component {
                      // TODO: change this venue to the venue picked up by GeoFire
                      var venueRef = i>0? 'venue':'venue';
                      return(
-                         <CategoryItem 
+                         <TouchableOpacity 
                          key={i}
+                         onPress={() => {
+                             this.props.goToResults&&this.props.goToResults(venueRef, key['genre']);
+                             }}>
+                         <CategoryItem 
                          color={'white'}
                          backgroundColor={'rgba(24,172,222,1)'}
                          text={key['genre']} 
                          style={{borderRadius: 10, width: itemWidth, height: 100}}
                          />
+                         </TouchableOpacity>
                      )
              })
              :
