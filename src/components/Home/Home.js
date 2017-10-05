@@ -121,7 +121,7 @@ export default class Home extends Component {
                   </TabNavigator.Item>
                   <TabNavigator.Item
                   selected={this.state.mainSelectedTab === 'menu'}>
-                    <MenuCards filterforValue={"category"} setRestaurantState={() => {this.setState({mainSelectedTab: 'mojo'})}}/>
+                    <MenuCards restaurant={'Starbucks'} filterforValue={"main"} setRestaurantState={() => {this.setState({mainSelectedTab: 'mojo'})}}/>
                   </TabNavigator.Item>
                 </TabNavigator>
 

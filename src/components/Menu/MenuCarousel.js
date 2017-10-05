@@ -41,6 +41,7 @@ export default class MenuCarousel extends Component {
         super(props);
 
         this.itemsRef = firebase.database().ref();
+        this.contrastratio= Color(this.props.backgroundColor).dark()?'dark':'light',
         this.state = {
             dataSource: null,
             tagValue: [],
@@ -64,7 +65,7 @@ export default class MenuCarousel extends Component {
         //console.log(this.props.restaurant);
 
         var childLocation = 
-        this.props.genre?'categories/'+this.props.genre:'categories/genre'
+        this.props.genre?'tags/'+this.props.genre:'tags/genre'
         
         itemsRef.orderByChild(childLocation).equalTo(categoryCheck).on('value', (snap) => {
     
@@ -81,14 +82,13 @@ export default class MenuCarousel extends Component {
             items.push({
               //title: child.val().title,
               _key: child.key,
-              restaurantName: child.child('details').val().restaurant ? child.child('details').val().restaurant : 'Restaurant Name',
-              backgroundColor: child.child('details').val().color ? child.child('details').val().color : 'aliceblue',
-              genre: child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
-              open: child.child('details').val().open ? child.child('details').val().open : 'No Times',
-              icon: child.child('details').val().icon ? child.child('details').val().icon : '../../images/mojomonkey.png',
-              tags: child.child('details').val().tags ? child.child('details').val().tags : {},
-              waitTime: child.child('details').val().waittime ? child.child('details').val().waittime : 'Unknown',
-              contrastratio: Color(child.child('details').val().color).dark()?'dark':'light',
+              cost: child.val().cost ? child.val().cost : 0,                            
+              //genre: child.child('details').val().genre ? child.child('details').val().genre : 'Genre',
+              //open could be changed to inStock or something
+              //open: child.child('details').val().open ? child.child('details').val().open : 'No Times',
+              //icon: child.child('details').val().icon ? child.child('details').val().icon : '../../images/mojomonkey.png',
+              //tags: child.child('details').val().tags ? child.child('details').val().tags : {},
+              //contrastratio: Color(child.child('details').val().color).dark()?'dark':'light',
             })
 
           });
@@ -104,7 +104,7 @@ export default class MenuCarousel extends Component {
       }
 
     componentDidMount() {
-        this.listenForItems(this.itemsRef.child('listing').child(this.props.venue?this.props.venue:'venue'))
+        this.listenForItems(this.itemsRef.child('menu').child(this.props.restaurant?this.props.restaurant:'').child('Items'))
     }
 
     _renderItem = ({item, index}) =>
@@ -125,15 +125,11 @@ export default class MenuCarousel extends Component {
                 this.props.goToRestaurants&&this.props.goToRestaurants();
             }}>
             <CardViewMenu 
-            text={item.restaurantName} 
-            backgroundColor={item.backgroundColor} 
-            genre={item.genre}    
-            open={item.open} 
-            icon={item.icon}     
+            text={item._key} 
+            cost={item.cost}
+            backgroundColor={this.props.backgroundColor} 
             index={index}
-            tags={item.tags}
-            waitTime={item.waitTime}
-            contrastratio={item.contrastratio}
+            contrastratio={this.contrastratio}
             itemWidth={itemWidth}
             itemHeight={itemHeight}
             />

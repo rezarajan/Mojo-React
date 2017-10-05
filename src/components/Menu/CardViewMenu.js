@@ -17,26 +17,13 @@ export default class CardViewMenu extends Component {
         super(props);
 
         this.state = {
-            openIndicator: 'white',
+            //openIndicator: 'white',
         };
     } 
 
     render() {
 
         {/* This condition checks for the status of the restaurant passed and sets the appropriate text colour */}
-
-        if(this.props.open === "Open"){
-            this.state.openIndicator='chartreuse'
-        }
-        else if(this.props.open === "Closing"){
-            this.state.openIndicator='coral'
-        }
-        else if(this.props.open === "Closed"){
-            this.state.openIndicator='crimson'
-        }
-        else {
-            this.state.openIndicator='white'
-        }
 
         //receives the contrasting color and sets the value accordingly
         var contrastColour = this.props.contrastratio === 'dark'?'white':'rgba(35,31,32,1)';
@@ -53,16 +40,6 @@ export default class CardViewMenu extends Component {
         :
         bottomTextColor = contrastColour
         ;
-
-        var tagView = [];
-
-        
-        //Loops through the tags JSON array and gets the key/value pair of restaurant identifier tags
-        for (var key in this.props.tags) {
-            if (this.props.tags.hasOwnProperty(key)) {
-                tagView.push({tag: key});
-            }
-        }
 
 
         return (
@@ -85,7 +62,7 @@ export default class CardViewMenu extends Component {
                             {/* <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/> */}
                             <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
                                 <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
-                                    <Text style={[styles.timings, {fontWeight: 'bold', color: 'rgba(35,31,32,1)'}]}>$0.00</Text>
+                                    <Text style={[styles.timings, {fontWeight: 'bold', color: 'rgba(35,31,32,1)'}]}>{this.props.cost.toFixed(2)}</Text>
                                     {/* <Text style={[styles.timings, {color: 'rgba(35,31,32,1)'}]}>{this.props.open}</Text> */}
                                 </View>
                             </View>

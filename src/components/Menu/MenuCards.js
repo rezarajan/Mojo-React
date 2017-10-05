@@ -66,7 +66,7 @@ export default class MenuCards extends Component {
                 //finding tags based on the mode used for the component
                 //type:venueMode or menuMode
                 var tags = [];           
-                tags = child.val().categories ? child.val().categories : {};
+                tags = child.val().tags ? child.val().tags : {};
                 
                 //receives the value to filter the categories for
                 const categoryCheck = this.props.filterforValue?this.props.filterforValue:'';
@@ -97,7 +97,7 @@ export default class MenuCards extends Component {
           }
 
     componentDidMount() {
-        this.listenForItems(this.itemsRef.child('listing/venue'))        
+        this.listenForItems(this.itemsRef.child('menu').child(this.props.restaurant).child('Items'))        
     }
 
     _renderItem = ({item, index}) =>
@@ -169,14 +169,15 @@ export default class MenuCards extends Component {
                  this.state.dataSource?
                  this.state.dataSource.map((key, i) => {
                      // TODO: change this venue to the venue picked up by GeoFire
-                     var venueRef = i>0? 'venue':'venue';
+                     //var venueRef = i>0? 'venue':'venue';
                      return(
                          <MenuCarousel 
                          key={i} 
                          tabLabel={key['genre']} 
-                         venue={venueRef} 
+                         restaurant={this.props.restaurant} 
                          genre={key['genre']} 
                          valueToCompare={categoryCheck}
+                         backgroundColor={'green'}
                          goToRestaurants={()=> {
                             this.props.setRestaurantState&&this.props.setRestaurantState();
                         }}/>
