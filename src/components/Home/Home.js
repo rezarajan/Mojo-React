@@ -67,7 +67,7 @@ export default class Home extends Component {
                 //title="Pocket"
                 renderIcon={() => <Image source={require('../../images/tabbar/OrderTracking_inactive.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/OrderTracking_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
-                onPress={() => this.setState({ selectedTab: 'search', searchSelectedTab: 'grid', results_active: false})}
+                onPress={() => this.setState({ selectedTab: 'search', results_active: false})}
                 >
 
                 <TabNavigator hidesTabTouch={true}>
