@@ -193,7 +193,7 @@ export default class MenuCardsContent extends Component {
 
         return(
             <View style={styles.container}>
-                <MenuHeader onPressCart={() => {Actions.cart()}}/> 
+                <MenuHeader color={this.props.backgroundColor} restaurant={this.props.restaurant} onPressCart={() => {Actions.cart()}}/> 
                 <View style={[{alignItems: 'center'}]}>
                 {tabContent}   
                 </View>

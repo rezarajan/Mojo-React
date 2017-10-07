@@ -43,17 +43,17 @@ export default class CardViewMenu extends Component {
 
 
         return (
-                <View style={[styles.headerBackground, {backgroundColor: 'white', width: this.props.itemWidth, height: this.props.itemHeight}]}>
+                <View style={[styles.headerBackground, {backgroundColor: forceContrastColour, width: this.props.itemWidth, height: this.props.itemHeight}]}>
                     <View style={[{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}]}>
                         {/* Spacer View */}
-                        <View style={[{height: 4}]}/>
-                    <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}]}>
-                        <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
+                        {/* <View style={[{height: 4}]}/> */}
+                    <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', alignContent: 'center'}]}>
+                        <View style={[{flexDirection: 'row', alignItems: 'center', alignContent: 'center'}]}>
                             {/* <View style={styles.profilepicWrap}>
                                 <Image style={styles.profilepic} source={{uri:this.props.icon}} />
                             </View> */}
                             <View style={styles.mainInfo}>
-                                <Text style={[styles.name, {color: 'rgba(35,31,32,1)'}]}>{this.props.text}</Text>
+                                <Text style={[styles.name, {color: bottomTextColor}]}>{this.props.text}</Text>
                             </View>
                         </View>
 
@@ -62,17 +62,17 @@ export default class CardViewMenu extends Component {
                             {/* <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/> */}
                             <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
                                 <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
-                                    <Text style={[styles.timings, {fontWeight: 'bold', color: 'rgba(35,31,32,1)'}]}>{this.props.cost.toFixed(2)}</Text>
+                                    <Text style={[styles.timings, {fontWeight: 'bold', color: bottomBarTextColor}]}>${this.props.cost.toFixed(2)}</Text>
                                     {/* <Text style={[styles.timings, {color: 'rgba(35,31,32,1)'}]}>{this.props.open}</Text> */}
                                 </View>
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity activeOpacity={0.8}>
+                    {/* <TouchableOpacity activeOpacity={0.8}>
                     <View style={[styles.bottomBar, {width: this.props.itemWidth-1, backgroundColor: forceContrastColour}]}>
                             <Text style={[styles.timings, {color: bottomBarTextColor, fontWeight: 'bold', textAlign: 'center'}]}> Get this Item </Text>
                     </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     </View>
                 </View>
         );
@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
     headerBackground: {
         flex: 1,
         flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
         justifyContent: 'space-between',
         marginTop:8,
         borderRadius: 10,

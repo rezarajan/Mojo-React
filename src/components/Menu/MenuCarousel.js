@@ -26,7 +26,7 @@ const deviceH = Dimensions.get('window').height;
 //Change this to whatver width the CardView is to be
 //and the chnages propogate to the render() and CardView layout
 const itemWidth = 320;
-const itemHeight = 90;
+const itemHeight = 50;
 
 const basePx = 375
 
