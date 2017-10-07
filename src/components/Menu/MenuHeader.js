@@ -34,13 +34,17 @@ export default class MenuHeader extends Component {
       };
 
     render() {
+
+        //for the case where the background colour is white it forces a black background
+        var forceContrastColour = this.props.color === 'white'?'black':this.props.color;
+
         return(
             <View style={styles.headerBackground} > 
                 <TouchableOpacity style={styles.logoHolder} onPress={this.props.onPressLogo} activeOpacity={0.5}>
-                    <Text style={[styles.headerText, {color: this.props.color}]}>{this.props.restaurant}</Text>
+                    <Text style={[styles.headerText, {color: forceContrastColour}]}>{this.props.restaurant}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPressCart} activeOpacity={0.5}>
-                    <Image style={[styles.cartWrapper, {tintColor: this.props.color}]} source={require('../../images/statusbar/ShoppingCart.png')} />
+                    <Image style={[styles.cartWrapper, {tintColor: forceContrastColour}]} source={require('../../images/statusbar/ShoppingCart.png')} />
                 </TouchableOpacity>
             </View>
         );
