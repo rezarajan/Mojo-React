@@ -53,6 +53,7 @@ export default class Home extends Component {
         searchCategory: null,
         mojo_active: true,
         menu_active: false,        
+        searchMenu_active: false,        
         results_active: false,
         restaurant: null,
         dominantColour: null,
@@ -68,9 +69,9 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'search'}
                 //title="Pocket"
-                renderIcon={() => <Image source={require('../../images/tabbar/OrderTracking_inactive.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/OrderTracking_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
-                onPress={() => this.setState({ selectedTab: 'search', results_active: false})}
+                renderIcon={() => <Image source={require('../../images/tabbar/search_inactive.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/search_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
+                onPress={() => this.setState({ selectedTab: 'search', results_active: false, searchMenu_active: false})}
                 >
 
                 <TabNavigator hidesTabTouch={true}>
@@ -94,17 +95,40 @@ export default class Home extends Component {
                     venue={this.state.searchVenue&&this.state.searchVenue} 
                     genre={this.state.searchCategory&&this.state.searchCategory} 
                     filterforValue={"category"} 
-                    setSearchState={() => {
+                    setSearchState={(restaurant, colour) => {
                       this.setState({
-                      results_active: false,                      
+                      restaurant: restaurant,
+                      dominantColour: colour,
+                      results_active: false, 
+                      searchMenu_active: true,                       
                     })
                     }}
                     changeTabs={() => {
                       this.setState({
-                      searchSelectedTab: 'grid'
+                      searchSelectedTab: 'search_menu'
                     })
                     }}/> 
                   </TabNavigator.Item>
+                  <TabNavigator.Item
+                  selected={this.state.searchSelectedTab === 'search_menu'}>
+                    <MenuCards 
+                    menu_active={this.state.searchMenu_active}
+                    restaurant={this.state.restaurant} 
+                    backgroundColor={this.state.dominantColour} 
+                    filterforValue={"main"} 
+                    setRestaurantState={() => {
+                      this.setState({
+                        searchMenu_active: false,    
+                      })
+                      }}
+                    changeTabs={() => {
+                      this.setState({
+                        searchSelectedTab: 'grid'
+                      })
+                      }}
+                    />
+                  </TabNavigator.Item>
+                  
                 </TabNavigator>
 
               </TabNavigator.Item>
@@ -159,8 +183,8 @@ export default class Home extends Component {
               <TabNavigator.Item
                 selected={this.state.selectedTab === 'profile'}
                 //title="Profile"
-                renderIcon={() => <Image source={require('../../images/tabbar/profile_inactive.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
-                renderSelectedIcon={() => <Image source={require('../../images/tabbar/profile_active.png')} style={{width: px2dp(14), height: px2dp(20)}}/>}
+                renderIcon={() => <Image source={require('../../images/tabbar/OrderTracking_inactive.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
+                renderSelectedIcon={() => <Image source={require('../../images/tabbar/OrderTracking_active.png')} style={{width: px2dp(24), height: px2dp(23)}}/>}
                 onPress={() => this.setState({ selectedTab: 'profile' })}
                 >
                 <Profile />

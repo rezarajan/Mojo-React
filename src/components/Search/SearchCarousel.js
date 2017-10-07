@@ -122,7 +122,7 @@ export default class SearchCarousel extends Component {
             //console.log(this.props.venueMode);
                 
                 //console.log(index);
-                this.props.goToSearch&&this.props.goToSearch();
+                this.props.goToSearch&&this.props.goToSearch(item.restaurantName, item.backgroundColor);
             }}>
             <SearchCardView 
             text={item.restaurantName} 

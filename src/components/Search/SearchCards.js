@@ -51,8 +51,8 @@ export default class SearchCards extends Component {
                 venue={this.props.venue} 
                 genre={this.props.genre} 
                 valueToCompare={categoryCheck}
-                goToSearch={()=> {
-                   this.props.setSearchState&&this.props.setSearchState();
+                goToSearch={(restaurant, colour)=> {
+                   this.props.setSearchState&&this.props.setSearchState(restaurant, colour);
             }}/>
             :
             this.props.changeTabs&&this.props.changeTabs();
