@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+        paddingBottom: 49,
         //alignItems: 'center'
        },
        categoriesGrid: {
