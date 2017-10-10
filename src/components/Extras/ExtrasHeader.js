@@ -26,7 +26,7 @@ function px2dp(px) {
   return px *  deviceW / basePx
 }
 
-export default class RestaurantCards extends Component {
+export default class ExtrasHeader extends Component {
 
     state= {
         selectedTab: 'globe',
@@ -34,13 +34,17 @@ export default class RestaurantCards extends Component {
       };
 
     render() {
+
+        //for the case where the background colour is white it forces a black background
+        var forceContrastColour = this.props.color === 'white'?'black':this.props.color;
+
         return(
             <View style={styles.headerBackground} > 
                 <TouchableOpacity style={styles.logoHolder} onPress={this.props.onPressLogo} activeOpacity={0.5}>
-                    <Image style={styles.logoWrapper} source={require('../../images/statusbar/mojo_textLogo.png')} />
+                    <Text style={[styles.headerText, {color: forceContrastColour}]}>{this.props.restaurant}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPressCart} activeOpacity={0.5}>
-                    <Image style={styles.cartWrapper} source={require('../../images/statusbar/shoppingCart.png')} />
+                    <Image style={[styles.cartWrapper, {tintColor: forceContrastColour}]} source={require('../../images/statusbar/shoppingCart.png')} />
                 </TouchableOpacity>
             </View>
         );
@@ -49,31 +53,6 @@ export default class RestaurantCards extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: deviceW,
-        backgroundColor: 'white',
-
-       },
-         //Mojo button wrapper
-        logoWrapper: {
-          alignSelf: 'center',
-          width: 91,
-          height: 24,
-          marginTop: 8,
-          marginLeft: 60,
-          marginRight: 60
-        //   marginBottom: 24,
-        },
-         //Mojo button holder
-         logoHolder: {
-            //position: 'absolute',
-            //right: deviceW/2,
-            //left: deviceW/2,
-            alignItems: 'center',
-            justifyContent: 'center'
-          //   marginBottom: 24,
-          },
          //Cart button wrapper
          cartWrapper: {
             width: 35,
@@ -86,12 +65,17 @@ const styles = StyleSheet.create({
             right: 24,
           //   marginBottom: 24,
           },
-        headerBackground: {
+        headerText: {
+            alignSelf: 'center',
+            textAlign: 'center',
+            fontSize: 22,
+            fontWeight: 'bold',
+            color: 'green',
+            fontFamily: 'Avenir',
+          },
+          headerBackground: {
             backgroundColor: 'white',
             flexDirection: 'row',
-            // position: 'absolute',
-            // top: 0,
-            // left: 0,
             width: deviceW,
             height: 85,
             borderBottomColor: 'rgba(241,241,241,1)',
@@ -102,4 +86,4 @@ const styles = StyleSheet.create({
           },
 })
 
-AppRegistry.registerComponent('Mojo', () => RestaurantCards);
+AppRegistry.registerComponent('Mojo', () => ExtrasHeader);

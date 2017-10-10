@@ -20,7 +20,6 @@ import { Actions } from 'react-native-router-flux';
 import ScrollableTabView, {ScrollableTabBar,} from '../custom-react-components/react-native-scrollable-tab-view';
 import { ViewPager, TabbedPager } from 'react-native-viewpager-carousel'
 import Carousel from 'react-native-snap-carousel';
-import FlipCard from 'react-native-flip-card';
 import * as firebase from 'firebase';
 
 var Color = require('../custom-react-components/color');
@@ -181,8 +180,8 @@ export default class MenuCardsContent extends Component {
                          genre={key['genre']} 
                          valueToCompare={categoryCheck}
                          backgroundColor={this.props.backgroundColor}
-                         goToRestaurants={()=> {
-                            this.props.setRestaurantState&&this.props.setRestaurantState();
+                         goToRestaurants={(item)=> {
+                            this.props.setRestaurantState&&this.props.setRestaurantState(item);
                         }}/>
                      )
              })

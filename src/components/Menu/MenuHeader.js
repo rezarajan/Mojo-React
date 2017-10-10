@@ -44,7 +44,7 @@ export default class MenuHeader extends Component {
                     <Text style={[styles.headerText, {color: forceContrastColour}]}>{this.props.restaurant}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPressCart} activeOpacity={0.5}>
-                    <Image style={[styles.cartWrapper, {tintColor: forceContrastColour}]} source={require('../../images/statusbar/ShoppingCart.png')} />
+                    <Image style={[styles.cartWrapper, {tintColor: forceContrastColour}]} source={require('../../images/statusbar/shoppingCart.png')} />
                 </TouchableOpacity>
             </View>
         );

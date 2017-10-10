@@ -20,7 +20,6 @@ import { Actions } from 'react-native-router-flux';
 import ScrollableTabView, {ScrollableTabBar,} from '../custom-react-components/react-native-scrollable-tab-view';
 import { ViewPager, TabbedPager } from 'react-native-viewpager-carousel'
 import Carousel from 'react-native-snap-carousel';
-import FlipCard from 'react-native-flip-card';
 import * as firebase from 'firebase';
 
 const deviceW = Dimensions.get('window').width;
@@ -115,12 +114,10 @@ export default class MainCards extends Component {
         <Text style={[{width: itemWidth, height: 36, color: '#18ACDE', alignSelf: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Avenir', fontSize: 18, fontWeight: 'bold'}]}> {item.genre} </Text>
     </TouchableOpacity>
 ;
-
-
   
 
     render() {
-
+        
         //receives the value to filter the categories for
         const categoryCheck = this.props.filterforValue?this.props.filterforValue:'';
 

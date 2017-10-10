@@ -40,7 +40,7 @@ export default class SearchHeader extends Component {
                     <Image style={styles.logoWrapper} source={require('../../images/statusbar/mojo_textLogo.png')} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cartHolder} onPress={this.props.onPressCart} activeOpacity={0.5}>
-                    <Image style={styles.cartWrapper} source={require('../../images/statusbar/ShoppingCart.png')} />
+                    <Image style={styles.cartWrapper} source={require('../../images/statusbar/shoppingCart.png')} />
                 </TouchableOpacity>
             </View>
         );

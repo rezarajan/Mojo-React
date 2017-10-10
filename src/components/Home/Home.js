@@ -21,6 +21,7 @@ import SearchCards from '../Search/SearchCards';
 import RestaurantCards from '../Restaurants/RestaurantCards';
 import MainCards from '../Restaurants/MainCards';
 import MenuCards from '../Menu/MenuCards';
+import ExtrasCards from '../Extras/ExtrasCards';
 
 //import ActionButton from 'react-native-circular-action-menu';
 
@@ -52,11 +53,13 @@ export default class Home extends Component {
         searchVenue: null,
         searchCategory: null,
         mojo_active: true,
-        menu_active: false,        
+        menu_active: false,    
+        extras_active: false,    
         searchMenu_active: false,        
         results_active: false,
         restaurant: null,
         dominantColour: null,
+        item: null,
       };
     }
 
@@ -140,7 +143,8 @@ export default class Home extends Component {
                 renderSelectedIcon={() => <Image source={require('../../images/tabbar/MonkeyIcon_active.png')} style={{width: px2dp(100), height: px2dp(78), marginBottom: -32}}/>}
                 onPress={() => this.setState({ 
                   selectedTab: 'mojo' , 
-                  menu_active: false})}
+                  menu_active: false,
+                  extras_active: false,})}
                 >
 
                 <TabNavigator hidesTabTouch={true}>
@@ -164,9 +168,30 @@ export default class Home extends Component {
                     restaurant={this.state.restaurant} 
                     backgroundColor={this.state.dominantColour} 
                     filterforValue={"main"} 
-                    setRestaurantState={() => {
+                    setRestaurantState={(item) => {
                       this.setState({
+                        item: item,
                         menu_active: false,
+                        extras_active: true,                                                
+                      })
+                      }}
+                    changeTabs={() => {
+                      this.setState({
+                        mainSelectedTab: 'extras'
+                      })
+                      }}
+                    />
+                  </TabNavigator.Item>
+                  <TabNavigator.Item
+                  selected={this.state.mainSelectedTab === 'extras'}>
+                    <ExtrasCards 
+                    extras_active={this.state.extras_active}
+                    restaurant={this.state.restaurant}
+                    item={this.state.item} 
+                    backgroundColor={this.state.dominantColour} 
+                    setRestaurantState={(item) => {
+                      this.setState({
+                        extras_active: false,
                       })
                       }}
                     changeTabs={() => {

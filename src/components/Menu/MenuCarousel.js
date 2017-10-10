@@ -122,7 +122,7 @@ export default class MenuCarousel extends Component {
             //console.log(this.props.venueMode);
                 
                 //console.log(index);
-                this.props.goToRestaurants&&this.props.goToRestaurants();
+                this.props.goToRestaurants&&this.props.goToRestaurants(item._key);
             }}>
             <CardViewMenu 
             text={item._key} 

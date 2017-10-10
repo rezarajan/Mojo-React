@@ -14,7 +14,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import MenuCardsContent from './MenuCardsContent';
+import ExtrasCardsContent from './ExtrasCardsContent';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -23,21 +23,20 @@ const itemWidth = 0.5*deviceW;
 const itemHeight = 20;
 
 
-export default class MenuCards extends Component {
+export default class ExtrasCards extends Component {
 
     constructor(props) {
         super(props);
     }
-
+  
 
     render() {
 
-        var containerContent = this.props.menu_active?
-        <MenuCardsContent 
-        menu_active={this.props.menu_active}
+        var containerContent = this.props.extras_active?
+        <ExtrasCardsContent 
+        item={this.props.item}
         restaurant={this.props.restaurant} 
         backgroundColor={this.props.backgroundColor} 
-        filterforValue={this.props.filterforValue} 
         setRestaurantState={this.props.setRestaurantState}
         />
         :
@@ -60,4 +59,4 @@ const styles = StyleSheet.create({
        },
 })
 
-AppRegistry.registerComponent('Mojo', () => MenuCards);
+AppRegistry.registerComponent('Mojo', () => ExtrasCards);
