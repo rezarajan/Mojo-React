@@ -17,6 +17,9 @@ import {Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
 import * as firebase from 'firebase';
 import CardViewExtras from './CardViewExtras';
+import CheckoutButton from './CheckoutButton.js'
+
+
 
 var Color = require('../custom-react-components/color');
 
@@ -296,26 +299,28 @@ export default class ExtrasCarousel extends Component {
             }
         },
         function () {
-            console.log(this.state.extras)
+            console.log(this.state.extras);
+            //this.updateItem && this.updateItem();
         });
     }
 
 
-    // updateItem(uid, restaurantName, itemName, extraName, quantity, cost) {
-
-    //     var extrasData = JSON.parse(JSON.stringify(this.state.extras)),
-
-    //     // Get a key for a new Post.
-    //     var newPostKey = firebase.database().ref().child('test').push().key;
-      
-    //     // Write the new post's data simultaneously in the posts list and the user's post list.
-    //     var extrasUpdates = {};
-    //     //updates['test/' + restaurantName + '/' + itemName] = cartData;
-    //     extrasUpdates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + newPostKey + '/' + this.props.item + '/extras/' + extraname] = extrasData;
-      
-    //     //firebase.database().ref().update(updates);
-    //     firebase.database().ref().update(extrasUpdates);
-    //   }
+    updateItem() {
+        
+                var extrasData = JSON.parse(JSON.stringify(this.state.extras));
+        
+                console.log(extrasData);
+                // Get a key for a new Post.
+                var newPostKey = firebase.database().ref().child('test').push().key;
+              
+                // Write the new post's data simultaneously in the posts list and the user's post list.
+                var extrasUpdates = {};
+                //updates['test/' + restaurantName + '/' + itemName] = cartData;
+                extrasUpdates['uid/' + 'user' + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/extras/'] = extrasData;
+              
+                //firebase.database().ref().update(updates);
+                firebase.database().ref().update(extrasUpdates);
+    }
 
     componentDidMount() {
         this.listenForItems(this.itemsRef.child('menu').child(this.props.restaurant?this.props.restaurant:'').child('Extras'))
@@ -395,9 +400,20 @@ export default class ExtrasCarousel extends Component {
     //     null;
 
         return(
+            //Alternatively the checkoutbutton may be placed outside the 
+            //scrollview to make it positioned at the bottom rather than
+            //after all the content
             <View style={styles.container}> 
                 <ScrollView>
-                {content}
+                {
+                [content,
+                <CheckoutButton 
+                text="+ Add to Cart" 
+                onPress={() => 
+                    this.updateItem()
+                    } 
+                />]
+                }
                 </ScrollView>
             </View>
         );
