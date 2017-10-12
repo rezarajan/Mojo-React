@@ -259,35 +259,6 @@ export default class ExtrasCarousel extends Component {
         this.listenForItems(this.itemsRef.child('menu').child(this.props.restaurant?this.props.restaurant:'').child('Extras'))
     }
 
-    _renderItem = ({item, index}) =>
-        //item comes from the data source provided in the render() function
-        
-        <TouchableOpacity 
-        activeOpacity={0.98}
-        onPress={() => {
-            //checks the current index against the index of the item clicked
-            //this.props.changeMode? 
-            //if index is the same then it opens the restaurant menu
-            //this.props.changeMode()
-            //: 
-            //if index is different then it snaps to that index
-            //console.log(this.props.venueMode);
-                
-                //console.log(index);
-                this.props.goToRestaurants&&this.props.goToRestaurants();
-            }}>
-            <CardViewExtras 
-            text={item._key} 
-            cost={item.cost}
-            backgroundColor={this.props.backgroundColor} 
-            index={index}
-            contrastratio={this.contrastratio}
-            itemWidth={itemWidth}
-            itemHeight={itemHeight}
-            />
-        </TouchableOpacity>
-  ;
-
     render() {
 
         var content = this.state.categoryHolder?
@@ -298,6 +269,8 @@ export default class ExtrasCarousel extends Component {
             [
             //category name
             console.log(key['category']),
+            //Category Text Header
+            <Text style={[{color: 'rgba(74,74,74,1)', fontSize: 14, fontWeight: 'bold', marginLeft: 4}]}> {key['category']}</Text> , 
             Object.keys(this.state.categories[key['category']]).map((keyName, j) => {
                 //category items (e.g Hazel Shot, Milk)
                 console.log(keyName);
@@ -329,8 +302,10 @@ export default class ExtrasCarousel extends Component {
                                 itemHeight={itemHeight}
                                 />
                     </TouchableOpacity>
-                );                 
-            })
+                );              
+            }),
+             //Separator View  for spacing on the last element
+             <View style={[{height: 10}]}/>
             ]
                 );
         })

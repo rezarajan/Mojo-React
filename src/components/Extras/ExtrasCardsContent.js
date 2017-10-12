@@ -115,7 +115,6 @@ export default class ExtrasCardsContent extends Component {
         //      //change this to whatever loading layout as a placeholder
         //      null;
 
-        console.log('Hello');
 
         return(
             <View style={styles.container}>

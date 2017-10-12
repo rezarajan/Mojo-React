@@ -16,6 +16,7 @@ export default class CardViewExtras extends Component {
     constructor (props) {
         super(props);
         this.state = {
+            quantity: 0,
             //openIndicator: 'white',
         };
     } 
@@ -43,36 +44,40 @@ export default class CardViewExtras extends Component {
 
         return (
                 <View style={[styles.headerBackground, {backgroundColor: forceContrastColour, width: this.props.itemWidth, height: this.props.itemHeight}]}>
-                    <View style={[{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}]}>
+                    <TouchableOpacity 
+                    activeOpacity={0.8}
+                    onPress={() => {
+                                this.setState({
+                                    quantity: this.state.quantity>0?this.state.quantity-1:0
+                                    })
+                        }}>
+                    <View style={[styles.start, {height: this.props.itemHeight-1, width: 50, backgroundColor: 'rgba(255,255,255,0.2)'}]}>
+                            <Text style={[styles.timings, {color: bottomBarTextColor, fontWeight: 'bold', textAlign: 'center'}]}> - </Text>
+                    </View>
+                    </TouchableOpacity>
+                    <View style={[{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignContent: 'center'}]}>
                         {/* Spacer View */}
                         {/* <View style={[{height: 4}]}/> */}
-                    <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', alignContent: 'center'}]}>
-                        <View style={[{flexDirection: 'row', alignItems: 'center', alignContent: 'center'}]}>
-                            {/* <View style={styles.profilepicWrap}>
-                                <Image style={styles.profilepic} source={{uri:this.props.icon}} />
-                            </View> */}
-                            <View style={styles.mainInfo}>
-                                <Text style={[styles.name, {color: bottomTextColor}]}>{this.props.text}</Text>
-                            </View>
+                        <View style={styles.mainInfo}>
+                                <Text style={[styles.name, {color: bottomTextColor}]}>{this.props.text} - ${this.props.cost.toFixed(2)}</Text>
                         </View>
+                        <View style={styles.mainInfo}>
+                                <Text style={[styles.name, {color: bottomTextColor}]}>{this.state.quantity}</Text>
+                        </View>
+                    </View>
 
-                        <View style={styles.extraInfo}>
-                            {/* The open indicator dot and restaurant timings */}
-                            {/* <View style={[styles.openIndicatorIcon, {backgroundColor: this.state.openIndicator}]}/> */}
-                            <View style={[{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}]}>
-                                <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}]}>
-                                    <Text style={[styles.timings, {fontWeight: 'bold', color: bottomBarTextColor}]}>${this.props.cost.toFixed(2)}</Text>
-                                    {/* <Text style={[styles.timings, {color: 'rgba(35,31,32,1)'}]}>{this.props.open}</Text> */}
-                                </View>
-                            </View>
-                        </View>
+                    <TouchableOpacity 
+                    activeOpacity={0.8}
+                    onPress={() => {
+                                this.setState({
+                                    quantity: this.state.quantity+1
+                                    })
+                        }}
+                    >
+                    <View style={[styles.end, {height: this.props.itemHeight-1, width: 50, backgroundColor: 'rgba(255,255,255,0.2)'}]}>
+                            <Text style={[styles.timings, {color: bottomBarTextColor, fontWeight: 'bold', textAlign: 'center'}]}> + </Text>
                     </View>
-                    {/* <TouchableOpacity activeOpacity={0.8}>
-                    <View style={[styles.bottomBar, {width: this.props.itemWidth-1, backgroundColor: forceContrastColour}]}>
-                            <Text style={[styles.timings, {color: bottomBarTextColor, fontWeight: 'bold', textAlign: 'center'}]}> Get this Item </Text>
-                    </View>
-                    </TouchableOpacity> */}
-                    </View>
+                    </TouchableOpacity>
                 </View>
         );
     }
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
         marginRight: 26,
     },
     name: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'Avenir',
         fontWeight: 'bold',
         color: 'white',
@@ -145,15 +150,24 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         fontFamily: 'Avenir',
     },
-    bottomBar: {
+    start: {
         //in the item's style the width is set to itemWidth-1 to account for the 0.5 border width on either side
         //of the parent
         //justifyContent is then set to center since the flexDirection is set to column. This centers the now
         //offset itemWidth to give a seamless appearance without overlay on the border
-        height: 30, 
         justifyContent: 'center',
         alignContent: 'center',
         borderBottomLeftRadius: 10, 
-        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
+    },
+    end: {
+        //in the item's style the width is set to itemWidth-1 to account for the 0.5 border width on either side
+        //of the parent
+        //justifyContent is then set to center since the flexDirection is set to column. This centers the now
+        //offset itemWidth to give a seamless appearance without overlay on the border
+        justifyContent: 'center',
+        alignContent: 'center',
+        borderBottomRightRadius: 10, 
+        borderTopRightRadius: 10,
     }
 });
