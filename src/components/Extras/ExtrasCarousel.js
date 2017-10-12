@@ -48,6 +48,7 @@ export default class ExtrasCarousel extends Component {
             categories: null,
             categoryHolder: null,
             tagValue: [],
+            extras: {},
         };
     }
 
@@ -255,6 +256,67 @@ export default class ExtrasCarousel extends Component {
     //     });
     //   }
 
+    returnUniqueKey = (uniqueKey) => {
+        //console.log('From Parent');
+        this.setState({
+            uniqueKey: uniqueKey,
+        });
+        //console.log(this.state.sorteditems);  
+    }
+
+
+    returnExtraInfo = (extraName, quantity, individualCost) => {
+
+        //Temporary holder for the item info
+        var extrasHolder = 
+        quantity > 0?        
+        {
+            //TODO: Add the total quantity of the item
+            [extraName]: {
+                quantity: quantity,
+                cost: individualCost
+            },
+        }
+        :
+        {
+            //TODO: Add the total quantity of the item
+            [extraName]: {
+                //removes the item from the list if the quantity is zero
+                //then firebase takes care of excluding it from the upload
+            },
+        }
+
+        //Setting the state using extrasHolder and any previous items
+        //This allows for the same item's node to simply be updated
+        //and any new items' node to be created
+        this.setState({
+            extras: {
+                ...this.state.extras,
+                ...extrasHolder
+            }
+        },
+        function () {
+            console.log(this.state.extras)
+        });
+    }
+
+
+    // updateItem(uid, restaurantName, itemName, extraName, quantity, cost) {
+
+    //     var extrasData = JSON.parse(JSON.stringify(this.state.extras)),
+
+    //     // Get a key for a new Post.
+    //     var newPostKey = firebase.database().ref().child('test').push().key;
+      
+    //     // Write the new post's data simultaneously in the posts list and the user's post list.
+    //     var extrasUpdates = {};
+    //     //updates['test/' + restaurantName + '/' + itemName] = cartData;
+    //     extrasUpdates['uid/' + this.props.user + '/cart/' + restaurantName + '/' + newPostKey + '/' + this.props.item + '/extras/' + extraname] = extrasData;
+      
+    //     //firebase.database().ref().update(updates);
+    //     firebase.database().ref().update(extrasUpdates);
+    //   }
+
     componentDidMount() {
         this.listenForItems(this.itemsRef.child('menu').child(this.props.restaurant?this.props.restaurant:'').child('Extras'))
     }
@@ -300,6 +362,7 @@ export default class ExtrasCarousel extends Component {
                                 contrastratio={this.contrastratio}
                                 itemWidth={itemWidth}
                                 itemHeight={itemHeight}
+                                returnExtraInfo={this.returnExtraInfo}
                                 />
                     </TouchableOpacity>
                 );              

@@ -49,6 +49,9 @@ export default class CardViewExtras extends Component {
                     onPress={() => {
                                 this.setState({
                                     quantity: this.state.quantity>0?this.state.quantity-1:0
+                                    },
+                                    function() {
+                                        this.props.returnExtraInfo&&this.props.returnExtraInfo(this.props.text, this.state.quantity, this.props.cost)
                                     })
                         }}>
                     <View style={[styles.start, {height: this.props.itemHeight-1, width: 50, backgroundColor: 'rgba(255,255,255,0.2)'}]}>
@@ -71,6 +74,9 @@ export default class CardViewExtras extends Component {
                     onPress={() => {
                                 this.setState({
                                     quantity: this.state.quantity+1
+                                    },
+                                    function() {
+                                        this.props.returnExtraInfo&&this.props.returnExtraInfo(this.props.text, this.state.quantity, this.props.cost)                                        
                                     })
                         }}
                     >
