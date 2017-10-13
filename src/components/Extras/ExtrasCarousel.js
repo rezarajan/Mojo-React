@@ -326,8 +326,8 @@ export default class ExtrasCarousel extends Component {
                 var itemUpdates = {};
                 var extrasUpdates = {};
                 //updates['test/' + restaurantName + '/' + itemName] = cartData;
-                itemUpdates['uid/' + 'user' + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/'] = itemJSON;
-                extrasUpdates['uid/' + 'user' + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/extras/'] = extrasData;
+                itemUpdates['uid/' + this.props.user + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/'] = itemJSON;
+                extrasUpdates['uid/' + this.props.user + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/extras/'] = extrasData;
               
                 //firebase.database().ref().update(updates);
                 firebase.database().ref().update(itemUpdates);

@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     StatusBar,
     TextInput,
+    AsyncStorage,
 } from 'react-native';
 //import TabNavigator from 'react-native-tab-navigator';
 import TabNavigator from '../custom-react-components/react-native-tab-navigator/TabNavigator';
@@ -62,10 +63,22 @@ export default class Home extends Component {
         item: null,
         cost: null,
         buttonPressed: false,
+        user: null,
       };
     }
 
+    componentWillMount() {
+      AsyncStorage.getItem('userData').then((user_data_json) => {
+        let userData = JSON.parse(user_data_json);
+        this.setState({
+            user: userData.uid
+        })
+    
+    })
+    }
+
     render() {
+
         return(
             <View style={styles.container}>
             <MyStatusBar backgroundColor="white" barStyle="dark-content" />
@@ -192,6 +205,7 @@ export default class Home extends Component {
                     <ExtrasCards 
                     extras_active={this.state.extras_active}
                     restaurant={this.state.restaurant}
+                    user={this.state.user}
                     item={this.state.item} 
                     cost={this.state.cost}
                     backgroundColor={this.state.dominantColour} 
