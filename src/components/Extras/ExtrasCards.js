@@ -35,6 +35,7 @@ export default class ExtrasCards extends Component {
         var containerContent = this.props.extras_active?
         <ExtrasCardsContent 
         item={this.props.item}
+        cost={this.props.cost}
         restaurant={this.props.restaurant} 
         backgroundColor={this.props.backgroundColor} 
         setRestaurantState={this.props.setRestaurantState}

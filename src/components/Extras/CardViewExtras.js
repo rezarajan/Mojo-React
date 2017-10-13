@@ -16,7 +16,7 @@ export default class CardViewExtras extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            quantity: 0,
+            quantity: this.props.minQuantity||0,
             //openIndicator: 'white',
         };
     } 
@@ -48,10 +48,13 @@ export default class CardViewExtras extends Component {
                     activeOpacity={0.8}
                     onPress={() => {
                                 this.setState({
-                                    quantity: this.state.quantity>0?this.state.quantity-1:0
+                                    quantity: this.state.quantity>this.props.minQuantity||0?this.state.quantity-1:this.props.minQuantity||0
                                     },
                                     function() {
+                                        //returns the extras info if the component is used as an extra
                                         this.props.returnExtraInfo&&this.props.returnExtraInfo(this.props.text, this.state.quantity, this.props.cost)
+                                        //returns the main item info if the component is used as an item identifier                                        
+                                        this.props.returnMainItemInfo&&this.props.returnMainItemInfo(this.state.quantity);
                                     })
                         }}>
                     <View style={[styles.start, {height: this.props.itemHeight-1, width: 50, backgroundColor: 'rgba(255,255,255,0.2)'}]}>
@@ -76,7 +79,10 @@ export default class CardViewExtras extends Component {
                                     quantity: this.state.quantity+1
                                     },
                                     function() {
-                                        this.props.returnExtraInfo&&this.props.returnExtraInfo(this.props.text, this.state.quantity, this.props.cost)                                        
+                                        //returns the extras info if the component is used as an extra                                        
+                                        this.props.returnExtraInfo&&this.props.returnExtraInfo(this.props.text, this.state.quantity, this.props.cost)   
+                                        //returns the main item info if the component is used as an item identifier                                        
+                                        this.props.returnMainItemInfo&&this.props.returnMainItemInfo(this.state.quantity);                                     
                                     })
                         }}
                     >

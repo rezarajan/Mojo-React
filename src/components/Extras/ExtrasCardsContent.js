@@ -122,6 +122,7 @@ export default class ExtrasCardsContent extends Component {
                 <ExtrasCarousel 
                          restaurant={this.props.restaurant} 
                          item={this.props.item} 
+                         cost={this.props.cost}
                          backgroundColor={this.props.backgroundColor}
                          goToRestaurants={()=> {
                             this.props.setRestaurantState&&this.props.setRestaurantState();

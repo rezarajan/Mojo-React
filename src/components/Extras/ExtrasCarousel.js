@@ -47,6 +47,7 @@ export default class ExtrasCarousel extends Component {
         this.itemsRef = firebase.database().ref();
         this.contrastratio= Color(this.props.backgroundColor).dark()?'dark':'light',
         this.state = {
+            itemQuantity: 1,
             dataSource: null,
             categories: null,
             categoryHolder: null,
@@ -259,14 +260,16 @@ export default class ExtrasCarousel extends Component {
     //     });
     //   }
 
-    returnUniqueKey = (uniqueKey) => {
-        //console.log('From Parent');
-        this.setState({
-            uniqueKey: uniqueKey,
-        });
-        //console.log(this.state.sorteditems);  
-    }
-
+    returnMainItemInfo = (quantity) => {
+    
+                this.setState({
+                    itemQuantity: quantity
+                },
+                function () {
+                    console.log(this.state.itemQuantity);
+                    //this.updateItem && this.updateItem();
+                });
+            }
 
     returnExtraInfo = (extraName, quantity, individualCost) => {
 
@@ -296,7 +299,7 @@ export default class ExtrasCarousel extends Component {
             extras: {
                 ...this.state.extras,
                 ...extrasHolder
-            }
+            },
         },
         function () {
             console.log(this.state.extras);
@@ -306,19 +309,28 @@ export default class ExtrasCarousel extends Component {
 
 
     updateItem() {
+
+                var itemInfo = {
+                    quantity: this.state.itemQuantity,
+                    cost: this.props.cost
+                }
         
+                var itemJSON = JSON.parse(JSON.stringify(itemInfo));
                 var extrasData = JSON.parse(JSON.stringify(this.state.extras));
         
-                console.log(extrasData);
+                //console.log(extrasData);
                 // Get a key for a new Post.
-                var newPostKey = firebase.database().ref().child('test').push().key;
+                var newPostKey = firebase.database().ref().push().key;
               
                 // Write the new post's data simultaneously in the posts list and the user's post list.
+                var itemUpdates = {};
                 var extrasUpdates = {};
                 //updates['test/' + restaurantName + '/' + itemName] = cartData;
+                itemUpdates['uid/' + 'user' + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/'] = itemJSON;
                 extrasUpdates['uid/' + 'user' + '/cart/' + this.props.restaurant + '/' + newPostKey + '/' + this.props.item + '/extras/'] = extrasData;
               
                 //firebase.database().ref().update(updates);
+                firebase.database().ref().update(itemUpdates);
                 firebase.database().ref().update(extrasUpdates);
     }
 
@@ -358,7 +370,7 @@ export default class ExtrasCarousel extends Component {
                                 //console.log(this.props.venueMode);
                          
                                     //console.log(index);
-                                    this.props.goToRestaurants&&this.props.goToRestaurants();
+                                    //this.props.goToRestaurants&&this.props.goToRestaurants();
                                 }}>
                                 <CardViewExtras 
                                 text={keyName} 
@@ -406,11 +418,27 @@ export default class ExtrasCarousel extends Component {
             <View style={styles.container}> 
                 <ScrollView>
                 {
-                [content,
+                [
+                <View style={[{marginBottom: 10}]}>
+                <CardViewExtras 
+                    text={'Quantity'} 
+                    cost={this.props.cost}
+                    minQuantity={1}                    
+                    backgroundColor={this.props.backgroundColor} 
+                    contrastratio={this.contrastratio}
+                    itemWidth={itemWidth}
+                    itemHeight={itemHeight}
+                    returnMainItemInfo={this.returnMainItemInfo}
+                />
+                </View>,
+                content,
                 <CheckoutButton 
                 text="+ Add to Cart" 
                 onPress={() => 
-                    this.updateItem()
+                    {
+                        this.updateItem();
+                        this.props.goToRestaurants&&this.props.goToRestaurants();                       
+                    }
                     } 
                 />]
                 }

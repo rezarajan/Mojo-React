@@ -180,8 +180,8 @@ export default class MenuCardsContent extends Component {
                          genre={key['genre']} 
                          valueToCompare={categoryCheck}
                          backgroundColor={this.props.backgroundColor}
-                         goToRestaurants={(item)=> {
-                            this.props.setRestaurantState&&this.props.setRestaurantState(item);
+                         goToRestaurants={(item, cost)=> {
+                            this.props.setRestaurantState&&this.props.setRestaurantState(item, cost);
                         }}/>
                      )
              })

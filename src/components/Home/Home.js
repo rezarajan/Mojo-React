@@ -60,6 +60,8 @@ export default class Home extends Component {
         restaurant: null,
         dominantColour: null,
         item: null,
+        cost: null,
+        buttonPressed: false,
       };
     }
 
@@ -144,7 +146,9 @@ export default class Home extends Component {
                 onPress={() => this.setState({ 
                   selectedTab: 'mojo' , 
                   menu_active: false,
-                  extras_active: false,})}
+                  extras_active: false,
+                  buttonPressed: true,
+                  })}
                 >
 
                 <TabNavigator hidesTabTouch={true}>
@@ -168,9 +172,10 @@ export default class Home extends Component {
                     restaurant={this.state.restaurant} 
                     backgroundColor={this.state.dominantColour} 
                     filterforValue={"main"} 
-                    setRestaurantState={(item) => {
+                    setRestaurantState={(item, cost) => {
                       this.setState({
                         item: item,
+                        cost: cost,
                         menu_active: false,
                         extras_active: true,                                                
                       })
@@ -188,15 +193,23 @@ export default class Home extends Component {
                     extras_active={this.state.extras_active}
                     restaurant={this.state.restaurant}
                     item={this.state.item} 
+                    cost={this.state.cost}
                     backgroundColor={this.state.dominantColour} 
-                    setRestaurantState={(item) => {
+                    setRestaurantState={() => {
                       this.setState({
+                        menu_active: true,                        
                         extras_active: false,
                       })
                       }}
                     changeTabs={() => {
+                      this.state.buttonPressed?
                       this.setState({
-                        mainSelectedTab: 'mojo'
+                        mainSelectedTab: 'mojo',
+                        buttonPressed: false
+                      })
+                      :
+                      this.setState({
+                        mainSelectedTab: 'menu'
                       })
                       }}
                     />
