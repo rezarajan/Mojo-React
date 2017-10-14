@@ -277,28 +277,6 @@ export default class OnboardingScreens extends Component {
   }
 
 
-    async login(email, pass) {
-
-        email = "stripe_test@gmail.com";
-        pass = "123456"
-        
-        try {
-            await firebase.auth()
-                .signInWithEmailAndPassword(email, pass);
-    
-            console.log("Logged In!");
-            //navigate('Home');
-            Actions.home();
-    
-            // Navigate to the Home page
-    
-        } catch (error) {
-            console.log(error.toString());
-        }
-    
-    }
-
-
   /**
    * Render the component
    */

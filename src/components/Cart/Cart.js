@@ -19,6 +19,7 @@ import RoundedText from './RoundedText';
 import RestaurantHeader from '../Restaurants/RestaurantHeader';
 import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+import Swipeable from 'react-native-swipeable';
 
 const deviceW = Dimensions.get('window').width;
 const deviceH = Dimensions.get('window').height;
@@ -27,10 +28,13 @@ export default class Cart extends Component {
 
   constructor(props) {
     super(props);
+
+    this.itemsRef = firebase.database().ref();
     this.state = {
         itemsData: [],
         subItemsData: [],
         user: null,
+        isSwiping: false,
       }
   }
 
@@ -42,14 +46,13 @@ export default class Cart extends Component {
           user: userData.uid
       })
       console.log(this.state.user)
-      this.logthemAll();
+      this.listenForItems(this.itemsRef.child('uid').child(this.state.user).child('cart'));
   
   });
 }
 
-  logthemAll(){
+listenForItems(itemsRef){
     //this uses the orderByKey method to acquire the unique push keys for each item
-  var itemsRef = firebase.database().ref().child('uid').child(this.state.user).child('cart');
   var restaurantItems = [];
   var items = [];
   itemsRef.orderByKey().on('value', (snap) => {
@@ -69,7 +72,9 @@ export default class Cart extends Component {
             snap.forEach((subChild) => {
                 //populating an array with the data from Firebase
                 items.push({
-                  cost: subChild.child('details').val().cost ? subChild.child('details').val().cost:0
+                  itemName: subChild.key,
+                  quantity: subChild.val().quantity ? subChild.val().quantity:1,                  
+                  cost: subChild.val().cost ? subChild.val().cost:0
                 });
 
             });
@@ -91,66 +96,92 @@ export default class Cart extends Component {
   });  
 }
 
-     
-  _renderHeader(section) {
-    return (
-      <View style={{marginTop: 0}}>
-        <RoundedText 
-        text={section.restaurantName} 
-        width={0.9*deviceW}
-        height={70}
-        backgroundColor={'grey'}
-        borderTopLeftRadius={20}    // Rounded border
-        borderTopRightRadius={20}   // Rounded border
-        borderBottomLeftRadius={0}         
-        borderBottomRightRadius={0}/>
-      </View>
-    );
-  }
-
-  _renderContent(section, subItemsData, key) {
-    console.log(section)
-    return(
-      subItemsData[key].map((key, i) => {
-      console.log(key.cost)
-      return (
-                <View style={{marginTop: -8, marginBottom: 0}}>
-                  <RoundedText 
-                  text={key.cost}
-                  width={0.9*deviceW}
-                  separatorWidth={0.8*deviceW}
-                  height={360}
-                  backgroundColor= {'grey'}
-                  borderTopLeftRadius={0}         
-                  borderTopRightRadius={0}
-                  borderBottomLeftRadius={0}   // Rounded border
-                  borderBottomRightRadius={0}  // Rounded border
-                  
-                  />
-                </View>
-              );
-        })
-    );
-  }
-
   render() {
 
+    const content = this.state.itemsData&&this.state.subItemsData?
+    <ScrollView 
+    horizontal={false}
+    scrollEnabled={!this.state.isSwiping}>
+    {
+      this.state.itemsData.map((key, i) => {
+        return(
+          [
+            <View style={styles.heading}>
+              <Text style={[styles.text, {color: 'rgba(74,74,74,1)'}]}>
+              {key['restaurantName']}
+              </Text>
+              <Text style={[styles.text, {color: 'rgba(74,74,74,1)'}]}>
+              $0.00
+              </Text>
+            </View>
+            ,
+            this.state.subItemsData[i].map((subKey, j) => {
+              return (
+                <Swipeable
+                key={j}
+                onSwipeStart={() => this.setState({isSwiping: true})}
+                onSwipeRelease={() => this.setState({isSwiping: false})}
+                rightButtonWidth={76}
+                leftContent={(
+                  <View style={[styles.rightButtons, {backgroundColor: 'lightskyblue'}]}>
+                    <Text>Pull action</Text>
+                  </View>
+                )}
+                rightButtons={[
+                  <TouchableOpacity 
+                  style={[styles.rightButtons, {backgroundColor: 'rgba(24,172,222,1)'}]}
+                  activeOpacity={0.96}>
+                    <Text style={[styles.text, {marginLeft: 26}]}>Edit</Text>
+                  </TouchableOpacity>,
+                  <TouchableOpacity 
+                  style={[styles.rightButtons, {backgroundColor: 'rgba(208,2,27,1)'}]}
+                  activeOpacity={0.96}>
+                    <Text style={[styles.text, {marginLeft: 18}]}>Cancel</Text>
+                  </TouchableOpacity>
+                ]}
+                onRightButtonsOpenRelease={console.log('opened')}
+                onRightButtonsCloseRelease={console.log('closed')}
+              >
+                <View style={[styles.listItem]}>
+                  <Text 
+                  style={[styles.text, 
+                  {color: 'rgba(74,74,74,1)', 
+                  fontSize: 16, 
+                  fontWeight: '600',
+                  marginLeft: 28,
+                  marginTop: 8,
+                  }]}> 
+                    {subKey['itemName']}
+                  </Text>
+                  <Text 
+                  style={[styles.text, 
+                  {color: 'rgba(155,155,155,1)', 
+                  fontWeight: '600',
+                  marginRight: 28,
+                  marginTop: 8,
+                  }]}> 
+                    ${(subKey['cost']*subKey['quantity']).toFixed(2)}
+                  </Text>
+                </View>
+                </Swipeable>
+              );
+            })
+          ]
+        );
+    })
+    }
+    </ScrollView>           
+    :
+    null
+    ;
+
     return (
-      <View>
-        <View style={[styles.container, {position: 'absolute', top: 98, height: deviceH-98, marginTop: 0}]}>
-          <ScrollView style={{paddingTop: 28}}>
-            <Accordion
-              sections={this.state.itemsData}
-              subItemsData={this.state.subItemsData}
-              renderHeader={this._renderHeader}
-              renderContent={this._renderContent}
-              initiallyActiveSection={1}
-            />
-          </ScrollView>
-        </View>
+      <View style={styles.container}>
         <RestaurantHeader onPressLogo={() => {
                                     Actions.home();
                                 }}/>
+
+        {content}
       </View>
     );
   }
@@ -160,14 +191,37 @@ export default class Cart extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginLeft: 8,
-    marginTop: 56,
-    alignSelf: 'center',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    width: deviceW,
-    backgroundColor: 'rgba(250,250,250,1)'
+    backgroundColor: 'rgba(255,255,255,1)'
   },
+  heading: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(248,248,248,1)',    
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 24,
+    width: deviceW,
+    padding: 25,
+  },
+  listItem: {
+    flexDirection: 'row',    
+    backgroundColor: 'rgba(255,255,255,1)', 
+    borderColor: 'rgba(248,248,248,1)',
+    borderWidth: 0.5,
+    height: 78,
+    justifyContent: 'space-between',    
+  },
+  rightButtons: {
+    backgroundColor: 'rgba(255,255,255,1)', 
+    alignContent: 'center',
+    justifyContent: 'center',
+    height: 78,
+  },
+  text: {
+    color: 'rgba(255,255,255,1)',
+    fontFamily: 'Avenir',
+    fontWeight: 'bold',
+    fontSize: 14,
+},
 })
 
 AppRegistry.registerComponent('Mojo', () => Cart);

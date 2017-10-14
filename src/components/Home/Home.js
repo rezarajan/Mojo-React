@@ -23,6 +23,7 @@ import RestaurantCards from '../Restaurants/RestaurantCards';
 import MainCards from '../Restaurants/MainCards';
 import MenuCards from '../Menu/MenuCards';
 import ExtrasCards from '../Extras/ExtrasCards';
+import * as firebase from 'firebase';
 
 //import ActionButton from 'react-native-circular-action-menu';
 
@@ -42,6 +43,7 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   );
+
 
 export default class Home extends Component {
 
@@ -68,12 +70,27 @@ export default class Home extends Component {
     }
 
     componentWillMount() {
+
+      
+      this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          //Alert.alert('loggedin');
+          // User is signed in.
+          //this.setState({user});
+        }
+        else {
+          // use is not signed in
+          //this.setState({user: ''});
+          //Alert.alert('Not loggedin');
+          
+        }
+      });
+
       AsyncStorage.getItem('userData').then((user_data_json) => {
         let userData = JSON.parse(user_data_json);
         this.setState({
             user: userData.uid
         })
-    
     })
     }
 

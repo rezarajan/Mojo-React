@@ -349,7 +349,7 @@ export default class ExtrasCarousel extends Component {
             //category name
             console.log(key['category']),
             //Category Text Header
-            <Text style={[{color: 'rgba(74,74,74,1)', fontSize: 14, fontWeight: 'bold', marginLeft: 4}]}> {key['category']}</Text> , 
+            <Text key={i} style={[{color: 'rgba(74,74,74,1)', fontSize: 14, fontWeight: 'bold', marginLeft: 4}]}> {key['category']}</Text> , 
             Object.keys(this.state.categories[key['category']]).map((keyName, j) => {
                 //category items (e.g Hazel Shot, Milk)
                 console.log(keyName);

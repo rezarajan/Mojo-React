@@ -13,6 +13,8 @@ import {
 import Swiper from '../Swiper/Swiper';
 import { Actions } from 'react-native-router-flux';
 import Home from '../Home/Home';
+import * as firebase from 'firebase';
+
 
 export default class Login extends Component {
     _onPressButton() {
@@ -28,17 +30,57 @@ export default class Login extends Component {
         }
     }
 
+    async login(email, pass) {
+        
+                email = "stripe_test@gmail.com";
+                pass = "123456"
+                
+                try {
+                    await firebase.auth()
+                        .signInWithEmailAndPassword(email, pass);
+            
+                    console.log("Logged In!");
+            
+                    // Navigate to the Home page
+            
+                } catch (error) {
+                    console.log(error.toString())
+                }
+            
+            }
+
     componentWillMount() {
+        this.login();
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+              //Alert.alert('loggedin');
+              // User is signed in.
+              //this.setState({user});
+              console.log(user);
+              this.setState({
+                user: user.uid,
+                loading: false,
+              });
+            }
+            else {
+              // use is not signed in
+              //this.setState({user: ''});
+              //Alert.alert('Not loggedin');
+              
+            }
+          });
+
+
         // Checks the AsyncStorage to see if the user is still logged in
         // const userData = this.props.firebaseApp.auth().currentUser;
-        AsyncStorage.getItem('userData').then((user_data_json) => {
-          let userData = JSON.parse(user_data_json);
-          //console.log(userData);
-          this.setState({
-            user: userData,
-            loading: false,
-          });
-        });
+        // AsyncStorage.getItem('userData').then((user_data_json) => {
+        //   let userData = JSON.parse(user_data_json);
+        //   console.log(userData);
+        //   this.setState({
+        //     user: userData,
+        //     loading: false,
+        //   });
+        // });
 
     }
 
