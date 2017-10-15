@@ -14,13 +14,6 @@ import Button from '../Button.js'
 
 import * as firebase from 'firebase'
 
-firebase.initializeApp({
-    apiKey: "AIzaSyDm1S6fl9AeiaHOYvFidMbD8gjet1B9my0",
-    authDomain: "mojo-611fa.firebaseapp.com",
-    databaseURL: "https://mojo-611fa.firebaseio.com",
-    storageBucket: "mojo-611fa.appspot.com"
-});
-
 export default class LoginForm extends Component {
 
     constructor(props) {
@@ -31,28 +24,6 @@ export default class LoginForm extends Component {
             password: "",
             response: ""
         };
-
-        //this.signup = this.signup.bind(this);
-        this.login = this.login.bind(this);
-    }
-
-    async login(email, pass) {
-
-        email = "stripe_test@gmail.com";
-        pass = "123456"
-        
-        try {
-            await firebase.auth()
-                .signInWithEmailAndPassword(email, pass);
-    
-            console.log("Logged In!");
-    
-            // Navigate to the Home page
-    
-        } catch (error) {
-            console.log(error.toString())
-        }
-    
     }
 
     // _onPressButton() {

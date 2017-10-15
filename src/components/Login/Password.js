@@ -34,6 +34,8 @@ export default class LoginPassword extends Component {
             
             if(userData !== null){
                 AsyncStorage.setItem('userData', JSON.stringify(userData));
+                //TODO: Remove this after the firebase bug is fixed
+                AsyncStorage.setItem('password', JSON.stringify({pass: pass}));
                 console.log("Logged In!");
                 //navigate('Home');
                 // Navigate to the Home page

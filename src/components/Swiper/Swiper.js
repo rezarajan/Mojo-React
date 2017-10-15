@@ -19,13 +19,6 @@ import Button from '../Button.js'
 import * as firebase from 'firebase'
 import { Actions } from 'react-native-router-flux';
 
-firebase.initializeApp({
-  apiKey: "AIzaSyDm1S6fl9AeiaHOYvFidMbD8gjet1B9my0",
-  authDomain: "mojo-611fa.firebaseapp.com",
-  databaseURL: "https://mojo-611fa.firebaseio.com",
-  storageBucket: "mojo-611fa.appspot.com"
-});
-
 // Detect screen width and height
 const { width, height } = Dimensions.get('window');
 

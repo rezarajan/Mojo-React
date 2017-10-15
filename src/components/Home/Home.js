@@ -72,22 +72,23 @@ export default class Home extends Component {
     componentWillMount() {
 
       
-      this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          //Alert.alert('loggedin');
-          // User is signed in.
-          //this.setState({user});
-        }
-        else {
-          // use is not signed in
-          //this.setState({user: ''});
-          //Alert.alert('Not loggedin');
+      // this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      //   if (user) {
+      //     //Alert.alert('loggedin');
+      //     // User is signed in.
+      //     this.setState({user: user.uid});
+      //   }
+      //   else {
+      //     // user is not signed in
+      //     //this.setState({user: ''});
+      //     //Alert.alert('Not loggedin');
           
-        }
-      });
+      //   }
+      // });
 
       AsyncStorage.getItem('userData').then((user_data_json) => {
         let userData = JSON.parse(user_data_json);
+        console.log(userData);
         this.setState({
             user: userData.uid
         })
